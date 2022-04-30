@@ -1,5 +1,5 @@
 /**
- * const $ = new Env('京东-锦鲤红包');
+ * const $ = new Env('京东-锦鲤红包-本地log版');
  * 做任务、助力、开红包
  * cron: 1 0,18 * * *
  * Fix by HW，自用，纯内部互助
