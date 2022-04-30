@@ -39,8 +39,8 @@ let guaopenwait = "0"
 let guaopencard_draw = "3"
 
 const $ = new Env('五一放假 欢乐起航')
-const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
-const notify = $.isNode() ? require('./sendNotify') : '';
+const jdCookieNode = $.isNode() ? require('../jdCookie.js') : '';
+const notify = $.isNode() ? require('../sendNotify') : '';
 CryptoScripts()
 $.CryptoJS = $.isNode() ? require('crypto-js') : CryptoJS;
 let cleanCart = ''
