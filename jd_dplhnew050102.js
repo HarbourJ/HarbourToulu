@@ -51,7 +51,7 @@ if ($.isNode()) {
             ]
             $.appkey = "51B59BB805903DA4CE513D29EC448375"
             $.userId = "10299171"
-            $.actId = "8d8d45ac8cfa47a_22050102"
+            $.actId = "e890b8612e1b41cdb20787339_220502"
             // $.actId = "dzlhkkc99b60200kk081f1bc4bacd1"
             // $.authorCode = authorCodeList[random(0, authorCodeList.length)]
             $.authorCode = ownCode ? ownCode : authorCodeList[random(0, authorCodeList.length)]
