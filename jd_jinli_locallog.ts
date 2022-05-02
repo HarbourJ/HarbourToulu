@@ -3,11 +3,12 @@
  * 做任务、助力、开红包
  * cron: 1 0,18 * * *
  * Fix by HW，自用，纯内部互助
+ * TG: https://t.me/HarbourToulu
  */
 
 import axios from 'axios';
 import {logs} from './util/jinli_log';
-import {getRandomNumberByRange, o2s, randomString, requireConfig, wait} from "../TS_USER_AGENTS";
+import {getRandomNumberByRange, o2s, randomString, requireConfig, wait} from "./TS_USER_AGENTS";
 
 let cookie: string = '', res: any = '', UserName: string, UA: string = ''
 let shareCodesSelf: string[] = [], shareCodes: string[] = [], fullCode: string[] = []
