@@ -1,5 +1,6 @@
 /*
 大牌联合 瓜分千万豆5月第一期
+TG: https://t.me/HarbourToulu
 */
 const $ = new Env("大牌联合 瓜分千万豆5月01第一期");
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
