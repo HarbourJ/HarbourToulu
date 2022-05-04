@@ -1,6 +1,6 @@
 /**
  * 明星送好礼
- * cron "0 2,8 * * *"
+ * cron 0 2,8 * * *
  * TG: https://t.me/HarbourToulu
  */
 const $ = new Env('明星送好礼');
