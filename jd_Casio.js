@@ -49,7 +49,7 @@ let activityCookie =''
     return;
   }
   $.activityId = "dz1f559d18eade52d440dc77bb853d"
-  $.shareUuid = "19db96100ce041b388f72eb1b9708442"
+  $.shareUuid = "3d35dcb9b86c476ebb7d922b58c1b924"
   console.log(`入口:\nhttps://lzdz1-isv.isvjcloud.com/dingzhi/casio/active/activity?activityId=${$.activityId}&shareUuid=${$.shareUuid}`)
   let shareUuidArr = ["19db96100ce041b388f72eb1b9708442"]
   let s = Math.floor((Math.random()*3))
