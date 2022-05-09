@@ -1,7 +1,9 @@
 /**
  * const $ = new Env('京东新品-集魔方赢大奖-本地log版');
  * cron: 10 9,12,15 * * *
+ * Fix by HarbourJ
  * TG: https://t.me/HarbourToulu
+ * 默认不开卡，兑换奖品请手动。
  */
 
 import {requireConfig, wait, post, get} from './TS_USER_AGENTS'
