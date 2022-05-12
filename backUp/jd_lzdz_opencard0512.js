@@ -43,8 +43,8 @@ let guaopenwait = "0"
 let guaopencard_draw = "0"
 
 const $ = new Env('5.12~5.20 臻爱陪伴 助力成长')
-const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
-const notify = $.isNode() ? require('./sendNotify') : '';
+const jdCookieNode = $.isNode() ? require('../jdCookie.js') : '';
+const notify = $.isNode() ? require('../sendNotify') : '';
 CryptoScripts()
 $.CryptoJS = $.isNode() ? require('crypto-js') : CryptoJS;
 let cleanCart = ''
