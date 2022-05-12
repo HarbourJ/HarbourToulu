@@ -25,7 +25,7 @@ guaopenwait134="0"
 
 All变量适用
 ————————————————
-入口：[ 5.12~5.20 臻爱陪伴 助力成长 (https://lzdz1-isv.isvjcloud.com/dingzhi/customized/common/activity?activityId=dzlhkk081f1bc4bacd11ec99b60200&shareUuid=d68b110e2da34a4b970a43470f6fc27d)]
+入口：[ 5.12~5.20 臻爱陪伴 助力成长 (https://lzdz1-isv.isvjcloud.com/dingzhi/bookBaby/union/activity?activityId=dzlhkk081f1bc4bacd11ec99b60200&shareUuid=d68b110e2da34a4b970a43470f6fc27d)]
 
 请求太频繁会被黑ip
 过10分钟再执行
@@ -103,7 +103,7 @@ let activityCookie =''
   }
   $.activityId = "dz6140806143bd8878376d7e98a1e7"
   $.shareUuid = "d68b110e2da34a4b970a43470f6fc27d"
-  console.log(`入口:\nhttps://lzdz1-isv.isvjcloud.com/dingzhi/customized/common/activity?activityId=${$.activityId}&shareUuid=${$.shareUuid}`)
+  console.log(`入口:\nhttps://lzdz1-isv.isvjcloud.com/dingzhi/bookBaby/union/activity?activityId=${$.activityId}&shareUuid=${$.shareUuid}`)
   let shareUuidArr = [$.shareUuid,'54034d550f634cf3a098ce18ad16d1d9','d4e7f945054e4ab3bd70f357d1caed9e','540314fd42da42d2b7287d8f07317301','c49e26414cf549dd8ef66524de711c68','8bc5f27ff47b4618bc19eb56c14f218b','a9f320c5d5854e559cc6bb088df22663','6326d391c7f142a597d00b0f1fbf2ba6','7536fedf8df041a99fd3d6dba36ceb27','cb24fb52feb94abfa51b917cbc8714c9']
   let s = Math.floor((Math.random()*10))
   let n = 0
@@ -329,7 +329,7 @@ async function takePostRequest(type) {
         break;
       case 'accessLogWithAD':
         url = `${domain}/common/accessLogWithAD`;
-        let pageurl = `${domain}/dingzhi/customized/common/activity?activityId=${$.activityId}&shareUuid=${$.shareUuid}`
+        let pageurl = `${domain}/dingzhi/bookBaby/union/activity?activityId=${$.activityId}&shareUuid=${$.shareUuid}`
         body = `venderId=${$.shopId || $.venderId || ''}&code=99&pin=${encodeURIComponent($.Pin)}&activityId=${$.activityId}&pageUrl=${encodeURIComponent(pageurl)}&subType=app&adSource=`
         break;
       case 'getUserInfo':
@@ -725,7 +725,7 @@ function getPostRequest(url, body, method="POST") {
     "X-Requested-With": "XMLHttpRequest"
   }
   if(url.indexOf('https://lzdz1-isv.isvjcloud.com') > -1){
-    headers["Referer"] = `https://lzdz1-isv.isvjcloud.com/dingzhi/customized/common/activity?activityId=${$.activityId}&shareUuid=${$.shareUuid}`
+    headers["Referer"] = `https://lzdz1-isv.isvjcloud.com/dingzhi/bookBaby/union/activity?activityId=${$.activityId}&shareUuid=${$.shareUuid}`
     headers["Cookie"] = `${lz_jdpin_token_cookie && lz_jdpin_token_cookie || ''}${$.Pin && "AUTH_C_USER=" + $.Pin + ";" || ""}${activityCookie}`
   }
   // console.log(headers)
@@ -736,7 +736,7 @@ function getPostRequest(url, body, method="POST") {
 function getCk() {
   return new Promise(resolve => {
     let get = {
-      url:`https://lzdz1-isv.isvjcloud.com/dingzhi/customized/common/activity?activityId=${$.activityId}&shareUuid=${$.shareUuid}`,
+      url:`https://lzdz1-isv.isvjcloud.com/dingzhi/bookBaby/union/activity?activityId=${$.activityId}&shareUuid=${$.shareUuid}`,
       followRedirect:false,
       headers: {
         "User-Agent": $.UA,
