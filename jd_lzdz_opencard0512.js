@@ -1,5 +1,5 @@
 /*
-五一放假 欢乐起航
+5.12~5.20 臻爱陪伴 助力成长
 新增开卡脚本
 一次性脚本
 
@@ -25,22 +25,26 @@ guaopenwait134="0"
 
 All变量适用
 ————————————————
-入口：[ 五一放假 欢乐起航 (https://lzdz-isv.isvjcloud.com/dingzhi/bd/common/activity/1899278?activityId=90322052901&shareUuid=74d8a6a9937e4a23ad3dae1a35ce820d&adsource=null&shareuserid4minipg=0JNwymG0n/7MOPkHzYrG4KuPlrbwajr+mlKSAUQGJeinh9LA4YCEcFb8KdjJBCTv&shopid=undefined)]
+入口：[ 5.12~5.20 臻爱陪伴 助力成长 (https://lzdz1-isv.isvjcloud.com/dingzhi/customized/common/activity?activityId=dzlhkk081f1bc4bacd11ec99b60200&shareUuid=d68b110e2da34a4b970a43470f6fc27d)]
 
 请求太频繁会被黑ip
 过10分钟再执行
 
 cron:30 3 1-5,18-30/3 4,5 *
+============Quantumultx===============
+[task_local]
+#5.12~5.20 臻爱陪伴 助力成长
+30 1 1-5,18-30/3 4,5 * https://raw.githubusercontent.com/smiek2121/scripts/master/gua_opencard134.js, tag=4.18~5.5 甄选大牌 品质嗨购, enabled=true
 
 */
-let guaopencard_addSku = "true"
-let guaopencard = "true"
+let guaopencard_addSku = "false"
+let guaopencard = "false"
 let guaopenwait = "0"
-let guaopencard_draw = "3"
+let guaopencard_draw = "0"
 
-const $ = new Env('五一放假 欢乐起航')
-const jdCookieNode = $.isNode() ? require('../jdCookie.js') : '';
-const notify = $.isNode() ? require('../sendNotify') : '';
+const $ = new Env('5.12~5.20 臻爱陪伴 助力成长')
+const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
+const notify = $.isNode() ? require('./sendNotify') : '';
 CryptoScripts()
 $.CryptoJS = $.isNode() ? require('crypto-js') : CryptoJS;
 let cleanCart = ''
@@ -97,10 +101,10 @@ let activityCookie =''
     });
     return;
   }
-  $.activityId = "90322052901"
-  $.shareUuid = "74d8a6a9937e4a23ad3dae1a35ce820d"
+  $.activityId = "dz6140806143bd8878376d7e98a1e7"
+  $.shareUuid = "d68b110e2da34a4b970a43470f6fc27d"
   console.log(`入口:\nhttps://lzdz1-isv.isvjcloud.com/dingzhi/customized/common/activity?activityId=${$.activityId}&shareUuid=${$.shareUuid}`)
-  let shareUuidArr = [$.shareUuid,'74d8a6a9937e4a23ad3dae1a35ce820d']
+  let shareUuidArr = [$.shareUuid,'54034d550f634cf3a098ce18ad16d1d9','d4e7f945054e4ab3bd70f357d1caed9e','540314fd42da42d2b7287d8f07317301','c49e26414cf549dd8ef66524de711c68','8bc5f27ff47b4618bc19eb56c14f218b','a9f320c5d5854e559cc6bb088df22663','6326d391c7f142a597d00b0f1fbf2ba6','7536fedf8df041a99fd3d6dba36ceb27','cb24fb52feb94abfa51b917cbc8714c9']
   let s = Math.floor((Math.random()*10))
   let n = 0
   if(s >= 1 && s<= 6) n = Math.floor((Math.random()*shareUuidArr.length))
@@ -220,7 +224,7 @@ async function run() {
     }else{
       console.log('已全部开卡')
     }
-    
+
     $.log("关注: " + $.followShop)
     if(!$.followShop && !$.outFlag){
       flag = true
@@ -274,7 +278,7 @@ async function run() {
         await $.wait(parseInt(Math.random() * 2000 + 2000, 10))
       }
     }else console.log('如需抽奖请设置环境变量[guaopencard_draw134]为"3" 3为次数');
-    
+
     await $.wait(parseInt(Math.random() * 1000 + 2000, 10))
     await takePostRequest('getDrawRecordHasCoupon');
     await takePostRequest('getShareRecord');
@@ -437,7 +441,7 @@ async function takePostRequest(type) {
       })
     })
   }
-  
+
 async function dealReturn(type, data) {
   let res = ''
   try {
