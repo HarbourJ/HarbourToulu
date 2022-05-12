@@ -1,31 +1,14 @@
 /*
-5.12~5.20 臻爱陪伴 助力成长
+5.12-5.20 吃货来袭 慧聚好食光
 新增开卡脚本
 一次性脚本
-
-1.邀请一人20豆
-2.开9张卡 成功开1张 有机会获得10豆
-3.加购5京豆
-  (默认不加购 如需加购请设置环境变量[guaopencard_addSku134]为"true"
-4.抽奖 (默认不抽奖 如需抽奖请设置环境变量[guaopencard_draw134]为"3"
-填写要抽奖的次数 不足已自身次数为准
-guaopencard_draw134="3"
-填非数字会全都抽奖
 
 第一个账号助力作者 其他依次助力CK1
 第一个CK失效会退出脚本
 
-默认脚本不执行
-如需执行脚本请设置环境变量
-guaopencard134="true"
-每个账号之间延迟 100=延迟100秒 0=延迟0秒会使用每3个账号延迟60秒
-guaopenwait_All 所有
-guaopenwait134="0"
-
-
 All变量适用
 ————————————————
-入口：[ 5.12~5.20 臻爱陪伴 助力成长 (https://lzdz1-isv.isvjcloud.com/dingzhi/bookBaby/union/activity?activityId=dzlhkk081f1bc4bacd11ec99b60200&shareUuid=d68b110e2da34a4b970a43470f6fc27d)]
+入口：[ 5.12-5.20 吃货来袭 慧聚好食光 (https://lzdz1-isv.isvjcloud.com/dingzhi/customized/common/activity?activityId=dzlhkk081f1bc4bacd11ec99b60200&shareUuid=d68b110e2da34a4b970a43470f6fc27d)]
 
 请求太频繁会被黑ip
 过10分钟再执行
@@ -33,8 +16,8 @@ All变量适用
 cron:30 3 1-5,18-30/3 4,5 *
 ============Quantumultx===============
 [task_local]
-#5.12~5.20 臻爱陪伴 助力成长
-30 1 1-5,18-30/3 4,5 * https://raw.githubusercontent.com/smiek2121/scripts/master/gua_opencard134.js, tag=4.18~5.5 甄选大牌 品质嗨购, enabled=true
+#5.12-5.20 吃货来袭 慧聚好食光
+30 1 1-5,18-30/3 4,5 * https://raw.githubusercontent.com/11111120/scripts/master/gua_opencard134.js, tag=4.18~5.5 甄选大牌 品质嗨购, enabled=true
 
 */
 let guaopencard_addSku = "false"
@@ -42,9 +25,9 @@ let guaopencard = "false"
 let guaopenwait = "0"
 let guaopencard_draw = "0"
 
-const $ = new Env('5.12~5.20 臻爱陪伴 助力成长')
-const jdCookieNode = $.isNode() ? require('../jdCookie.js') : '';
-const notify = $.isNode() ? require('../sendNotify') : '';
+const $ = new Env('5.12-5.20 吃货来袭 慧聚好食光')
+const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
+const notify = $.isNode() ? require('./sendNotify') : '';
 CryptoScripts()
 $.CryptoJS = $.isNode() ? require('crypto-js') : CryptoJS;
 let cleanCart = ''
@@ -101,10 +84,10 @@ let activityCookie =''
     });
     return;
   }
-  $.activityId = "dz6140806143bd8878376d7e98a1e7"
-  $.shareUuid = "d68b110e2da34a4b970a43470f6fc27d"
-  console.log(`入口:\nhttps://lzdz1-isv.isvjcloud.com/dingzhi/bookBaby/union/activity?activityId=${$.activityId}&shareUuid=${$.shareUuid}`)
-  let shareUuidArr = [$.shareUuid,'54034d550f634cf3a098ce18ad16d1d9','d4e7f945054e4ab3bd70f357d1caed9e','540314fd42da42d2b7287d8f07317301','c49e26414cf549dd8ef66524de711c68','8bc5f27ff47b4618bc19eb56c14f218b','a9f320c5d5854e559cc6bb088df22663','6326d391c7f142a597d00b0f1fbf2ba6','7536fedf8df041a99fd3d6dba36ceb27','cb24fb52feb94abfa51b917cbc8714c9']
+  $.activityId = "dzlhkk52175a3ffb9af8cf392981d8"
+  $.shareUuid = "2df537b9109b4f6784984c590eb55bf1"
+  console.log(`入口:\nhttps://lzdz1-isv.isvjcloud.com/dingzhi/customized/common/activity?activityId=${$.activityId}&shareUuid=${$.shareUuid}`)
+  let shareUuidArr = [$.shareUuid,'2df537b9109b4f6784984c590eb55bf1']
   let s = Math.floor((Math.random()*10))
   let n = 0
   if(s >= 1 && s<= 6) n = Math.floor((Math.random()*shareUuidArr.length))
@@ -114,7 +97,7 @@ let activityCookie =''
   for (let i = 0; i < cookiesArr.length; i++) {
     cookie = cookiesArr[i];
     if (cookie) {
-      $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
+      $.UserName = decodeURIComponent(cookie.match(/pin=([^; ]+)(?=;?)/) && cookie.match(/pin=([^; ]+)(?=;?)/)[1])
       $.index = i + 1;
       message = ""
       $.bean = 0
@@ -243,14 +226,14 @@ async function run() {
         flag = true
         let goodsArr = []
         if(cleanCart){
-          goodsArr = await cleanCart.clean(cookie,'https://jd.smiek.tk/jdcleancatr_21102717','')
+          goodsArr = await cleanCart.clean(cookie,'https://jd.11111118/jdcleancatr_21102717','')
           if(goodsArr !== false) await $.wait(parseInt(Math.random() * 1000 + 4000, 10))
         }
         await takePostRequest('addCart');
         await $.wait(parseInt(Math.random() * 2000 + 4000, 10))
         if(cleanCart && goodsArr !== false){
           // await $.wait(parseInt(Math.random() * 1000 + 4000, 10))
-          await cleanCart.clean(cookie,'https://jd.smiek.tk/jdcleancatr_21102717',goodsArr || [ ])
+          await cleanCart.clean(cookie,'https://jd.11111118/jdcleancatr_21102717',goodsArr || [ ])
         }
       }else{
         console.log('如需加购请设置环境变量[guaopencard_addSku134]为"true"');
@@ -329,7 +312,7 @@ async function takePostRequest(type) {
         break;
       case 'accessLogWithAD':
         url = `${domain}/common/accessLogWithAD`;
-        let pageurl = `${domain}/dingzhi/bookBaby/union/activity?activityId=${$.activityId}&shareUuid=${$.shareUuid}`
+        let pageurl = `${domain}/dingzhi/customized/common/activity?activityId=${$.activityId}&shareUuid=${$.shareUuid}`
         body = `venderId=${$.shopId || $.venderId || ''}&code=99&pin=${encodeURIComponent($.Pin)}&activityId=${$.activityId}&pageUrl=${encodeURIComponent(pageurl)}&subType=app&adSource=`
         break;
       case 'getUserInfo':
@@ -725,7 +708,7 @@ function getPostRequest(url, body, method="POST") {
     "X-Requested-With": "XMLHttpRequest"
   }
   if(url.indexOf('https://lzdz1-isv.isvjcloud.com') > -1){
-    headers["Referer"] = `https://lzdz1-isv.isvjcloud.com/dingzhi/bookBaby/union/activity?activityId=${$.activityId}&shareUuid=${$.shareUuid}`
+    headers["Referer"] = `https://lzdz1-isv.isvjcloud.com/dingzhi/customized/common/activity?activityId=${$.activityId}&shareUuid=${$.shareUuid}`
     headers["Cookie"] = `${lz_jdpin_token_cookie && lz_jdpin_token_cookie || ''}${$.Pin && "AUTH_C_USER=" + $.Pin + ";" || ""}${activityCookie}`
   }
   // console.log(headers)
@@ -736,7 +719,7 @@ function getPostRequest(url, body, method="POST") {
 function getCk() {
   return new Promise(resolve => {
     let get = {
-      url:`https://lzdz1-isv.isvjcloud.com/dingzhi/bookBaby/union/activity?activityId=${$.activityId}&shareUuid=${$.shareUuid}`,
+      url:`https://lzdz1-isv.isvjcloud.com/dingzhi/customized/common/activity?activityId=${$.activityId}&shareUuid=${$.shareUuid}`,
       followRedirect:false,
       headers: {
         "User-Agent": $.UA,
