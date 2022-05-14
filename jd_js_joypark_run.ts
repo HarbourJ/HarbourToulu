@@ -7,7 +7,7 @@ new Env('极速版-汪汪赛跑');
 
 **/
 
-import {get, post, o2s, requireConfig, wait} from './function/TS_USER_AGENTS'
+import {get, post, o2s, requireConfig, wait} from './utils/TS_USER_AGENTS'
 import {H5ST} from "./utils/h5st"
 import {existsSync, readFileSync} from "fs";
 import {getDate} from "date-fns";
