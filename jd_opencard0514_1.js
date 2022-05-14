@@ -357,7 +357,6 @@ function join(venderId) {
   return new Promise(async resolve => {
     $.shopactivityId = ''
     $.errorJoinShop = ''
-    await requestAlgo();
 	await $.wait(1000)
     await getshopactivityId()
     let activityId = ``
