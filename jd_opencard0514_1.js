@@ -7,7 +7,6 @@ cron:30 2,16 13-26/2 5 *
 
 */
 const $ = new Env('5.12-5.20 玩聚六一 萌礼盛典(开卡)');
-const Faker=require('./sign_graphics_validate.js') 
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 const notify = $.isNode() ? require('./sendNotify') : '';
 CryptoScripts()
