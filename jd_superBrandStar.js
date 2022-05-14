@@ -1,9 +1,9 @@
 /**
- * 明星送好礼
+ * 梦龙-总裁送好礼
  * cron 0 2,8 * * *
  * TG: https://t.me/HarbourToulu
  */
-const $ = new Env('明星送好礼');
+const $ = new Env('梦龙-总裁送好礼');
 const notify = $.isNode() ? require('./sendNotify') : '';
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 let cookiesArr = [];
