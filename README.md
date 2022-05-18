@@ -1,5 +1,12 @@
 ### Hi there 👋
 #### TG: https://t.me/HarbourToulu
+**拉库命令👇**
+
+原仓库:
+ql repo https://github.com/HarbourJ/HarbourToulu.git "jd_|jdCookie" "activity|backUp" "^jd[^_]|USER|utils|ZooFaker_Necklace|JDJRValidator_|sign_graphics_validate|jddj_cookie|function|ql|magic|JDJR|JD|sendNotify" "main"
+
+加代理:
+ql repo https://dawn-frog-3bbe.1483162508.workers.dev/https://github.com/HarbourJ/HarbourToulu.git "jd_|jdCookie" "activity|backUp" "^jd[^_]|USER|utils|ZooFaker_Necklace|JDJRValidator_|sign_graphics_validate|jddj_cookie|function|ql|magic|JDJR|JD|sendNotify" "main"
 
 <!--
 **HarbourJ/HarbourJ** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
