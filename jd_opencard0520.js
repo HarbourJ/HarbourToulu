@@ -1,5 +1,5 @@
 /*
-5.16-5.23 情暖五月 以爱为名
+5.20-5.28 甜蜜派对 五月宠爱季
 新增开卡脚本
 一次性脚本
 
@@ -8,7 +8,7 @@
 
 All变量适用
 ————————————————
-入口：[ 5.16-5.23 情暖五月 以爱为名 (https://lzdz1-isv.isvjcloud.com/dingzhi/customized/common/activity?activityId=dzlhkk081f1bc4bacd11ec99b60200&shareUuid=d68b110e2da34a4b970a43470f6fc27d)]
+入口：[ 5.20-5.28 甜蜜派对 五月宠爱季 (https://lzdz1-isv.isvjcloud.com/dingzhi/customized/common/activity?activityId=dzlhkk081f1bc4bacd11ec99b60200&shareUuid=d68b110e2da34a4b970a43470f6fc27d)]
 
 请求太频繁会被黑ip
 过10分钟再执行
@@ -16,7 +16,7 @@ All变量适用
 cron:30 3 1-5,18-30/3 4,5 *
 ============Quantumultx===============
 [task_local]
-#5.16-5.23 情暖五月 以爱为名
+#5.20-5.28 甜蜜派对 五月宠爱季
 30 1 1-5,18-30/3 4,5 * https://raw.githubusercontent.com/11111120/scripts/master/gua_opencard134.js, tag=4.18~5.5 甄选大牌 品质嗨购, enabled=true
 
 */
@@ -25,7 +25,7 @@ let guaopencard = "false"
 let guaopenwait = "0"
 let guaopencard_draw = "0"
 
-const $ = new Env('5.16-5.23 情暖五月 以爱为名')
+const $ = new Env('5.18-5.31 五月宠爱季 和你在一起')
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 const notify = $.isNode() ? require('./sendNotify') : '';
 CryptoScripts()
@@ -84,10 +84,10 @@ let activityCookie =''
     });
     return;
   }
-  $.activityId = "dzlhkk17e740478a664c23f2c5580a"
-  $.shareUuid = "2fe84b0241184b058460eac1c8a8f98d"
+  $.activityId = "dzlhkk02f74bd4ac17f97a692c0268"
+  $.shareUuid = "b701a49edb6149048a57bef0e0e7fcf2"
   console.log(`入口:\nhttps://lzdz1-isv.isvjcloud.com/dingzhi/customized/common/activity?activityId=${$.activityId}&shareUuid=${$.shareUuid}`)
-  let shareUuidArr = [$.shareUuid,'2fe84b0241184b058460eac1c8a8f98d']
+  let shareUuidArr = [$.shareUuid,'b701a49edb6149048a57bef0e0e7fcf2']
   let s = Math.floor((Math.random()*10))
   let n = 0
   if(s >= 1 && s<= 6) n = Math.floor((Math.random()*shareUuidArr.length))
