@@ -25,7 +25,7 @@ let guaopencard = "false"
 let guaopenwait = "0"
 let guaopencard_draw = "0"
 
-const $ = new Env('5.18-5.31 五月宠爱季 和你在一起')
+const $ = new Env('5.20-5.28 甜蜜派对 五月宠爱季')
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 const notify = $.isNode() ? require('./sendNotify') : '';
 CryptoScripts()
