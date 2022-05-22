@@ -21,7 +21,7 @@ if (process.env.DPQDTK) {
 
 if (!token.length) {
   console.log('无本地店铺签到token, 尝试获取远端店铺签到token')
-  let token = [
+  token = [
     '870578A1A13AE44064447021958FD78D',
     '6CCFD0588DF59A6547E6F1D55425119E',
     '146A3A8DF19FBC854AF557B04928F041',
@@ -33,8 +33,8 @@ if (!token.length) {
     '99F86B29C0918FD834B6B7E6FD5C9BBC',
     '6E17F5CA6235652ED187A39224CB5BF4',
   ]
-  console.log(token)
 }
+console.log(token)
 const $ = new Env('店铺签到');
 const notify = $.isNode() ? require('./sendNotify') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
