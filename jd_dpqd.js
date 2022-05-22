@@ -22,6 +22,7 @@ if (process.env.DPQDTK) {
 if (!token.length) {
   console.log('无本地店铺签到token, 尝试获取远端店铺签到token')
   token = [
+    '4BE1B58FE1360409A5967CAD1127B5A8',
     '870578A1A13AE44064447021958FD78D',
     '6CCFD0588DF59A6547E6F1D55425119E',
     '146A3A8DF19FBC854AF557B04928F041',
