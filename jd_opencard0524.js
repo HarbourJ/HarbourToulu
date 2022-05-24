@@ -51,7 +51,7 @@ let activityCookie =''
   $.activityId = "dzcdee05240f344982abf6fd43ceb0"
   $.shareUuid = "0f7fe453bf9e4df0b44c7c00b4032165"
   console.log(`入口:\nhttps://lzdz1-isv.isvjcloud.com/dingzhi/bigname/memberday/activity?activityId=${$.activityId}&shareUuid=${$.shareUuid}`)
-  let shareUuidArr = ["3d35dcb9b86c476ebb7d922b58c1b924"]
+  let shareUuidArr = ["0f7fe453bf9e4df0b44c7c00b4032165"]
   let s = Math.floor((Math.random()*3))
   let n = 0
   n = Math.floor((Math.random()*shareUuidArr.length))
