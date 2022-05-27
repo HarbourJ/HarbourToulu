@@ -1,4 +1,7 @@
 /*
+Fix by HarbourJ
+TG: https://t.me/HarbourToulu
+
 [task_local]
 #618通用抽奖机
 1 1 1 1 1 1 jd_618_draw.js, tag=618通用抽奖机, enabled=true
