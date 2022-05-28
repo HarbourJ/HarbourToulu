@@ -29,19 +29,19 @@ let min: number[] = [0.02, 0.12, 0.3, 0.6, 0.7, 0.8, 1, 2], log: string = '', lo
       console.log(log1);
       res = await api('h5launch', {"followShop": 0, "random": random, "log": log1, "sceneid": "JLHBhPageh5"})
       console.log('活动初始化：', res.data.result.statusDesc)
-      await wait(1000)
+      await wait(5000)
 
       res = await api('h5activityIndex', {"isjdapp": 1})
       console.log('红包ID：', res.data.result.redpacketInfo.id)
       shareCodesSelf.push(res.data.result.redpacketInfo.id)
-      await wait(1000)
+      await wait(5000)
 	} catch (e) {
       console.log(e)
     }
   }
   }
 
-  await wait(2000)
+  await wait(8000)
 
   console.log('内部助力：', shareCodesSelf)
   for (let [index, value] of cookiesArr.entries()) {
@@ -129,14 +129,14 @@ async function api(fn: string, body: object, retry: number = 0) {
       "User-Agent": UA,
     }
   })
-  await wait(5000)
-  if (data.rtn_code === 403 && retry < 3) {
+  await wait(10000)
+  if (data.rtn_code === 403 && retry < 2) {
     console.log('retry...')
     await wait(1000)
     log = logs[getRandomNumberByRange(0, logs.length - 1)]
     body['random'] = log.match(/"random":"(\d+)"/)[1]
     body['log'] = log.match(/"log":"(.*)"/)[1]
-    await wait(5000)
+    await wait(10000)
     await api(fn, body, ++retry)
   }
   return data
