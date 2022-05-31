@@ -1,5 +1,5 @@
 /*
-5.31~6.29 时尚狂欢盛典
+5.31~6.20 时尚狂欢盛典
 新增开卡脚本
 一次性脚本
 
@@ -9,7 +9,7 @@
 
 All变量适用
 ————————————————
-入口：[ 5.31~6.29 时尚狂欢盛典 (https://lzdz1-isv.isvjcloud.com/dingzhi/may/fashionUnion/activity?activityId=dz46b2dbbde1914438a47a994cc11c&shareUuid=ad2522798ee7449bb4a97e72cc1463f4)]
+入口：[ 5.31~6.20 时尚狂欢盛典 (https://lzdz1-isv.isvjcloud.com/dingzhi/may/fashionUnion/activity?activityId=dz46b2dbbde1914438a47a994cc11c&shareUuid=ad2522798ee7449bb4a97e72cc1463f4)]
 
 请求太频繁会被黑ip
 过10分钟再执行
@@ -21,7 +21,7 @@ let guaopencard = "false"
 let guaopenwait = "0"
 let guaopencard_draw = "0"
 
-const $ = new Env('5.31~6.29 时尚狂欢盛典');
+const $ = new Env('5.31~6.20 时尚狂欢盛典');
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 const notify = $.isNode() ? require('./sendNotify') : '';
 //IOS等用户直接用NobyDa的jd cookie
