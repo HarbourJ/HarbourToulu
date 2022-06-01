@@ -93,7 +93,8 @@ let cookies = []
   $.activityId = "dz9466823d5b5e4bc589b07d35e6ac"
   $.shareUuid = "dbd2d9b670704f08b3b96cb69652bba9"
   console.log(`入口:\nhttps://lzdz1-isv.isvjcloud.com/dingzhi/drinkcategory/piecetoge1/activity?activityId=${$.activityId}&shareUuid=${$.shareUuid}`)
-  let shareUuidArr = [$.shareUuid,"dbd2d9b670704f08b3b96cb69652bba9"]
+  let shareUuidArr = [$.shareUuid,"dbd2d9b670704f08b3b96cb69652bba9","3d2019fbd6db495993e430b27236fb81
+"]
   let s = Math.floor((Math.random()*10))
   let n = 0
   if(s >= 1 && s<= 7) n = Math.floor((Math.random()*shareUuidArr.length))
@@ -801,7 +802,8 @@ function joinShop() {
     let activityId = ``
     if($.shopactivityId) activityId = `,"activityId":${$.shopactivityId}`
     let body = `{"venderId":"${$.joinVenderId}","shopId":"${$.joinVenderId}","bindByVerifyCodeFlag":1,"registerExtend":{},"writeChildFlag":0${activityId},"channel":401}`
-    let h5st = await h5stSign(body) || 'undefined'
+//     let h5st = await h5stSign(body) || 'undefined'
+    let h5st = '20220412164634306%3Bf5299392a200d6d9ffced997e5790dcc%3B169f1%3Btk02wc0f91c8a18nvWVMGrQO1iFlpQre2Sh2mGtNro1l0UpZqGLRbHiyqfaUQaPy64WT7uz7E%2FgujGAB50kyO7hwByWK%3B77c8a05e6a66faeed00e4e280ad8c40fab60723b5b561230380eb407e19354f7%3B3.0%3B1649753194306';
     const options = {
       url: `https://api.m.jd.com/client.action?appid=jd_shop_member&functionId=bindWithVender&body=${body}&clientVersion=9.2.0&client=H5&uuid=88888&h5st=${h5st}`,
       headers: {
