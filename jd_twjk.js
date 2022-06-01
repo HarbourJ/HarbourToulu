@@ -3,7 +3,7 @@
  脚本没有自动开卡，会尝试领取开卡奖励
  TG: https://t.me/HarbourToulu
  TgChat: https://t.me/HarbourTouluChat
- 1 10,18,20 24-31 5 * jd_twjk.js
+ 1 10,18,20 1-3 6 * jd_twjk.js
 * */
 const $ = new Env('特务集卡');
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
