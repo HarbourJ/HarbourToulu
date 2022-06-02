@@ -1,5 +1,5 @@
 /*
-cron 10 1 0,23 * * * jd_dpqd.js
+cron 45 0 0,23 * * * jd_dpqd.js
 店铺签到，店铺Token默认从本地环境变量DPQDTK中获取，若本地无则从远端获取。
 
 Fix by HarbourJ
