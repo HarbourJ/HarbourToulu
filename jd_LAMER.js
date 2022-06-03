@@ -58,6 +58,8 @@ let activityCookie =''
   $.activityId = "2203100041074702"
   let authorCodeList = [
       'c91608f6d15241ad90cd1e17fb1ad55d',
+      '1225c41b7fc24b429c9d036b49d74de6',
+      '01a253fc9e314b9088a8ed939760b8e4',
   ]
   $.shareUuid = authorCodeList[Math.floor((Math.random() * authorCodeList.length))]
   console.log(`入口:\nhttps://lzkjdz-isv.isvjcloud.com/m/1000410747/99/${$.activityId}/?helpUuid=${$.shareUuid}`)
