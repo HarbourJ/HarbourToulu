@@ -1,5 +1,5 @@
 /*
-6.1~6.18 618 陪伴让爱升级
+6.6-6.20 盛启 618 好物带回家 (https://lzdz-isv.isvjcloud.com/dingzhi/bd/common/activity/4733227?activityId=90322060501&shareUuid=513ceae42edc4d4180796ee1a5c4e9e7&adsource=null&shareuserid4minipg=0JNwymG0n/7MOPkHzYrG4KuPlrbwajr+mlKSAUQGJeinh9LA4YCEcFb8KdjJBCTv&shopid=undefined)
 TG：https://t.me/HarbourToulu
 新增开卡脚本
 一次性脚本
@@ -8,7 +8,7 @@ https://lzdz-isv.isvjcloud.com/dingzhi/bd/common/activity/3071640?activityId=903
 cron "1 1 1 1 1 1" jd_opencard0601_1.js
 */
 
-const $ = new Env('6.1~6.18 618 陪伴让爱升级')
+const $ = new Env('6.6-6.20 盛启 618 好物带回家')
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 const notify = $.isNode() ? require('./sendNotify') : '';
 
@@ -49,11 +49,10 @@ let activityCookie =''
         });
         return;
     }
-    $.activityId = '90322060103'
+    $.activityId = '90322060501'
 
     let authorCodeList = [
-        '827420581bc6454d822a8e7aeb693c35',
-        '585ee21d3ece41b1af6ce5aa704df32e',
+        '513ceae42edc4d4180796ee1a5c4e9e7',
     ];
     $.shareUuid = authorCodeList[random(0, authorCodeList.length)];
     console.log(`入口:\nhttps://lzdz-isv.isvjcloud.com/dingzhi/bd/common/activity?activityId=${$.activityId}&shareUuid=${$.shareUuid}`)
@@ -136,7 +135,7 @@ async function run() {
         }
 
         await $.wait(1500);
-        $.openList = [1000001961,1000002591,1000004065,1000015942,1000086041,1000088787,1000099547,1000100081,1000204895,1000224682,1000349111,1000377971];
+        $.openList = [50024,1000003005,1000003443,1000003685,1000016584,1000090821,1000105175,1000135327,1000135329,1000281262];
 
         console.log(`openCardStatus:${$.openCardStatus}`);
         $.allOpenCard =  ($.openCardStatus == 3 || $.openCardStatus == 0) ? true : false;
