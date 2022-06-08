@@ -17,13 +17,9 @@ cron:1 1 1 1 1 1
 ============Quantumultx===============
 [task_local]
 #6.8-6.18 大牌联合 好物焕新季
-30 1 1-5,18-30/3 4,5 * https://raw.githubusercontent.com/11111120/scripts/master/gua_opencard134.js, tag=4.18~5.5 甄选大牌 品质嗨购, enabled=true
+30 1 1-5,18-30/3 4,5 * jd_opencard0608_2.js, tag=6.8-6.18 大牌联合 好物焕新季, enabled=true
 
 */
-let guaopencard_addSku = "false"
-let guaopencard = "false"
-let guaopenwait = "0"
-let guaopencard_draw = "0"
 
 const $ = new Env('6.8-6.18 大牌联合 好物焕新季')
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
@@ -31,15 +27,6 @@ const notify = $.isNode() ? require('./sendNotify') : '';
 CryptoScripts()
 $.CryptoJS = $.isNode() ? require('crypto-js') : CryptoJS;
 let cleanCart = ''
-if($.isNode()){
-  try{
-    const fs = require('fs');
-    if (fs.existsSync('./cleancart_activity.js')) {
-      cleanCart = require('./cleancart_activity');
-    }
-  }catch(e){
-  }
-}
 //IOS等用户直接用NobyDa的jd cookie
 
 let cookiesArr = [],
@@ -52,16 +39,6 @@ if ($.isNode()) {
 } else {
   cookiesArr = [$.getdata('CookieJD'), $.getdata('CookieJD2'), ...jsonParse($.getdata('CookiesJD') || "[]").map(item => item.cookie)].filter(item => !!item);
 }
-
-guaopencard_addSku = $.isNode() ? (process.env.guaopencard_addSku134 ? process.env.guaopencard_addSku134 : `${guaopencard_addSku}`) : ($.getdata('guaopencard_addSku134') ? $.getdata('guaopencard_addSku134') : `${guaopencard_addSku}`);
-guaopencard_addSku = $.isNode() ? (process.env.guaopencard_addSku_All ? process.env.guaopencard_addSku_All : `${guaopencard_addSku}`) : ($.getdata('guaopencard_addSku_All') ? $.getdata('guaopencard_addSku_All') : `${guaopencard_addSku}`);
-guaopencard = $.isNode() ? (process.env.guaopencard134 ? process.env.guaopencard134 : `${guaopencard}`) : ($.getdata('guaopencard134') ? $.getdata('guaopencard134') : `${guaopencard}`);
-guaopencard = $.isNode() ? (process.env.guaopencard_All ? process.env.guaopencard_All : `${guaopencard}`) : ($.getdata('guaopencard_All') ? $.getdata('guaopencard_All') : `${guaopencard}`);
-guaopenwait = $.isNode() ? (process.env.guaopenwait134 ? process.env.guaopenwait134 : `${guaopenwait}`) : ($.getdata('guaopenwait134') ? $.getdata('guaopenwait134') : `${guaopenwait}`);
-guaopenwait = $.isNode() ? (process.env.guaopenwait_All ? process.env.guaopenwait_All : `${guaopenwait}`) : ($.getdata('guaopenwait_All') ? $.getdata('guaopenwait_All') : `${guaopenwait}`);
-guaopenwait = parseInt(guaopenwait, 10) || 0
-guaopencard_draw = $.isNode() ? (process.env.guaopencard_draw134 ? process.env.guaopencard_draw134 : guaopencard_draw) : ($.getdata('guaopencard_draw134') ? $.getdata('guaopencard_draw134') : guaopencard_draw);
-guaopencard_draw = $.isNode() ? (process.env.guaopencard_draw ? process.env.guaopencard_draw : guaopencard_draw) : ($.getdata('guaopencard_draw') ? $.getdata('guaopencard_draw') : guaopencard_draw);
 allMessage = ""
 message = ""
 $.hotFlag = false
@@ -70,14 +47,6 @@ $.activityEnd = false
 let lz_jdpin_token_cookie =''
 let activityCookie =''
 !(async () => {
-  if ($.isNode()) {
-    if(guaopencard+"" != "true"){
-      console.log('如需执行脚本请设置环境变量[guaopencard134]为"true"')
-    }
-    if(guaopencard+"" != "true"){
-      return
-    }
-  }
   if (!cookiesArr[0]) {
     $.msg($.name, '【提示】请先获取cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/', {
       "open-url": "https://bean.m.jd.com/"
@@ -87,7 +56,7 @@ let activityCookie =''
   $.activityId = "dzlhkk5bd64e98a31ebbe366e45bb8"
   $.shareUuid = "9aa1815f8f2a461e907ba284116eb7f8"
   console.log(`入口:\nhttps://lzdz1-isv.isvjcloud.com/dingzhi/customized/common/activity?activityId=${$.activityId}&shareUuid=${$.shareUuid}`)
-  let shareUuidArr = [$.shareUuid,'9aa1815f8f2a461e907ba284116eb7f8']
+  let shareUuidArr = [$.shareUuid,'9aa1815f8f2a461e907ba284116eb7f8','20de88e591a24a619e1bf8bb3dbdc6e8','549902e12b1b4046a58ccc01ea2faa84']
   let s = Math.floor((Math.random()*10))
   let n = 0
   if(s >= 1 && s<= 6) n = Math.floor((Math.random()*shareUuidArr.length))
@@ -222,45 +191,28 @@ async function run() {
     }
     $.log("加购: " + $.addCart)
     if(!$.addCart && !$.outFlag){
-      if(guaopencard_addSku+"" == "true"){
         flag = true
-        let goodsArr = []
-        if(cleanCart){
-          goodsArr = await cleanCart.clean(cookie,'https://jd.11111118/jdcleancatr_21102717','')
-          if(goodsArr !== false) await $.wait(parseInt(Math.random() * 1000 + 4000, 10))
-        }
         await takePostRequest('addCart');
-        await $.wait(parseInt(Math.random() * 2000 + 4000, 10))
-        if(cleanCart && goodsArr !== false){
-          // await $.wait(parseInt(Math.random() * 1000 + 4000, 10))
-          await cleanCart.clean(cookie,'https://jd.11111118/jdcleancatr_21102717',goodsArr || [ ])
-        }
-      }else{
-        console.log('如需加购请设置环境变量[guaopencard_addSku134]为"true"');
-      }
+        await $.wait(parseInt(Math.random() * 2000 + 1000, 10))
     }
     if(flag){
       await takePostRequest('activityContent');
     }
     console.log(`${$.score}值`)
-    if(guaopencard_draw+"" !== "0"){
       $.runFalag = true
       let count = parseInt($.score/100)
-      guaopencard_draw = parseInt(guaopencard_draw, 10)
-      if(count > guaopencard_draw) count = guaopencard_draw
       console.log(`抽奖次数为:${count}`)
       for(m=1;count--;m++){
         console.log(`第${m}次抽奖`)
         await takePostRequest('抽奖');
         if($.runFalag == false) break
         if(Number(count) <= 0) break
-        if(m >= 10){
+        if(m >= 3){
           console.log("抽奖太多次，多余的次数请再执行脚本")
           break
         }
         await $.wait(parseInt(Math.random() * 2000 + 2000, 10))
       }
-    }else console.log('如需抽奖请设置环境变量[guaopencard_draw134]为"3" 3为次数');
 
     await $.wait(parseInt(Math.random() * 1000 + 2000, 10))
     await takePostRequest('getDrawRecordHasCoupon');
@@ -276,16 +228,8 @@ async function run() {
       console.log(`后面的号都会助力:${$.shareUuid}`)
     }
     await $.wait(parseInt(Math.random() * 1000 + 5000, 10))
-    if(flag) await $.wait(parseInt(Math.random() * 1000 + 10000, 10))
-    if(guaopenwait){
-      if($.index != cookiesArr.length){
-        console.log(`等待${guaopenwait}秒`)
-        await $.wait(parseInt(guaopenwait, 10) * 1000)
-      }
-    }else{
       if($.index % 3 == 0) console.log('休息1分钟，别被黑ip了\n可持续发展')
-      if($.index % 3 == 0) await $.wait(parseInt(Math.random() * 5000 + 60000, 10))
-    }
+      if($.index % 3 == 0) await $.wait(parseInt(Math.random() * 5000 + 20000, 10))
   } catch (e) {
     console.log(e)
   }
@@ -308,12 +252,12 @@ async function takePostRequest(type) {
         break;
       case 'getMyPing':
         url = `${domain}/customer/getMyPing`;
-        body = `userId=${$.shopId || $.venderId || ''}&token=${$.Token}&fromType=APP`;
+        body = `userId=1000000866&token=${$.Token}&fromType=APP`;
         break;
       case 'accessLogWithAD':
         url = `${domain}/common/accessLogWithAD`;
         let pageurl = `${domain}/dingzhi/customized/common/activity?activityId=${$.activityId}&shareUuid=${$.shareUuid}`
-        body = `venderId=${$.shopId || $.venderId || ''}&code=99&pin=${encodeURIComponent($.Pin)}&activityId=${$.activityId}&pageUrl=${encodeURIComponent(pageurl)}&subType=app&adSource=`
+        body = `venderId=1000000866&code=99&pin=${encodeURIComponent($.Pin)}&activityId=${$.activityId}&pageUrl=${encodeURIComponent(pageurl)}&subType=app&adSource=`
         break;
       case 'getUserInfo':
         url = `${domain}/wxActionCommon/getUserInfo`;
