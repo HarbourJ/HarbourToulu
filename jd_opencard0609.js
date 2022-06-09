@@ -528,7 +528,7 @@ async function joinShop() {
         let body = `{"venderId":"${$.joinVenderId}","bindByVerifyCodeFlag":1,"registerExtend":{},"writeChildFlag":0${activityId},"channel":401}`
         let h5st = 'undefined'
         try {
-            h5st = '20220412164634306%3Bf5299392a200d6d9ffced997e5790dcc%3B169f1%3Btk02wc0f91c8a18nvWVMGrQO1iFlpQre2Sh2mGtNro1l0UpZqGLRbHiyqfaUQaPy64WT7uz7E%2FgujGAB50kyO7hwByWK%3B77c8a05e6a66faeed00e4e280ad8c40fab60723b5b561230380eb407e19354f7%3B3.0%3B1649753194306';
+            h5st = '20220517012201499%3B2933435981099268%3Bef79a%3Btk02w92631bfa18nhD4ubf3QfNiU8ED2PI270ygsn%2BvamuBQh0lVE6v7UAwckz3s2OtlFEfth5LbQdWOPNvPEYHuU2Tw%3Bb01c7c4f99a8ffb2b5e69282f45a14e1b87c90a96217006311ae4cfdcbd1a932%3B3.0%3B1652721721499';
         } catch (e) {
             h5st = 'undefined'
         }
