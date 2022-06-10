@@ -1,5 +1,5 @@
 /*
-6.10-6.20 心尖好物 618拔草时刻
+6.9-6.18 618好物狂欢盛典
 新增开卡脚本
 一次性脚本
 
@@ -8,7 +8,7 @@
 
 All变量适用
 ————————————————
-入口：[ 6.10-6.20 心尖好物 618拔草时刻 (https://lzdz1-isv.isvjcloud.com/dingzhi/customized/common/activity?activityId=dzlhkk081f1bc4bacd11ec99b60200&shareUuid=d68b110e2da34a4b970a43470f6fc27d)]
+入口：[ 6.9-6.18 618好物狂欢盛典 (https://lzdz1-isv.isvjcloud.com/dingzhi/customized/common/activity?activityId=dzlhkk081f1bc4bacd11ec99b60200&shareUuid=d68b110e2da34a4b970a43470f6fc27d)]
 
 请求太频繁会被黑ip
 过10分钟再执行
@@ -16,7 +16,7 @@ All变量适用
 cron:1 1 1 1 1 1
 ============Quantumultx===============
 [task_local]
-#6.10-6.20 心尖好物 618拔草时刻
+#6.9-6.18 618好物狂欢盛典
 30 1 1-5,18-30/3 4,5 * https://raw.githubusercontent.com/11111120/scripts/master/gua_opencard134.js, tag=4.18~5.5 甄选大牌 品质嗨购, enabled=true
 
 */
@@ -25,7 +25,7 @@ let guaopencard = "false"
 let guaopenwait = "0"
 let guaopencard_draw = "0"
 
-const $ = new Env('6.10-6.20 心尖好物 618拔草时刻')
+const $ = new Env('6.9-6.18 618好物狂欢盛典')
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 const notify = $.isNode() ? require('./sendNotify') : '';
 CryptoScripts()
@@ -84,10 +84,10 @@ let activityCookie =''
     });
     return;
   }
-  $.activityId = "dzlhkke163a6e9a2514a0ca481942d"
-  $.shareUuid = "251d12931dc74f3497e515d0a60ac503"
+  $.activityId = "dzlhkkfff68792164c43afad9dc23f"
+  $.shareUuid = "3e2f7a53f415489689d26edc62dc80c6"
   console.log(`入口:\nhttps://lzdz1-isv.isvjcloud.com/dingzhi/customized/common/activity?activityId=${$.activityId}&shareUuid=${$.shareUuid}`)
-  let shareUuidArr = [$.shareUuid,'251d12931dc74f3497e515d0a60ac503']
+  let shareUuidArr = [$.shareUuid,'3e2f7a53f415489689d26edc62dc80c6','1281542ab4f14169ab3a041e9e943a9b']
   let s = Math.floor((Math.random()*10))
   let n = 0
   if(s >= 1 && s<= 6) n = Math.floor((Math.random()*shareUuidArr.length))
