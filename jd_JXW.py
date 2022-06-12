@@ -358,7 +358,7 @@ async def main():
         cks = os.environ["JD_COOKIE"].split("&")
     except:
         with open('cklist.txt','r') as f:
-            cks = f.read().split('&')
+            cks = f.read().split('&') # ck可以直接冲env.sh中复制粘贴至cklist.txt，格式不用修改
     logger.info(f"共:{len(cks)}个CK")
 
     while True:
