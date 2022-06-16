@@ -183,7 +183,7 @@ async function api(fn, body) {
         "User-Agent": $.UA,
     }
     let {data} = await $.request(url, headers, body)
-    $.log(fn, typeof data === 'string' ? '' : JSON.stringify(data))
+    // $.log(fn, typeof data === 'string' ? '' : JSON.stringify(data))
     await $.wait(300, 500)
     return data;
 }
