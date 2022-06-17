@@ -96,11 +96,13 @@ async function jrzd(){
 	$.saveTeam=false;
 	await getCk();
 	await getshopInfo();
+	await $.wait(1000);
 	if($.sid&&$.userId){
 		await getToken();
 		if($.Token)await getPin();
 		console.log('pin:'+$.Pin);
 		await getUserInfo();
+		await $.wait(1000);
 		await getTeam();
 		await $.wait(1000);
 		if($.maxTeam){
