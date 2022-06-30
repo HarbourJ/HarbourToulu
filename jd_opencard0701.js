@@ -750,39 +750,6 @@ function getCk() {
     })
   })
 }
-// function setActivityCookie(resp){
-//   let LZ_TOKEN_KEY = ''
-//   let LZ_TOKEN_VALUE = ''
-//   let lz_jdpin_token = ''
-//   let setcookies = resp && resp['headers'] && (resp['headers']['set-cookie'] || resp['headers']['Set-Cookie'] || '') || ''
-//   let setcookie = ''
-//   if(setcookies){
-//     if(typeof setcookies != 'object'){
-//       setcookie = setcookies.split(',')
-//     }else setcookie = setcookies
-//     for (let ck of setcookie) {
-//       let name = ck.split(";")[0].trim()
-//       if(name.split("=")[1]){
-//         // console.log(name.replace(/ /g,''))
-//         if(name.indexOf('LZ_TOKEN_KEY=')>-1) LZ_TOKEN_KEY = name.replace(/ /g,'')+';'
-//         if(name.indexOf('LZ_TOKEN_VALUE=')>-1) LZ_TOKEN_VALUE = name.replace(/ /g,'')+';'
-//         if(name.indexOf('lz_jdpin_token=')>-1) lz_jdpin_token = ''+name.replace(/ /g,'')+';'
-//       }
-//     }
-//   }
-//   if(LZ_TOKEN_KEY && LZ_TOKEN_VALUE) activityCookie = `${LZ_TOKEN_KEY} ${LZ_TOKEN_VALUE}`
-//   if(lz_jdpin_token) lz_jdpin_token_cookie = lz_jdpin_token
-//
-//   if (resp['headers']['set-cookie']) {
-//     cookie = `${originCookie};`
-//     for (let sk of resp['headers']['set-cookie']) {
-//         lz_cookie[sk.split(";")[0].substr(0, sk.split(";")[0].indexOf("="))] = sk.split(";")[0].substr(sk.split(";")[0].indexOf("=") + 1)
-//     }
-//     for (const vo of Object.keys(lz_cookie)) {
-//         cookie += vo + '=' + lz_cookie[vo] + ';'
-//     }
-// }
-// }
 
 function setActivityCookie(resp){
 	if(resp['headers']['set-cookie']){
