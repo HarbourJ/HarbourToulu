@@ -1,5 +1,5 @@
 /*
-06.28-07.30 组队分豆-蒙牛
+07.05-07.31 组队分豆-蒙牛
 
 TG: https://t.me/HarbourToulu
 
@@ -8,7 +8,7 @@ TG: https://t.me/HarbourToulu
 
 最少开卡一张才能邀请，自测
 ————————————————
-入口：[ 06.28-07.30 组队分豆-蒙牛 https://lzkjdz-isv.isvjcloud.com/pool/captain/8548413?activityId=4e3b9b6233104c199c0c44ff6edbc85d&signUuid=22b6c048d84c481492c04d01f7f037e3]
+入口：[ 07.05-07.30 组队分豆-蒙牛 https://lzkjdz-isv.isvjcloud.com/pool/captain/8548413?activityId=4e3b9b6233104c199c0c44ff6edbc85d&signUuid=22b6c048d84c481492c04d01f7f037e3]
 
 请求太频繁会被黑ip
 过10分钟再执行
@@ -16,7 +16,7 @@ TG: https://t.me/HarbourToulu
 cron:10 0,20 28-30,1-31 6,7 *
 */
 
-const $ = new Env("06.28-07.30 组队分豆-蒙牛");
+const $ = new Env("07.05-07.30 组队分豆-蒙牛");
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 const notify = $.isNode() ? require('./sendNotify') : '';
 let cookiesArr = [], cookie = '', message = '';
