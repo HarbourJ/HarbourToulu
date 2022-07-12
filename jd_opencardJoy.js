@@ -1,12 +1,12 @@
 /*
-一次性脚本
+joy通用开卡
 cron:1 1 1 1 1 1
-============Quantumultx===============
-[task_local]
-1 1 1 1 1 1 jd_opencard0530.js, tag=通用开卡活动, enabled=true
+Fix by HarbourJ
+TG: https://t.me/HarbourToulu
+变量：export jd_joyOpenId="xxxxxxxxxxxxxxxxxxxx"
 
 */
-const $ = new Env('桌面好物 与你同行');
+const $ = new Env('joy通用开卡');
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 const Faker=require('./sign_graphics_validate.js')
 const notify = $.isNode() ? require('./sendNotify') : '';
@@ -16,6 +16,10 @@ var timestamp = new Date().getTime()
 //IOS等用户直接用NobyDa的jd cookie
 let cookiesArr = [],
     cookie = '';
+let joyOpenId = '';
+if (process.env.jd_joyOpenId && process.env.jd_joyOpenId != "") {
+    joyOpenId = process.env.jd_joyOpenId
+}
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
     cookiesArr.push(jdCookieNode[item])
@@ -42,8 +46,9 @@ message = ""
       await getUA()
       $.nickName = '';
       console.log(`\n\n******开始【京东账号${$.index}】${$.nickName || $.UserName}*********\n`);
+      $.configCode = joyOpenId
       await run();
-      //if($.bean > 0) message += `【京东账号${$.index}】获得${$.bean}京豆\n`
+      if($.bean > 0) message += `【京东账号${$.index}】获得${$.bean}京豆\n`
     }
   }
   //if(message){
@@ -66,7 +71,7 @@ async function run() {
       return
     }
     let config = [
-	{configCode:'a2f1fa9c24e24a9e901b7c5d5032f50d',configName:'桌面好物 与你同行'},
+	{configCode:`${$.configCode}`, configName:'joy通用开卡'},
     ]
     for(let i in config){
       $.hotFlag = false
@@ -105,16 +110,6 @@ async function run() {
 			}
 			if($.errorJoinShop.indexOf('活动太火爆，请稍后再试') > -1){
             console.log('第3次 重新开卡')
-            await $.wait(parseInt(Math.random() * 2000 + 4000, 10))
-            await join($.oneTask.venderId)
-			}
-			if($.errorJoinShop.indexOf('活动太火爆，请稍后再试') > -1){
-            console.log('第4次 重新开卡')
-            await $.wait(parseInt(Math.random() * 2000 + 4000, 10))
-            await join($.oneTask.venderId)
-			}
-			if($.errorJoinShop.indexOf('活动太火爆，请稍后再试') > -1){
-            console.log('第5次 重新开卡')
             await $.wait(parseInt(Math.random() * 2000 + 4000, 10))
             await join($.oneTask.venderId)
 			}
@@ -185,6 +180,7 @@ async function run() {
     console.log(e)
   }
 }
+
 function getActivity(code,name,flag) {
   return new Promise(async resolve => {
     $.get({
