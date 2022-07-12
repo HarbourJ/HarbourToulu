@@ -1,12 +1,12 @@
 /*
+通用抽奖机
+cron:1 1 1 1 1 1
 Fix by HarbourJ
 TG: https://t.me/HarbourToulu
+变量：export jd_lotteryId="xxxxxxxxxxxxxxxxxxxx"
 
-[task_local]
-#618通用抽奖机
-1 1 1 1 1 1 jd_618_draw.js, tag=618通用抽奖机, enabled=true
  */
-const $ = new Env('618通用抽奖机');
+const $ = new Env('通用抽奖机');
 const notify = $.isNode() ? require('./sendNotify') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
@@ -15,6 +15,7 @@ $.configCode = "aa6afd716cda497ab83d3f452443ecf6"; //此处修改活动id
 //IOS等用户直接用NobyDa的jd cookie
 let cookiesArr = [], cookie = '', message;
 if ($.isNode()) {
+    if (process.env.jd_lotteryId) $.configCode = process.env.jd_lotteryId;
     Object.keys(jdCookieNode).forEach((item) => {
         cookiesArr.push(jdCookieNode[item])
     })
