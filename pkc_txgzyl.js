@@ -373,6 +373,7 @@ async function getMyPing(timeout = 500) {
                          $.log(`${JSON.stringify(err)}`);
                      }else {
                          $.data = JSON.parse(data);
+                         rep_cookies = resp.headers['set-cookie'];
                          // console.log(JSON.stringify($.data,null, '\t'));
                          r_cookie='';
                          for(var c in rep_cookies){
