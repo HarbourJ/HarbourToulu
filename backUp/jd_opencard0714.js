@@ -10,7 +10,7 @@
 
 请求太频繁会被黑ip
 过10分钟再执行
-cron:50 14 27-30 6 *
+cron:1 1 1 1 1 1
 
 */
 const $ = new Env('7.14-7.17 品类联合 ');
@@ -45,15 +45,16 @@ let activityCookie =''
   }
   $.activityId = "ba97c09d5ea94ac295ac8e7635c024d0"
   $.shareUuid = "a2c78e60e41a48d39e6fc144a40634b4"
-  $.venderIds = "599119"
+  $.venderIds = "688693"
   console.log(`入口:\nhttps://lzdz-isv.isvjcloud.com/categoryUnion/activity?activityId=${$.activityId}&tplId=0003&friendid=${$.shareUuid}`)
-  let shareUuidArr = ["a2c78e60e41a48d39e6fc144a40634b4",""]
+  let shareUuidArr = ["a2c78e60e41a48d39e6fc144a40634b4","6dd1b515946642569929601213a7e3e1"]
   let s = Math.floor((Math.random()*2))
   let n = 0
   n = Math.floor((Math.random()*shareUuidArr.length))
   $.shareUuid = shareUuidArr[n] ? shareUuidArr[n] : $.shareUuid
   for (let i = 0; i < cookiesArr.length; i++) {
     cookie = cookiesArr[i];
+    originCookie=cookiesArr[i];
     if (cookie) {
       $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
       $.index = i + 1;
@@ -132,7 +133,7 @@ async function run() {
           flag = true
           $.joinVenderId = o.venderId
           $.errorJoinShop = ''
-          for (let i = 0; i < Array(5).length; i++) {
+          for (let i = 0; i < Array(3).length; i++) {
             if (i > 0) console.log(`第${i}次 重新开卡`)
             await joinShop()
             if ($.errorJoinShop.indexOf('活动太火爆，请稍后再试') == -1) break
@@ -210,7 +211,7 @@ async function takePostRequest(type) {
         body = `userId=599119&token=${$.Token}&fromType=APP`;
         break;
       case 'accessLogWithAD':
-        let pageurl = `${url}/drawCenter/activity?activityId=${$.activityId}&tplId=0003&shareUuid=${$.shareUuid}`
+        let pageurl = `${url}/categoryUnion/activity/148188?activityId=${$.activityId}`
         url = `${url}/common/accessLogWithAD`;
         body = `venderId=${$.shopId || $.venderId || $.venderIds || ''}&code=99&pin=${encodeURIComponent($.Pin)}&activityId=${$.activityId}&tplId=0003&pageUrl=${encodeURIComponent(pageurl)}&subType=app&adSource=`
         break;
