@@ -1,19 +1,19 @@
 /*
-6.27-6.30 品类联合 
+7.14-7.17 品类联合 
 新增开卡脚本 一次性脚本
 
 第一个账号助力作者 其他依次助力CK1
 第一个CK失效会退出脚本
 
 ————————————————
-入口：[ 6.27-6.30 品类联合 ]
+入口：[ 7.14-7.17 品类联合 ]
 
 请求太频繁会被黑ip
 过10分钟再执行
 cron:50 14 27-30 6 *
 
 */
-const $ = new Env('6.27-6.30 品类联合 ');
+const $ = new Env('7.14-7.17 品类联合 ');
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 const notify = $.isNode() ? require('./sendNotify') : '';
 //IOS等用户直接用NobyDa的jd cookie
@@ -42,11 +42,11 @@ let activityCookie =''
     });
     return;
   }
-  $.activityId = "52f4d41fb7514aea8777a09683e7e1a6"
-  $.shareUuid = "713e18e0c41a41c598508c350068ca42"
+  $.activityId = "ba97c09d5ea94ac295ac8e7635c024d0"
+  $.shareUuid = "a2c78e60e41a48d39e6fc144a40634b4"
   $.venderIds = "599119"
   console.log(`入口:\nhttps://lzdz-isv.isvjcloud.com/categoryUnion/activity?activityId=${$.activityId}&tplId=0003&friendid=${$.shareUuid}`)
-  let shareUuidArr = ["713e18e0c41a41c598508c350068ca42","2ea1de17c4584a1ab14ed35b29e5c01c","16fac232868e4b709458176a10909474"]
+  let shareUuidArr = ["a2c78e60e41a48d39e6fc144a40634b4",""]
   let s = Math.floor((Math.random()*2))
   let n = 0
   n = Math.floor((Math.random()*shareUuidArr.length))
