@@ -28,6 +28,7 @@ if ($.isNode()) {
 } else {
   cookiesArr = [$.getdata('CookieJD'), $.getdata('CookieJD2'), ...jsonParse($.getdata('CookiesJD') || "[]").map(item => item.cookie)].filter(item => !!item);
 }
+let lz_cookie={};
 allMessage = ""
 message = ""
 $.hotFlag = false
@@ -76,7 +77,6 @@ let activityCookie =''
 })()
     .catch((e) => $.logErr(e))
     .finally(() => $.done())
-
 
 async function run() {
   try {
@@ -491,7 +491,8 @@ function getCk() {
     })
   })
 }
-function setActivityCookie(resp){
+
+function setActivityCookie111(resp){
   let LZ_TOKEN_KEY = ''
   let LZ_TOKEN_VALUE = ''
   let lz_jdpin_token = ''
@@ -515,9 +516,23 @@ function setActivityCookie(resp){
   if(lz_jdpin_token) lz_jdpin_token_cookie = lz_jdpin_token
 }
 
+function setActivityCookie(resp){
+	if(resp['headers']['set-cookie']){
+		cookie=originCookie+';';
+		for(let sk of resp['headers']['set-cookie']){
+			lz_cookie[sk.split(';')[0].substr(0,sk.split(';')[0].indexOf('='))]=sk.split(';')[0].substr(sk.split(';')[0].indexOf('=')+1)
+		};
+		for(const vo of Object.keys(lz_cookie)){
+			cookie+=(vo+'='+lz_cookie[vo]+';')
+		};
+		activityCookie=cookie
+	}
+}
+
 async function getUA(){
   $.UA = `jdapp;iPhone;10.1.4;13.1.2;${randomString(40)};network/wifi;model/iPhone8,1;addressid/2308460611;appBuild/167814;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 13_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1`
 }
+
 function randomString(e) {
   e = e || 32;
   let t = "abcdef0123456789", a = t.length, n = "";
@@ -525,6 +540,7 @@ function randomString(e) {
     n += t.charAt(Math.floor(Math.random() * a));
   return n
 }
+
 async function joinShop() {
   if (!$.joinVenderId) return
   return new Promise(async resolve => {
@@ -576,6 +592,7 @@ async function joinShop() {
     })
   })
 }
+
 function getshopactivityId() {
   return new Promise(resolve => {
     const options = {
@@ -620,6 +637,7 @@ function getshopactivityId() {
     })
   })
 }
+
 function jsonParse(str) {
   if (typeof str == "string") {
     try {
