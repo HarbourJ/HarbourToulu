@@ -1,7 +1,7 @@
 /**
  特务战队，默认选择左边战队
  脚本没有自动开卡，会尝试领取开卡奖励
- cron 0 6,10,18,20 7 *
+ cron 0 6,10,18,20 17 7 *
  */
  const $ = new Env('特务战队');
  const notify = $.isNode() ? require('./sendNotify') : '';
