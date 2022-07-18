@@ -1,9 +1,11 @@
 /**
- * 梦龙-总裁送好礼
- * cron 0 2,8 * * *
- * TG: https://t.me/HarbourToulu
+ *
  */
-const $ = new Env('梦龙-总裁送好礼');
+/*
+明星送好礼
+cron:30 16 14 7 *
+*/
+const $ = new Env('明星送好礼');
 const notify = $.isNode() ? require('./sendNotify') : '';
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 let cookiesArr = [];
@@ -186,10 +188,10 @@ function dealReturn(type, data) {
                 $.runFlag = false;
                 console.log(`抽奖失败`);
             }
-            console.log(JSON.stringify(data));
+            // console.log(JSON.stringify(data));
             break;
         default:
-            console.log(JSON.stringify(data));
+            // console.log(JSON.stringify(data));
     }
 }
 
