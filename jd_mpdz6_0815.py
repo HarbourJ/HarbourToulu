@@ -128,18 +128,6 @@ def getJdTime():
         jdTime = int(round(time.time() * 1000))
     return jdTime
 
-# def buyerUrl(index=1, shareActivityUrl=None, buyerNick=None):
-#     global activityUrl, shareNick
-#     if index == 1:
-#         activityUrl = shareActivityUrl
-#         bizExtString = b64decode(activityUrl.split('bizExtString=')[1]).decode('utf-8')
-#         bizExtString = unquote_plus(bizExtString)
-#         shareNick0 = bizExtString.split('&')[0].split(':')[1]
-#         shareNick = shareNick0
-#     else:
-#         activityUrl = b64encode(bytes(f"shareNick:{quote_plus(buyerNick)}", encoding="utf-8")).decode()
-#     return activityUrl, shareNick
-
 def getActivity(token):
     url = activityUrl
     headers = {
@@ -417,18 +405,19 @@ def checkOpenCard(buyerNick):
 
 if __name__ == '__main__':
     r = redis_conn()
-    with open('JD_COOKIE.txt', 'r', encoding='utf-8') as f:
-        cookies = f.read().split('\n')[2:]
-    print(len(cookies))
     num = 0
     global activityUrl, buyerNick, shareNick
     activityUrl = None
     shareNick = None
     buyerNick = None
-    for ck in cookies:
+    for ck in cks:
         num += 1
-        pt_pin = re.compile(r'pt_pin=(.*?);').findall(ck)[0]
-        print(f"\n****************开始账号{num} {unquote_plus(pt_pin)}****************\n")
+        try:
+            pt_pin = re.compile(r'pt_pin=(.*?);').findall(ck)[0]
+            pt_pin = unquote_plus(pt_pin)
+        except IndexError:
+            pt_pin = f'用户{num}'
+        print(f'\n******开始【京东账号{num}】{pt_pin} *********\n')
         print(datetime.now())
         ua = userAgent()
         if num == 1:
