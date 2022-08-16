@@ -405,6 +405,13 @@ def checkOpenCard(buyerNick):
 
 if __name__ == '__main__':
     r = redis_conn()
+    try:
+        cks = getCk
+        if not cks:
+            sys.exit()
+    except:
+        print("未获取到有效COOKIE,退出程序！")
+        sys.exit()
     num = 0
     global activityUrl, buyerNick, shareNick
     activityUrl = None
