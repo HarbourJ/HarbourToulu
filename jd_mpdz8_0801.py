@@ -23,15 +23,33 @@ from urllib.parse import quote, unquote
 from urllib.parse import quote_plus, unquote_plus
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
-from jd_sign import *
+import os
+try:
+    if "aarch" in os.uname().machine:
+        from utils.jd_sign_arm64 import *
+    else:
+        from utils.jd_sign_x86 import *
+except:
+    from utils.jd_sign_x86 import *
 try:
     from jdCookie import get_cookies
     getCk = get_cookies()
 except:
     print("请先下载依赖脚本，\n下载链接：https://raw.githubusercontent.com/HarbourJ/HarbourToulu/main/jdCookie.py")
     sys.exit(3)
+try:
+    if os.environ.get("redis_url"):
+        redis_url = os.environ["redis_url"]  # redis ip
+    else:
+        redis_url = "172.17.0.1"
+    if os.environ.get("redis_pwd"):
+        redis_pwd = os.environ["redis_pwd"]  # redis 密码
+    else:
+        redis_pwd = ""
+except:
+    redis_url = "172.17.0.1"
+    redis_pwd = ""
 
-redis_url = "172.17.0.1"
 activity_urls = ["https://mpdz8-dz.isvjcloud.com/jdbeverage/pages/zhaiyaohuodong/zhaiyaohuodong?bizExtString=c2hhcmVOaWNrOk55MG0xSzF0VkhJSnZ0MGo0U1E5UmJSUFhNSEhmJTJCRHJObU1WZlQ4UzVocTNTallNQUFDcmJFSFpRNDBKNXlQWSZoZWFkUGljVXJsOmh0dHAlM0ElMkYlMkZzdG9yYWdlLjM2MGJ1eWltZy5jb20lMkZpLmltYWdlVXBsb2FkJTJGMzEzNTM1MzIzMDMxMzYzODM2Mzg1ZjZkMzEzNDMwMzczNjM4MzMzODMyMzkzNTM2MzRfbWlkLmpwZyZuaWNrTmFtZTolRTUlQkYlODMlRTYlOTglOUYxOTk2", "https://mpdz8-dz.isvjcloud.com/jdbeverage/pages/zhaiyaohuodong/zhaiyaohuodong?bizExtString=c2hhcmVOaWNrOnBXR1VXWkpRM2FjdGV4MFgydlF5THNqTmhOYVlGeTJIdGVFckU2aXpsaFRmOW5yR1k3Z0JrQ2RHVTRDNnolMkZ4RCZoZWFkUGljVXJsOmh0dHAlM0ElMkYlMkZzdG9yYWdlLjM2MGJ1eWltZy5jb20lMkZpLmltYWdlVXBsb2FkJTJGNmE2NDVmNjc0MzUwNjc2YzQxNTg2ZDUyNTc0ZTY2MzEzNjM0MzYzNDM4MzYzOTM4MzMzNTMzMzZfbWlkLmpwZyZuaWNrTmFtZTpJcmVuZV9Db3Jwcw=="]
 activity_url = random.choice(activity_urls)
 
@@ -39,7 +57,7 @@ def redis_conn():
     try:
         import redis
         try:
-            pool = redis.ConnectionPool(host=redis_url, port=6379, decode_responses=True, socket_connect_timeout=5)
+            pool = redis.ConnectionPool(host=redis_url, port=6379, decode_responses=True, socket_connect_timeout=5, password=redis_pwd)
             r = redis.Redis(connection_pool=pool)
             r.get('conn_test')
             print('✅redis连接成功')
@@ -50,9 +68,15 @@ def redis_conn():
         print("⚠️缺少redis依赖，请运行pip3 install redis")
 
 def getToken(ck, r=None):
+    try:
+        # redis缓存Token 活动域名+pt_pin
+        pt_pin = unquote_plus(re.compile(r'pt_pin=(.*?);').findall(ck)[0])
+    except:
+        # redis缓存Token 活动域名+ck前7位(获取pin失败)
+        pt_pin = ck[:8]
     if r is not None:
-        Token = r.get(f'{activityUrl.split("https://")[1].split("-")[0]}_{ck}')
-        # print("Token过期时间", r.ttl(f'{activityUrl.split("https://")[1].split("-")[0]}_{ck}'))
+        Token = r.get(f'{activityUrl.split("https://")[1].split("-")[0]}_{pt_pin}')
+        # print("Token过期时间", r.ttl(f'{activityUrl.split("https://")[1].split("-")[0]}_{pt_pin}'))
         if Token is not None:
             print(f"♻️获取缓存Token->: {Token}")
             return Token
@@ -81,7 +105,7 @@ def getToken(ck, r=None):
                     return
             Token_new = f.json()['token']
             print(f"Token->: {Token_new}")
-            if r.set(f'{activityUrl.split("https://")[1].split("-")[0]}_{ck}', Token_new, ex=1800):
+            if r.set(f'{activityUrl.split("https://")[1].split("-")[0]}_{pt_pin}', Token_new, ex=1800):
                 print("✅Token缓存设置成功")
             else:
                 print("❌Token缓存设置失败")
@@ -380,8 +404,12 @@ def completeMission(buyerNick, missionType):
     completeMission = json.loads(response.text)
     # print('completeMission', missionType, response.text)
     if completeMission['success']:
-        remark = completeMission['data']['data']['remark']
-        print(f"\t🛳{remark}")
+        try:
+            remark = completeMission['data']['data']['remark']
+            print(f"\t🛳{remark}")
+        except:
+            remark = completeMission['errorMessage']
+            print(f"\t🛳{remark}")
     else:
         errorMessage = completeMission['data']
         print(errorMessage)
