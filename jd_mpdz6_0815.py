@@ -25,6 +25,12 @@ from urllib.parse import quote_plus, unquote_plus
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 from jd_sign import *
+try:
+    from jdCookie import get_cookies
+    getCk = get_cookies()
+except:
+    print("请先下载依赖脚本，\n下载链接：https://raw.githubusercontent.com/HarbourJ/HarbourToulu/main/jdCookie.py")
+    sys.exit(3)
 
 redis_url = "172.17.0.1"
 
