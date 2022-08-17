@@ -30,7 +30,7 @@ try:
     else:
         from utils.jd_sign_x86 import *
 except:
-    from utils.jd_sign_x86 import *
+    from utils.jd_sign import *
 try:
     from jdCookie import get_cookies
     getCk = get_cookies()
