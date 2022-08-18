@@ -51,8 +51,6 @@ except:
     redis_url = "172.17.0.1"
     redis_pwd = ""
 
-redis_url = "172.17.0.1"
-
 activity_urls = ["https://mpdz6-dz.isvjcloud.com/jdbeverage/pages/Summer0815/summer?bizExtString=c2hhcmVOaWNrOk55MG0xSzF0VkhJSnZ0MGo0U1E5UmJSUFhNSEhmJTJCRHJObU1WZlQ4UzVocTNTallNQUFDcmJFSFpRNDBKNXlQWQ==", "https://mpdz6-dz.isvjcloud.com/jdbeverage/pages/Summer0815/summer?bizExtString=c2hhcmVOaWNrOnBXR1VXWkpRM2FjdGV4MFgydlF5THNqTmhOYVlGeTJIdGVFckU2aXpsaFRmOW5yR1k3Z0JrQ2RHVTRDNnolMkZ4RA=="]
 activity_url = random.choice(activity_urls)
 
