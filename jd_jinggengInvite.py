@@ -423,7 +423,7 @@ if __name__ == '__main__':
     needInviteNums = None
     rewardIndex = 0
     num = 0
-    for cookie in cks[4:]:
+    for cookie in cks:
         num += 1
         if num == 1:
             firstCk = cookie
@@ -489,7 +489,7 @@ if __name__ == '__main__':
                     time.sleep(1)
                     receiveInviteJoinAward(token, awardId)
                     rewardIndex = i
-                    logger.info('rewardIndex', rewardIndex)
+                    # logger.info('rewardIndex', rewardIndex)
                     time.sleep(3)
                     if i + 1 == len(needInviteNums):
                         logger.info("🎉🎉🎉奖励全部领取完毕~")
@@ -500,7 +500,7 @@ if __name__ == '__main__':
             continue
         else:
             errorMsg1 = inviteSuccNum
-            logger.info("num != 1", errorMsg1)
+            # logger.info("num != 1", errorMsg1)
             if "跳开卡页面" not in errorMsg1:
                 if "已成功邀请您加入本店会员" in errorMsg1:
                     logger.info("⛈已经是会员了,无法完成助力")
@@ -531,7 +531,7 @@ if __name__ == '__main__':
         time.sleep(2)
         recordActPvUvdata(token)
         checkTokenInSession(token)
-        logger.info(errorMsg2, '============================')
+        # logger.info(errorMsg2, '============================')
         if num == 1 and "开卡失败" in errorMsg2:
             logger.info(f"⚠️车头疑似火爆号,退出本程序！")
             sys.exit()
@@ -539,7 +539,7 @@ if __name__ == '__main__':
             inviteSuccNums += 1
             logger.info(f"🛳已经邀请{inviteSuccNums}人")
             for i, needNum1 in enumerate(needInviteNums):
-                logger.info(i, needNum1)
+                # logger.info(i, needNum1)
                 needNum = needNum1[0]
                 awardId = needNum1[1]
                 if inviteSuccNums >= needNum:
