@@ -9,6 +9,8 @@ TG: https://t.me/HarbourToulu
 cron: 1 1 1 1 1 1
 new Env('jinggeng邀请入会有礼');
 活动入口: https://jinggeng-isv.isvjcloud.com/ql/front/showInviteJoin?id=9e80809282a4bdc90182ab254c7e0a12&user_id=1000121005&inviterNick=Ny0m1K1tVHIJvt0j4SQ9RbRPXMHHf%2BDrNmMVfT8S5hq3SjYMAACrbEHZQ40J5yPY
+变量设置: export redis_url="redis_ip", export redis_pwd="xxx"(没有可写变量)
+        export jinggengInviteJoin="9e80809282a4bdc90182ab254c7e0a12&1000121005"(活动id&店铺id)
 """
 
 import time
@@ -261,7 +263,7 @@ def getActivity(index=1, isOpenCard=0, inviterCode=None, getIndex=0):
                 # inviteSucc = soup.find('input', attrs={'id': 'inviteSucc'})['value']
                 logger.info(f"奖品{b}: {equityName} 奖励: {denomination} 总数: {freezeQuantity}份 剩余: {availableQuantity}份 需要邀请: {leveNum}人")
                 if availableQuantity > 0:
-                    needInviteNums.append((leveNum, awardId))
+                    needInviteNums.append((leveNum, awardId, equityType))
                 if len(needInviteNums) == 0:
                     logger.info(f"⛈⛈⛈活动奖品全部发完啦！")
             return errorMsg, inviteSuccNums, needInviteNums
@@ -487,7 +489,10 @@ if __name__ == '__main__':
                     recordActPvUvdata(token)
                     checkTokenInSession(token)
                     time.sleep(1)
-                    receiveInviteJoinAward(token, awardId)
+                    if equityType == "JD_GOODS":
+                        logger.info(f"\t🎉🎉成功获得实物奖励,请尽快前往领取:{activityUrl}")
+                    else:
+                        receiveInviteJoinAward(token, awardId)
                     rewardIndex += 1
                     time.sleep(3)
                     if i + 1 == len(needInviteNums):
@@ -541,6 +546,7 @@ if __name__ == '__main__':
                 # logger.info(i, needNum1)
                 needNum = needNum1[0]
                 awardId = needNum1[1]
+                equityType = needNum1[2]
                 if inviteSuccNums >= needNum:
                     if rewardIndex >= i + 1:
                         time.sleep(1)
@@ -552,7 +558,10 @@ if __name__ == '__main__':
                     time.sleep(0.5)
                     recordActPvUvdata(token)
                     time.sleep(0.5)
-                    receiveInviteJoinAward(token, awardId)
+                    if equityType == "JD_GOODS":
+                        logger.info(f"\t🎉🎉成功获得实物奖励,请尽快前往领取:{activityUrl}")
+                    else:
+                        receiveInviteJoinAward(token, awardId)
                     rewardIndex += 1
                     time.sleep(3)
                     if i + 1 == len(needInviteNums):
