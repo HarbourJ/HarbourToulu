@@ -217,12 +217,12 @@ def getActivity(index=1, isOpenCard=0, inviterCode=None, getIndex=0):
     if response.status_code == 493:
         logger.info(response.status_code, "⚠️ip疑似黑了,休息一会再来撸~")
         sys.exit()
-    if response.cookies:
-        cookies = response.cookies.get_dict()
-        set_cookies = [(set_cookie + "=" + cookies[set_cookie]) for set_cookie in cookies]
-        set_cookie = ''.join(sorted([(set_cookie + ";") for set_cookie in set_cookies]))
-        if getIndex == 3:
-            return set_cookie
+    # if response.cookies:
+    cookies = response.cookies.get_dict()
+    set_cookies = [(set_cookie + "=" + cookies[set_cookie]) for set_cookie in cookies]
+    set_cookie = ''.join(sorted([(set_cookie + ";") for set_cookie in set_cookies]))
+    if getIndex == 3:
+        return set_cookie
     if "活动时间" in html_text:
         refresh_cookies(response)
         soup = BeautifulSoup(html_text, 'html.parser')
@@ -233,7 +233,7 @@ def getActivity(index=1, isOpenCard=0, inviterCode=None, getIndex=0):
         if len(inviteSucc) != 0:
             errorMsg0 = inviteSucc
         if index == 1:
-            if getIndex == 2 :
+            if getIndex == 2:
                 pass
             shop_title = soup.find('input', attrs={'id': 'shop_title'})['value'].replace(' ', '')
             actName = soup.find('input', attrs={'id': 'actName'})['value']
@@ -543,7 +543,7 @@ if __name__ == '__main__':
                 needNum = needNum1[0]
                 awardId = needNum1[1]
                 if inviteSuccNums >= needNum:
-                    if rewardIndex >= i:
+                    if rewardIndex >= i + 1:
                         time.sleep(1)
                         continue
                     logger.info(f"🎉恭喜已完成第{i + 1}档邀请，快去领奖吧！")
