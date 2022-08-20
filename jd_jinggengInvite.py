@@ -488,8 +488,7 @@ if __name__ == '__main__':
                     checkTokenInSession(token)
                     time.sleep(1)
                     receiveInviteJoinAward(token, awardId)
-                    rewardIndex = i
-                    # logger.info('rewardIndex', rewardIndex)
+                    rewardIndex += 1
                     time.sleep(3)
                     if i + 1 == len(needInviteNums):
                         logger.info("🎉🎉🎉奖励全部领取完毕~")
@@ -554,7 +553,7 @@ if __name__ == '__main__':
                     recordActPvUvdata(token)
                     time.sleep(0.5)
                     receiveInviteJoinAward(token, awardId)
-                    rewardIndex = i
+                    rewardIndex += 1
                     time.sleep(3)
                     if i + 1 == len(needInviteNums):
                         logger.info("🎉🎉🎉奖励全部领取完毕~")
