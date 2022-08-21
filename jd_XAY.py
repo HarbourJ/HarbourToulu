@@ -405,7 +405,7 @@ def saveCaptain(pin, pinImg, nickname):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    logger.info('saveCaptain', saveCaptain)
+    # logger.info('saveCaptain', saveCaptain)
     response = requests.request("POST", url, headers=headers, data=payload)
     refresh_cookies(response)
     res = response.json()
@@ -413,20 +413,6 @@ def saveCaptain(pin, pinImg, nickname):
         return res['data']['signUuid']
     else:
         logger.info(res['errorMessage'])
-
-def shopmember(cookie):
-    url = f'https://shopmember.m.jd.com/shopcard/?venderId={user_id}&channel=401&returnUrl={quote_plus(activityUrl + "&isOpenCard=1")}'
-    headers = {
-        'Host': 'shopmember.m.jd.com',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        'Connection': 'keep-alive',
-        'Cookie': cookie,
-        'User-Agent': ua,
-        'Accept-Language': 'zh-CN,zh-Hans;q=0.9',
-        'Referer': 'https://jinggeng-isv.isvjcloud.com/',
-        'Accept-Encoding': 'gzip, deflate, br'
-    }
-    requests.request("GET", url, headers=headers)
 
 def getShopOpenCardInfo(cookie):
     shopcard_url = f"https://shopmember.m.jd.com/shopcard/?venderId={shopId}&channel=7014&returnUrl={quote_plus(activityUrl)}"
@@ -531,6 +517,9 @@ if __name__ == '__main__':
             accessLogWithAD(shopId, secretPin)
             time.sleep(0.5)
             actContent = activityContent(secretPin, signUuid)
+            if num == 1:
+                if not actContent['signUuid']:
+                    print("⚠️无法获取车头邀请码,退出本程序！")
             time.sleep(1)
             userInfo = getUserInfo(secretPin)
             nickname = userInfo[0]
