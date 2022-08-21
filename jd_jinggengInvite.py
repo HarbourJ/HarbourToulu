@@ -266,6 +266,7 @@ def getActivity(index=1, isOpenCard=0, inviterCode=None, getIndex=0):
                     needInviteNums.append((leveNum, awardId, equityType))
                 if len(needInviteNums) == 0:
                     logger.info(f"⛈⛈⛈活动奖品全部发完啦！")
+                    sys.exit()
             return errorMsg, inviteSuccNums, needInviteNums
         return errorMsg0
     elif "活动已结束" in html_text:
