@@ -346,11 +346,15 @@ def completeMissionCard(buyerNick, venderId, missionType):
     response = requests.request("POST", url, headers=headers, data=json.dumps(payload))
     completeMission = json.loads(response.text)
     if completeMission['success']:
-        remark = completeMission['data']['data']['remark']
-        if "开卡成功" in remark:
-            print(f"\t🎉🎉{remark}")
+        if completeMission['data']['status'] == 200:
+            remark = completeMission['data']['data']['remark']
+            if "开卡成功" in remark:
+                print(f"\t🎉🎉{remark}")
+            else:
+                print(f"⛈⛈{remark}")
         else:
-            print(f"⛈⛈{remark}")
+            msg = completeMission['data']['msg']
+            print(f"\t🛳{msg}")
     else:
         errorMessage = completeMission['data']
         print(errorMessage)
