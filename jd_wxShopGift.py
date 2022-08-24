@@ -391,6 +391,7 @@ if __name__ == '__main__':
             if not actCon[1]:
                 continue
             reward = actCon[0]
+            time.sleep(0.8)
             draw(secretPin, nickname, reward)
 
         time.sleep(3)
