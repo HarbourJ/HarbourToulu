@@ -633,6 +633,7 @@ if __name__ == '__main__':
                 inviteSuccNum += 1
                 if inviteSuccNum >= 10:
                     logger.info(f"已邀请{inviteSuccNum}人,退出程序")
+                    sys.exit()
                 else:
                     logger.info(f"已邀请{inviteSuccNum}人")
 
