@@ -1,6 +1,6 @@
 /*
 明星送好礼
-cron:0 35 22,23 22 8 *
+cron:0 35 19,23 24 8 *
 */
 const $ = new Env('明星送好礼');
 const notify = $.isNode() ? require('./sendNotify') : '';
