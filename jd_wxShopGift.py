@@ -394,4 +394,4 @@ if __name__ == '__main__':
             time.sleep(0.8)
             draw(secretPin, nickname, reward)
 
-        time.sleep(3)
+        time.sleep(5)
