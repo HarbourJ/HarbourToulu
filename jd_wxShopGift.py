@@ -62,6 +62,7 @@ def redis_conn():
             logger.info("⚠️redis连接异常")
     except:
         logger.info("⚠️缺少redis依赖，请运行pip3 install redis")
+        sys.exit()
 
 def getToken(ck, r=None):
     host = f'{activityUrl.split("com/")[0]}com'
