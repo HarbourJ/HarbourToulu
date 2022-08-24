@@ -60,6 +60,7 @@ except:
 inviterUuids = [
     "fb7e0185279d43c3a0fd892b401c677e",
     "da896f5a45a34660b87f6ab8e8b8c475",
+    "bf6027494a964d89ac01d315d531e17b"
 ]
 
 inviterUuid = random.choice(inviterUuids)
