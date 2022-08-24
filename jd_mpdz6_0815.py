@@ -22,6 +22,9 @@ import json
 import random
 from urllib.parse import quote, unquote
 from urllib.parse import quote_plus, unquote_plus
+import logging
+logging.basicConfig(level=logging.INFO, format='%(message)s')
+logger = logging.getLogger()
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 import os
@@ -36,7 +39,7 @@ try:
     from jdCookie import get_cookies
     getCk = get_cookies()
 except:
-    print("请先下载依赖脚本，\n下载链接：https://raw.githubusercontent.com/HarbourJ/HarbourToulu/main/jdCookie.py")
+    logger.info("请先下载依赖脚本，\n下载链接：https://raw.githubusercontent.com/HarbourJ/HarbourToulu/main/jdCookie.py")
     sys.exit(3)
 try:
     if os.environ.get("redis_url"):
@@ -61,12 +64,12 @@ def redis_conn():
             pool = redis.ConnectionPool(host=redis_url, port=6379, decode_responses=True, socket_connect_timeout=5, password=redis_pwd)
             r = redis.Redis(connection_pool=pool)
             r.get('conn_test')
-            print('✅redis连接成功')
+            logger.info('✅redis连接成功')
             return r
         except:
-            print("⚠️redis连接异常")
+            logger.info("⚠️redis连接异常")
     except:
-        print("⚠️缺少redis依赖，请运行pip3 install redis")
+        logger.info("⚠️缺少redis依赖，请运行pip3 install redis")
 
 def getToken(ck, r=None):
     try:
@@ -77,12 +80,12 @@ def getToken(ck, r=None):
         pt_pin = ck[:8]
     if r is not None:
         Token = r.get(f'{activityUrl.split("https://")[1].split("-")[0]}_{pt_pin}')
-        # print("Token过期时间", r.ttl(f'{activityUrl.split("https://")[1].split("-")[0]}_{pt_pin}'))
+        # logger.info("Token过期时间", r.ttl(f'{activityUrl.split("https://")[1].split("-")[0]}_{pt_pin}'))
         if Token is not None:
-            print(f"♻️获取缓存Token->: {Token}")
+            logger.info(f"♻️获取缓存Token->: {Token}")
             return Token
         else:
-            print("🈳去设置Token缓存-->")
+            logger.info("🈳去设置Token缓存-->")
             s.headers = {
                 'Connection': 'keep-alive',
                 'Accept-Encoding': 'gzip, deflate, br',
@@ -95,21 +98,21 @@ def getToken(ck, r=None):
                 'Accept': '*/*'
             }
             sign_txt = sign({"url": f"{activityUrl}", "id": ""}, 'isvObfuscator')
-            # print(sign_txt)
+            # logger.info(sign_txt)
             f = s.post('https://api.m.jd.com/client.action', verify=False, timeout=30)
             if f.status_code != 200:
-                print(f.status_code)
+                logger.info(f.status_code)
                 return
             else:
                 if "参数异常" in f.text:
-                    print("获取token失败！")
+                    logger.info("获取token失败！")
                     return
             Token_new = f.json()['token']
-            print(f"Token->: {Token_new}")
+            logger.info(f"Token->: {Token_new}")
             if r.set(f'{activityUrl.split("https://")[1].split("-")[0]}_{pt_pin}', Token_new, ex=1800):
-                print("✅Token缓存设置成功")
+                logger.info("✅Token缓存设置成功")
             else:
-                print("❌Token缓存设置失败")
+                logger.info("❌Token缓存设置失败")
             return Token_new
     else:
         s.headers = {
@@ -124,17 +127,17 @@ def getToken(ck, r=None):
             'Accept': '*/*'
         }
         sign_txt = sign({"url": f"{activityUrl}", "id": ""}, 'isvObfuscator')
-        # print(sign_txt)
+        # logger.info(sign_txt)
         f = s.post('https://api.m.jd.com/client.action', verify=False, timeout=30)
         if f.status_code != 200:
-            print(f.status_code)
+            logger.info(f.status_code)
             return
         else:
             if "参数异常" in f.text:
-                print("获取token失败！")
+                logger.info("获取token失败！")
                 return
         Token = f.json()['token']
-        print(f"Token->: {Token}")
+        logger.info(f"Token->: {Token}")
         return Token
 
 def getJdTime():
@@ -186,7 +189,7 @@ def loadActivity(token):
         'Referer': activityUrl
     }
     response = requests.request("POST", url, headers=headers, data=json.dumps(payload))
-    # print('loadActivity', response.text)
+    # logger.info('loadActivity', response.text)
     return json.loads(response.text)
 # 记录成功
 def temporary(buyerNick, type):
@@ -226,7 +229,7 @@ def shopList(buyerNick):
     }
     response = requests.request("POST", url, headers=headers, data=json.dumps(payload))
     open_shopList = json.loads(response.text)
-    # print('open_shopList', open_shopList)
+    # logger.info('open_shopList', open_shopList)
     unopen_shopList = []
     if open_shopList['success']:
         open_shopList = open_shopList['data']['data']
@@ -254,23 +257,23 @@ def completeMissionShareAct(index=1, buyerNick=None):
     }
     response = requests.request("POST", url, headers=headers, data=json.dumps(payload))
     completeMission = json.loads(response.text)
-    # print('completeMission', response.text)
+    # logger.info('completeMission', response.text)
     if completeMission['success']:
         if completeMission['data']['status'] == 200:
             remark = completeMission['data']['data']['remark']
             if index == 1:
                 if "助力成功" in remark:
-                    print(f"\tCK1助力船长~")
+                    logger.info(f"\tCK1助力船长~")
                 else:
-                    print(f"\t🛳{remark}")
+                    logger.info(f"\t🛳{remark}")
             else:
-                print(f"\t🛳{remark}")
+                logger.info(f"\t🛳{remark}")
         else:
             msg = completeMission['data']['msg']
-            print(f"\t🛳{msg}")
+            logger.info(f"\t🛳{msg}")
     else:
         errorMessage = completeMission['errorMessage']
-        print(errorMessage)
+        logger.info(errorMessage)
 # 邀请列表
 def inviteList(buyerNick):
     url = f"https://mpdz6-dz.isvjcloud.com/dm/front/jdUnionOrder/customer/inviteList?open_id=&mix_nick={buyerNick}&user_id=10299171"
@@ -289,15 +292,15 @@ def inviteList(buyerNick):
     }
     response = requests.request("POST", url, headers=headers, data=json.dumps(payload))
     inviteList = json.loads(response.text)
-    # print('inviteList', response.text)
+    # logger.info('inviteList', response.text)
     if inviteList['success']:
         data = inviteList['data']['data']
         # inviteNum = data['inviteNum']
         inviteNum = data['pageInfo']['total']
-        print(f"\t🎉已成功邀请{inviteNum}人")
+        logger.info(f"\t🎉已成功邀请{inviteNum}人")
     else:
         errorMessage = inviteList['errorMessage']
-        print(errorMessage)
+        logger.info(errorMessage)
 # 任务完成信息(关注)
 def completeMission(buyerNick, missionType):
     url = f"https://mpdz6-dz.isvjcloud.com/dm/front/jdUnionOrder/mission/completeMission?open_id=&mix_nick={buyerNick}&user_id=10299171"
@@ -316,17 +319,17 @@ def completeMission(buyerNick, missionType):
     }
     response = requests.request("POST", url, headers=headers, data=json.dumps(payload))
     completeMission = json.loads(response.text)
-    # print('completeMission', response.text)
+    # logger.info('completeMission', response.text)
     if completeMission['success']:
         if completeMission['data']['status'] == 200:
             remark = completeMission['data']['data']['remark']
-            print(f"\t🛳{remark}")
+            logger.info(f"\t🛳{remark}")
         else:
             msg = completeMission['data']['msg']
-            print(f"\t🛳{msg}")
+            logger.info(f"\t🛳{msg}")
     else:
         errorMessage = completeMission['errorMessage']
-        print(errorMessage)
+        logger.info(errorMessage)
 # 任务完成信息(开卡)
 def completeMissionCard(buyerNick, venderId, missionType):
     url = f"https://mpdz6-dz.isvjcloud.com/dm/front/jdUnionOrder/mission/completeMission?open_id=&mix_nick={buyerNick}&user_id=10299171"
@@ -349,15 +352,15 @@ def completeMissionCard(buyerNick, venderId, missionType):
         if completeMission['data']['status'] == 200:
             remark = completeMission['data']['data']['remark']
             if "开卡成功" in remark:
-                print(f"\t🎉🎉{remark}")
+                logger.info(f"\t🎉🎉{remark}")
             else:
-                print(f"⛈⛈{remark}")
+                logger.info(f"⛈⛈{remark}")
         else:
             msg = completeMission['data']['msg']
-            print(f"\t🛳{msg}")
+            logger.info(f"\t🛳{msg}")
     else:
         errorMessage = completeMission['data']
-        print(errorMessage)
+        logger.info(errorMessage)
 # 开卡信息
 def shopmember(venderId, cookie):
     shopcard_url = quote_plus(f"{activityUrl}?joinShopId={venderId}")
@@ -408,7 +411,7 @@ def bindWithVender(cookie, venderId, body):
         response = requests.get(url=url, headers=header, timeout=30).text
         return json.loads(response)
     except Exception as e:
-        print(e)
+        logger.info(e)
 # 检查开卡信息
 def checkOpenCard(buyerNick):
     url = f"https://mpdz6-dz.isvjcloud.com/dm/front/jdUnionOrder/customer/checkOpenCard?open_id=&mix_nick={buyerNick}&user_id=10299171"
@@ -427,13 +430,13 @@ def checkOpenCard(buyerNick):
     }
     response = requests.request("POST", url, headers=headers, data=json.dumps(payload))
     checkOpenCard = json.loads(response.text)
-    # print('checkOpenCard', checkOpenCard)
+    # logger.info('checkOpenCard', checkOpenCard)
     if checkOpenCard['success']:
         msg = checkOpenCard['data']['msg']
-        print(msg)
+        logger.info(msg)
     else:
         errorMessage = checkOpenCard['data']
-        print(errorMessage)
+        logger.info(errorMessage)
 
 
 if __name__ == '__main__':
@@ -443,7 +446,7 @@ if __name__ == '__main__':
         if not cks:
             sys.exit()
     except:
-        print("未获取到有效COOKIE,退出程序！")
+        logger.info("未获取到有效COOKIE,退出程序！")
         sys.exit()
     num = 0
     global activityUrl, buyerNick, shareNick
@@ -457,8 +460,8 @@ if __name__ == '__main__':
             pt_pin = unquote_plus(pt_pin)
         except IndexError:
             pt_pin = f'用户{num}'
-        print(f'\n******开始【京东账号{num}】{pt_pin} *********\n')
-        print(datetime.now())
+        logger.info(f'\n******开始【京东账号{num}】{pt_pin} *********\n')
+        logger.info(datetime.now())
         ua = userAgent()
         if num == 1:
             activityUrl = activity_url
@@ -480,24 +483,24 @@ if __name__ == '__main__':
             buyerNick = LA['data']['data']['missionCustomer']['buyerNick']
             buyerNick_nickName = LA['data']['data']['missionCustomer']['nickName']
             buyerNick_headPicUrl = LA['data']['data']['missionCustomer']['headPicUrl']
-            print(f"邀请码->: {buyerNick}")
+            logger.info(f"邀请码->: {buyerNick}")
             time.sleep(1)
-            print("现在去做助力任务")
-            print(f"\t准备助力->: {shareNick}")
+            logger.info("现在去做助力任务")
+            logger.info(f"\t准备助力->: {shareNick}")
             temporary(buyerNick, "pv")
             shopList0 = shopList(buyerNick)
             time.sleep(1)
             completeMissionShareAct(num, buyerNick)
             time.sleep(1)
             inviteList(buyerNick)
-            print("现在去做关注任务")
+            logger.info("现在去做关注任务")
             temporary(buyerNick, "guanzhu")
             completeMission(buyerNick, "uniteCollectShop")
             time.sleep(0.5)
             if shopList0 is not None:
-                print("现在去做开卡任务")
+                logger.info("现在去做开卡任务")
                 if len(shopList0) > 0:
-                    # print("现在去做开卡任务")
+                    # logger.info("现在去做开卡任务")
                     for shop0 in shopList0:
                         shopTitle = shop0['shopTitle']
                         venderId = shop0['userId']
@@ -511,7 +514,7 @@ if __name__ == '__main__':
                         try:
                             result1 = getShopOpenCardInfo({"venderId": str(venderId), "channel": "401"}, venderId, ck,
                                                           ua)
-                            # print(result1)
+                            # logger.info(result1)
                         except:
                             continue
                         try:
@@ -520,17 +523,17 @@ if __name__ == '__main__':
                                                        {"venderId": str(venderId), "bindByVerifyCodeFlag": 1,
                                                         "registerExtend": {}, "writeChildFlag": 0,
                                                         "activityId": 2599647, "channel": 401})
-                                print(f"\t{shopTitle} {ruhui['message']}")
+                                logger.info(f"\t{shopTitle} {ruhui['message']}")
                                 if "火爆" in str(ruhui) or "失败" in str(ruhui):
-                                    print("尝试重新入会 第1次")
+                                    logger.info("尝试重新入会 第1次")
                                     time.sleep(2.5)
                                     ruhui = bindWithVender(ck, venderId,
                                                            {"venderId": str(venderId), "bindByVerifyCodeFlag": 1,
                                                             "registerExtend": {}, "writeChildFlag": 0,
                                                             "activityId": 2599647, "channel": 401})
-                                    print(f"\t{shopTitle} {ruhui['message']}")
+                                    logger.info(f"\t{shopTitle} {ruhui['message']}")
                                     if "火爆" in str(ruhui) or "失败" in str(ruhui):
-                                        print("尝试重新入会 第2次")
+                                        logger.info("尝试重新入会 第2次")
                                         time.sleep(2.5)
                                         ruhui = bindWithVender(ck, venderId, {"venderId": str(venderId),
                                                                               "bindByVerifyCodeFlag": 1,
@@ -538,7 +541,7 @@ if __name__ == '__main__':
                                                                               "writeChildFlag": 0,
                                                                               "activityId": 2599647,
                                                                               "channel": 401})
-                                        print(f"\t{shopTitle} {ruhui['message']}")
+                                        logger.info(f"\t{shopTitle} {ruhui['message']}")
                             # **********************
                             getActivity(token)
                             time.sleep(0.5)
@@ -549,14 +552,14 @@ if __name__ == '__main__':
                             time.sleep(0.5)
                             shopList1 = shopList(buyerNick)
                             if len(shopList1) == 0:
-                                print("😆开卡任务已完成")
+                                logger.info("😆开卡任务已完成")
                             time.sleep(0.5)
                             # inviteList(buyerNick)
                             # time.sleep(0.5)
                         except:
                             continue
                 else:
-                    print("\t已全部开卡")
+                    logger.info("\t已全部开卡")
                 temporary(buyerNick, "fenxiang")
                 checkOpenCard(buyerNick)
                 time.sleep(1)
