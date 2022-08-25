@@ -49,8 +49,9 @@ redis_pwd = os.environ.get("redis_pwd") if os.environ.get("redis_pwd") else ""
 jd_joinCommonId = os.environ.get("jd_joinCommonId") if os.environ.get("jd_joinCommonId") else ""
 
 inviterUuids = [
-    "61bf3a66413248cea674ed1c848b695f",
-    "8b446ea858f44b7f994776cff6532da1",
+    "4d06aea11bd64802b4d615cf3977001d",
+    "479fbbaa47a8494a86ecefaacb6558cc",
+    "7eb63ebcab3e4503bf3d2b1ee3e0afa5",
 ]
 
 inviterUuid = random.choice(inviterUuids)
@@ -644,7 +645,7 @@ if __name__ == '__main__':
                     logger.info("已完成开卡关注任务,未助力过好友~")
                     assStat = True
                 else:
-                    logger.info('assistStatus:', assistState0)
+                    # logger.info('assistStatus:', assistState0)
                     assStat = True
             else:
                 logger.info("现在去开卡")
