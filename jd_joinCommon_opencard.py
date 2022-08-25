@@ -41,7 +41,7 @@ try:
     from jdCookie import get_cookies
     getCk = get_cookies()
 except:
-    print("请先下载依赖脚本，\n下载链接: https://raw.githubusercontent.com/HarbourJ/HarbourToulu/main/jdCookie.py")
+    logger.info("请先下载依赖脚本，\n下载链接: https://raw.githubusercontent.com/HarbourJ/HarbourToulu/main/jdCookie.py")
     sys.exit(3)
 
 redis_url = os.environ.get("redis_url") if os.environ.get("redis_url") else "172.17.0.1"
@@ -55,10 +55,10 @@ inviterUuids = [
 
 inviterUuid = random.choice(inviterUuids)
 if not jd_joinCommonId:
-    print("⚠️未发现有效活动变量,退出程序!")
+    logger.info("⚠️未发现有效活动变量,退出程序!")
     sys.exit()
 if jd_joinCommonId and "&" not in jd_joinCommonId:
-    print("⚠️活动变量错误,退出程序!")
+    logger.info("⚠️活动变量错误,退出程序!")
     sys.exit()
 activityId = jd_joinCommonId.split('&')[0]
 shopId = jd_joinCommonId.split('&')[1]
@@ -71,12 +71,12 @@ def redis_conn():
             pool = redis.ConnectionPool(host=redis_url, port=6379, decode_responses=True, socket_connect_timeout=5, password=redis_pwd)
             r = redis.Redis(connection_pool=pool)
             r.get('conn_test')
-            print('✅redis连接成功')
+            logger.info('✅redis连接成功')
             return r
         except:
-            print("⚠️redis连接异常")
+            logger.info("⚠️redis连接异常")
     except:
-        print("⚠️缺少redis依赖，请运行pip3 install redis")
+        logger.info("⚠️缺少redis依赖，请运行pip3 install redis")
         sys.exit()
 
 def getToken(ck, r=None):
@@ -90,13 +90,13 @@ def getToken(ck, r=None):
     try:
         if r is not None:
             Token = r.get(f'{activityUrl.split("https://")[1].split("-")[0]}_{pt_pin}')
-            # print("Token过期时间", r.ttl(f'{activityUrl.split("https://")[1].split("-")[0]}_{pt_pin}'))
+            # logger.info("Token过期时间", r.ttl(f'{activityUrl.split("https://")[1].split("-")[0]}_{pt_pin}'))
             if Token is not None:
-                # print(f"♻️获取缓存Token->: {Token}")
-                print(f"♻️获取缓存Token")
+                # logger.info(f"♻️获取缓存Token->: {Token}")
+                logger.info(f"♻️获取缓存Token")
                 return Token
             else:
-                print("🈳去设置Token缓存")
+                logger.info("🈳去设置Token缓存")
                 s.headers = {
                     'Connection': 'keep-alive',
                     'Accept-Encoding': 'gzip, deflate, br',
@@ -109,20 +109,20 @@ def getToken(ck, r=None):
                     'Accept': '*/*'
                 }
                 sign_txt = sign({"url": f"{host}", "id": ""}, 'isvObfuscator')
-                # print(sign_txt)
+                # logger.info(sign_txt)
                 f = s.post('https://api.m.jd.com/client.action', verify=False, timeout=30)
                 if f.status_code != 200:
-                    print(f.status_code)
+                    logger.info(f.status_code)
                     return
                 else:
                     if "参数异常" in f.text:
                         return
                 Token_new = f.json()['token']
-                # print(f"Token->: {Token_new}")
+                # logger.info(f"Token->: {Token_new}")
                 if r.set(f'{activityUrl.split("https://")[1].split("-")[0]}_{pt_pin}', Token_new, ex=1800):
-                    print("✅Token缓存设置成功")
+                    logger.info("✅Token缓存设置成功")
                 else:
-                    print("❌Token缓存设置失败")
+                    logger.info("❌Token缓存设置失败")
                 return Token_new
         else:
             s.headers = {
@@ -137,16 +137,16 @@ def getToken(ck, r=None):
                 'Accept': '*/*'
             }
             sign_txt = sign({"url": f"{host}", "id": ""}, 'isvObfuscator')
-            # print(sign_txt)
+            # logger.info(sign_txt)
             f = s.post('https://api.m.jd.com/client.action', verify=False, timeout=30)
             if f.status_code != 200:
-                print(f.status_code)
+                logger.info(f.status_code)
                 return
             else:
                 if "参数异常" in f.text:
                     return
             Token = f.json()['token']
-            print(f"Token->: {Token}")
+            logger.info(f"Token->: {Token}")
             return Token
     except:
         return
@@ -187,7 +187,7 @@ def getActivity():
     try:
         response = requests.request("GET", url, headers=headers)
         if response.status_code == 493:
-            print(response.status_code, "⚠️ip疑似黑了,休息一会再来撸~")
+            logger.info(response.status_code, "⚠️ip疑似黑了,休息一会再来撸~")
             sys.exit()
         if response.cookies:
             cookies = response.cookies.get_dict()
@@ -195,7 +195,7 @@ def getActivity():
             set_cookie = ''.join(sorted([(set_cookie + ";") for set_cookie in set_cookies]))
         return set_cookie
     except:
-        print("⚠️ip疑似黑了,休息一会再来撸~")
+        logger.info("⚠️ip疑似黑了,休息一会再来撸~")
         sys.exit()
 
 def getSystemConfigForNew():
@@ -239,7 +239,7 @@ def getSimpleActInfoVo():
     if res['result']:
         return res['data']
     else:
-        print(res['errorMessage'])
+        logger.info(res['errorMessage'])
 
 def getMyPing(index, venderId):
     url = "https://lzdz1-isv.isvjcloud.com/customer/getMyPing"
@@ -263,9 +263,9 @@ def getMyPing(index, venderId):
     if res['result']:
         return res['data']['nickname'], res['data']['secretPin']
     else:
-        print(f"⚠️{res['errorMessage']}")
+        logger.info(f"⚠️{res['errorMessage']}")
         if index == 1 and "火爆" in res['errorMessage']:
-            print(f"\t⛈车头黑,退出本程序！")
+            logger.info(f"\t⛈车头黑,退出本程序！")
             sys.exit()
 
 def accessLogWithAD(venderId, pin):
@@ -327,7 +327,7 @@ def getUserInfo(pin):
     if res['result']:
         return res['data']['nickname'], res['data']['yunMidImageUrl'], res['data']['pin']
     else:
-        print(res['errorMessage'])
+        logger.info(res['errorMessage'])
 
 def activityContent(pin, pinImg, nickname):
     url = "https://lzdz1-isv.isvjcloud.com/dingzhi/joinCommon/activityContent"
@@ -355,7 +355,7 @@ def activityContent(pin, pinImg, nickname):
     if res['result']:
         return res['data']
     else:
-        print(res['errorMessage'])
+        logger.info(res['errorMessage'])
         if "活动已结束" in res['errorMessage']:
             sys.exit()
 
@@ -436,7 +436,7 @@ def taskInfo(pin):
     if res['result']:
         return res['data']
     else:
-        print(res['errorMessage'])
+        logger.info(res['errorMessage'])
 
 def assist(pin, uuid):
     url = "https://lzdz1-isv.isvjcloud.com/dingzhi/joinCommon/assist"
@@ -459,7 +459,7 @@ def assist(pin, uuid):
     if res['result']:
         return res['data']
     else:
-        print(res['errorMessage'])
+        logger.info(res['errorMessage'])
 
 def doTask(actorUuid, pin, taskType):
     url = "https://lzdz1-isv.isvjcloud.com/dingzhi/joinCommon/doTask"
@@ -479,15 +479,15 @@ def doTask(actorUuid, pin, taskType):
     }
     response = requests.request("POST", url, headers=headers, data=payload)
     res = response.json()
-    print('doTask', res)
+    logger.info('doTask', res)
     if res['result']:
         data = res['data']
         if data['score'] == 0:
-            print("\t获得 💨💨💨")
+            logger.info("\t获得 💨💨💨")
         else:
-            print(f"\t🎉获得{data['score']}积分")
+            logger.info(f"\t🎉获得{data['score']}积分")
     else:
-        print(res['errorMessage'])
+        logger.info(res['errorMessage'])
 
 def bindWithVender(cookie, venderId):
     try:
@@ -509,7 +509,7 @@ def bindWithVender(cookie, venderId):
         if res['success']:
             return res['message']
     except Exception as e:
-        print(e)
+        logger.info(e)
 
 def getShopOpenCardInfo(cookie, venderId):
     shopcard_url0 = f"https://lzdz1-isv.isvjcloud.com/dingzhi/joinCommon/activity/7854908?activityId={activityId}&shareUuid={shareUuid}"
@@ -545,7 +545,7 @@ if __name__ == '__main__':
         if not cks:
             sys.exit()
     except:
-        print("未获取到有效COOKIE,退出程序！")
+        logger.info("未获取到有效COOKIE,退出程序！")
         sys.exit()
     global shareUuid, inviteSuccNum, activityUrl, firstCk
     inviteSuccNum = 0
@@ -557,7 +557,7 @@ if __name__ == '__main__':
         if num == 1:
             firstCk = cookie
         if num % 8 == 0:
-            print("⏰等待10s,休息一下")
+            logger.info("⏰等待10s,休息一下")
             time.sleep(10)
         global ua, activityCookie, token
         ua = userAgent()
@@ -566,15 +566,15 @@ if __name__ == '__main__':
             pt_pin = unquote_plus(pt_pin)
         except IndexError:
             pt_pin = f'用户{num}'
-        print(f'\n******开始【京东账号{num}】{pt_pin} *********\n')
-        print(datetime.now())
+        logger.info(f'\n******开始【京东账号{num}】{pt_pin} *********\n')
+        logger.info(datetime.now())
 
         token = getToken(cookie, r)
         if token is None:
             if num == 1:
-                print(f"⚠️车头获取Token失败,退出本程序！")
+                logger.info(f"⚠️车头获取Token失败,退出本程序！")
                 sys.exit()
-            print(f"⚠️获取Token失败！⏰等待3s")
+            logger.info(f"⚠️获取Token失败！⏰等待3s")
             time.sleep(3)
             continue
         time.sleep(0.5)
@@ -603,26 +603,26 @@ if __name__ == '__main__':
             actContent = activityContent(pin, yunMidImageUrl, nickname)
             if not actContent:
                 if num == 1:
-                    print("⚠️无法获取车头邀请码,退出本程序！")
+                    logger.info("⚠️无法获取车头邀请码,退出本程序！")
                     sys.exit()
                 continue
             hasEnd = actContent['hasEnd']
             if hasEnd:
-                print("活动已结束，下次早点来~")
+                logger.info("活动已结束，下次早点来~")
                 sys.exit()
-            print(f"✅开启【{actContent['activityName']}】活动\n")
+            logger.info(f"✅开启【{actContent['activityName']}】活动\n")
             if num == 1:
-                print(f"🛳 已邀请{actContent['actorInfo']['totalAssistCount']}, 有效助力{actContent['actorInfo']['assistCount']}")
+                logger.info(f"🛳 已邀请{actContent['actorInfo']['totalAssistCount']}, 有效助力{actContent['actorInfo']['assistCount']}")
             actorUuid = actContent['actorInfo']['uuid']
             taskType = actContent['taskType']
-            print(f"邀请码->: {actorUuid}")
-            print(f"准备助力->: {shareUuid}")
+            logger.info(f"邀请码->: {actorUuid}")
+            logger.info(f"准备助力->: {shareUuid}")
             time.sleep(0.5)
             shareRecord(pin, actorUuid)
             time.sleep(0.5)
             taskRecord(pin, actorUuid)
             time.sleep(0.5)
-            print("现在去一键关注店铺")
+            logger.info("现在去一键关注店铺")
             doTask(actorUuid, pin, 20)
             time.sleep(1)
             doTask(actorUuid, pin, 23)
@@ -633,27 +633,27 @@ if __name__ == '__main__':
             openVenderId0 = ass0['openCardInfo']['openVenderId']
             assStat = False
             if openAll0:
-                print("已完成全部开卡任务")
+                logger.info("已完成全部开卡任务")
                 if assistState0 == 0:
-                    print("已经助力过你~")
+                    logger.info("已经助力过你~")
                 # elif assistState0 == 0:
-                #     print("无法助力自己~")
+                #     logger.info("无法助力自己~")
                 elif assistState0 == 3:
-                    print("已助力过其他好友~")
+                    logger.info("已助力过其他好友~")
                 elif assistState0 == 1:
-                    print("已完成开卡关注任务,未助力过好友~")
+                    logger.info("已完成开卡关注任务,未助力过好友~")
                     assStat = True
                 else:
-                    print('assistStatus:', assistState0)
+                    logger.info('assistStatus:', assistState0)
                     assStat = True
             else:
-                print("现在去开卡")
+                logger.info("现在去开卡")
                 task_info0 = taskInfo(pin)
                 openCardList = task_info0['1']['settingInfo']
                 openCardLists = [(int(i['value']), i['name']) for i in openCardList]
                 unOpenCardLists = [i for i in openCardLists if i[0] not in openVenderId0]
                 for shop in unOpenCardLists:
-                    print(f"去开卡 {shop[1]} {shop[0]}")
+                    logger.info(f"去开卡 {shop[1]} {shop[0]}")
                     venderId = shop[0]
                     venderCardName = shop[1]
                     getShopOpenCardInfo(cookie, venderId)
@@ -661,17 +661,17 @@ if __name__ == '__main__':
                     if open_result is not None:
                         if "火爆" in open_result:
                             time.sleep(1.5)
-                            print("\t尝试重新入会 第1次")
+                            logger.info("\t尝试重新入会 第1次")
                             open_result = bindWithVender(cookie, venderId)
                             if "火爆" in open_result:
                                 time.sleep(1.5)
-                                print("\t尝试重新入会 第2次")
+                                logger.info("\t尝试重新入会 第2次")
                                 open_result = bindWithVender(cookie, venderId)
                         if "火爆" in open_result:
-                            print(f"\t⛈⛈{venderCardName} {open_result}")
+                            logger.info(f"\t⛈⛈{venderCardName} {open_result}")
                             assStat = False
                         else:
-                            print(f"\t🎉🎉{venderCardName} {open_result}")
+                            logger.info(f"\t🎉🎉{venderCardName} {open_result}")
                             assStat = True
                     time.sleep(1.5)
             activityContent(pin, yunMidImageUrl, nickname)
@@ -682,12 +682,12 @@ if __name__ == '__main__':
             ass1 = assist(pin, actorUuid)
             assistState1 = ass1['assistState']
             if assStat and assistState1 == 1:
-                print("🎉🎉🎉助力成功~")
+                logger.info("🎉🎉🎉助力成功~")
                 inviteSuccNum += 1
-                print(f"本次车头已邀请{inviteSuccNum}人")
+                logger.info(f"本次车头已邀请{inviteSuccNum}人")
 
             if num == 1:
-                print(f"后面账号全部助力 {actorUuid}")
+                logger.info(f"后面账号全部助力 {actorUuid}")
             if num == 1:
                 shareUuid = actorUuid
                 activityUrl = f"https://lzdz1-isv.isvjcloud.com/dingzhi/joinCommon/activity/5929859?activityId={activityId}&shareUuid={shareUuid}&adsource=null&shareuserid4minipg=null&lng=00.000000&lat=00.000000&sid=&un_area=&&shopid={shopId}"
