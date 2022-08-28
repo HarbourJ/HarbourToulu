@@ -1,4 +1,7 @@
-### Hi there 👋
+# HarbourToulu 🛳
+ ![GitHub watchers](https://img.shields.io/github/watchers/HarbourJ/HarbourToulu)
+ ![GitHub forks](https://img.shields.io/github/forks/HarbourJ/HarbourToulu)
+ ![GitHub Repo stars](https://img.shields.io/github/stars/HarbourJ/HarbourToulu)
 #### TG: https://t.me/HarbourToulu
 **拉库命令👇**
 
