@@ -380,7 +380,7 @@ def shareRecord(pin, actorUuid):
     refresh_cookies(response)
 
 def taskRecord(pin, actorUuid):
-    url = "https://lzdz1-isv.isvjcloud.com/dingzhi/joinCommon/shareRecord"
+    url = "https://lzdz1-isv.isvjcloud.com/dingzhi/joinCommon/taskRecord"
     payload = f"activityId={activityId}&pin={quote_plus(pin)}&uuid={actorUuid}&taskType="
     headers = {
         'Host': 'lzdz1-isv.isvjcloud.com',
