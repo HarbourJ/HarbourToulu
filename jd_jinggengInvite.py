@@ -51,6 +51,7 @@ ac_id = jinggengInviteJoin.split("&")[0]
 user_id = jinggengInviteJoin.split("&")[1]
 inviterNick = random.choice(inviterNicks)
 activity_url = f"https://jinggeng-isv.isvjcloud.com/ql/front/showInviteJoin?id={ac_id}&user_id={user_id}&inviterNick={inviterNick}"
+print(f"【🛳活动入口】{activity_url}")
 
 def redis_conn():
     try:
