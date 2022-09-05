@@ -39,6 +39,7 @@ except:
 
 redis_url = os.environ.get("redis_url") if os.environ.get("redis_url") else "172.17.0.1"
 redis_pwd = os.environ.get("redis_pwd") if os.environ.get("redis_pwd") else ""
+redis_port = os.environ.get("redis_port") if os.environ.get("redis_port") else "6379"
 jd_joinCommonId = os.environ.get("jd_joinCommonId") if os.environ.get("jd_joinCommonId") else ""
 inviterUuid = os.environ.get("jd_joinCommon_uuid") if os.environ.get("jd_joinCommon_uuid") else ""
 
@@ -63,7 +64,7 @@ def redis_conn():
     try:
         import redis
         try:
-            pool = redis.ConnectionPool(host=redis_url, port=6379, decode_responses=True, socket_connect_timeout=5, password=redis_pwd)
+            pool = redis.ConnectionPool(host=redis_url, port=redis_port, decode_responses=True, socket_connect_timeout=5, password=redis_pwd)
             r = redis.Redis(connection_pool=pool)
             r.get('conn_test')
             print('✅redis连接成功')
