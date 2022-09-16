@@ -4,10 +4,10 @@
 """
 File: jd_opencard0916.py(9.16-9.23 庆丰收 赢好礼)
 Author: HarbourJ
-Date: 2022/9/2 20:37
+Date: 2022/9/16 20:37
 TG: https://t.me/HarbourToulu
 TgChat: https://t.me/HarbourSailing
-cron: 0 0 0,20,21 9 * *
+cron: 0 0 0,10,21 16-23 9 *
 new Env('9.16-9.23 庆丰收 赢好礼');
 ActivityEntry: https://lzdz1-isv.isvjcloud.com/m/1000077335/7722148/dz2231213841a094c4500886aa4c8f/?shareUuid=889073c4b87a4c2796b2fc517500431f&adsource=null
 Description: 9.16-9.23 庆丰收 赢好礼 (开卡5 邀请10 加购关注5)
