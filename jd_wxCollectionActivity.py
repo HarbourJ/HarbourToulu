@@ -37,6 +37,7 @@ redis_url = os.environ.get("redis_url") if os.environ.get("redis_url") else "172
 redis_port = os.environ.get("redis_port") if os.environ.get("redis_port") else "6379"
 redis_pwd = os.environ.get("redis_pwd") if os.environ.get("redis_pwd") else ""
 activity_url = os.environ.get("jd_wxCollectionActivityUrl") if os.environ.get("jd_wxCollectionActivityUrl") else ""
+runNums = os.environ.get("jd_wxCollectionActivityRunNums") if os.environ.get("jd_wxCollectionActivityRunNums") else 10
 
 if not activity_url or "wxCollectionActivity/activity" not in activity_url:
     print("⚠️未发现有效加购有礼活动变量,退出程序!")
@@ -44,6 +45,10 @@ if not activity_url or "wxCollectionActivity/activity" not in activity_url:
 activityUrl = activity_url.replace('isvjd', 'isvjcloud').split('&')[0]
 activityId = activityUrl.split('activityId=')[1]
 print(f"【🛳活动入口】{activityUrl}")
+if runNums == 10:
+    print('🤖本次加购默认跑前10个账号,设置自定义变量:export jd_wxCollectionActivityRunNums="需要运行加购的ck数量"')
+else:
+    print(f'🤖本次运行前{runNums}个账号')
 
 
 def redis_conn():
@@ -517,11 +522,11 @@ if __name__ == '__main__':
         print("未获取到有效COOKIE,退出程序！")
         sys.exit()
     num = 0
-    for cookie in cks[:]:
+    for cookie in cks[:runNums]:
         num += 1
-        if num % 9 == 0:
-            print("⏰等待5s,休息一下")
-            time.sleep(5)
+        if num % 5 == 0:
+            print("⏰等待3s,休息一下")
+            time.sleep(3)
         global ua, activityCookie, token
         ua = userAgent()
         try:
