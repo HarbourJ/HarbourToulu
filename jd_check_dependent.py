@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-File: jd_check_dependent.py(Harbour库依赖一键检测安装(不可禁用)每小时检测一次)
+File: jd_check_dependent.py(Harbour库依赖一键检测安装(不可禁用)每2小时检测一次)
 Author: HarbourJ
 Date: 2022/8/12 20:37
 TG: https://t.me/HarbourToulu
@@ -12,7 +12,7 @@ new Env('HarbourJ库依赖一键安装');
 Description:1.HarbourToulu库jd_sign本地算法依赖一键检测安装脚本;
             2.自动识别机器系统/架构,拉取最新依赖文件;
             3.本地sign算法已编译支持Windows(amd64)、Linux(amd64/arm64/arm)、Macos(x86_64)系统/架构;
-            4.默认支持python3版本为3.8-3.9,过高或过低可能会报错;
+            4.默认支持python3版本为3.8-3.10,过低可能会报错;
             5.若本一键配置脚本无法安装所需jd_sign依赖文件,请前往https://github.com/HarbourJ/HarbourToulu/releases自行下载系统对应的jd_sign依赖压缩文件,解压并放置/scripts/HarbourJ_HarbourToulu_main文件夹内即可。
             6.‼️‼️‼️初次拉库必须先运行本脚本‼️‼️‼️
 """
