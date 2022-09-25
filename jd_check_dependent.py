@@ -7,7 +7,7 @@ Author: HarbourJ
 Date: 2022/8/12 20:37
 TG: https://t.me/HarbourToulu
 TgChat: https://t.me/HarbourSailing
-cron: 0 0 */1 * * *
+cron: 0 0 */2 * * *
 new Env('HarbourJ库依赖一键安装');
 Description:1.HarbourToulu库jd_sign本地算法依赖一键检测安装脚本;
             2.自动识别机器系统/架构,拉取最新依赖文件;
