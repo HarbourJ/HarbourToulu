@@ -518,7 +518,7 @@ def getPrize(pin):
             print(f"⛈{errorMessage}")
             if "不足" in errorMessage:
                 sys.exit()
-            return res['errorMessage']
+            return errorMessage
     else:
         print(f"⛈{res['errorMessage']}")
         if '奖品已发完' in res['errorMessage']:
