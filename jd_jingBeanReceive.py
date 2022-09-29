@@ -7,7 +7,7 @@ Author: HarbourJ
 Date: 2022/9/19 22:00
 TG: https://t.me/HarbourToulu
 TgChat: https://t.me/HarbourSailing
-cron: 1 1 1 1 1 1
+cron: 30 0 0 * * *
 new Env('plus专属礼-天天领福利');
 """
 
