@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-File: jd_newVerRewards.py(ios新版本体验奖励)
+File: jd_newVerRewards.py(ios新版本体验奖励-一次性脚本)
 Author: HarbourJ
 Date: 2022/9/19 22:00
 TG: https://t.me/HarbourToulu
 TgChat: https://t.me/HarbourSailing
-cron: 30 0 0 * * *
+cron: 1 1 1 1 1 1
 new Env('ios新版本体验奖励');
 """
 
