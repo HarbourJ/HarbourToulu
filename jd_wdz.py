@@ -478,7 +478,10 @@ if __name__ == '__main__':
         venderIds = getSimAct[3]
         actRule = getSimAct[4]
         actRule0 = actRule.replace("\n", "").split("</br>4")[0].split("</br>3)")[1]
-        maxGroups = actRule0.split("最多可组队")[1].split("次")[0]
+        try:
+            maxGroups = int(actRule0.split("最多可组队")[1].split("次")[0])
+        except:
+            maxGroups = 5
         if num == 1:
             print(f"【活动规则】{actRule0}")
         print(f"【剩余京豆】{beansResidueByDay}")
