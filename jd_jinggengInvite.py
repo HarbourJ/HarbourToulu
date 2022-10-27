@@ -346,7 +346,7 @@ def bindWithVender(cookie):
             'Referer': f'https://shopmember.m.jd.com/shopcard/?venderId={user_id}&channel=401&returnUrl={quote_plus(activityUrl + "&isOpenCard=1")}'
         }
         response = requests.get(url=url, headers=headers, timeout=30).text
-        res = json.loads(response)
+        res = json.loads(re.match(".*?({.*}).*", response, re.S).group(1))
         if res['success']:
             open_result = res['message']
             if "火爆" in open_result:

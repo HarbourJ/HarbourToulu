@@ -390,7 +390,7 @@ def bindWithVender(cookie, venderId):
             'Referer': shopcard_url
         }
         response = requests.get(url=url, headers=headers, timeout=30).text
-        res = json.loads(response)
+        res = json.loads(re.match(".*?({.*}).*", response, re.S).group(1))
         if res['success']:
             return res['message']
     except Exception as e:
