@@ -356,7 +356,7 @@ def bindWithVender(cookie):
         }
         res = s.post('https://api.m.jd.com/', verify=False, timeout=30).json()
         if res['success']:
-            if "火爆" in res['message']:
+            if "火爆" in res['message'] or "失败" in res['message']:
                 print(f"\t⛈⛈⛈{res['message']}")
             else:
                 print(f"\t🎉🎉🎉{res['message']}")
