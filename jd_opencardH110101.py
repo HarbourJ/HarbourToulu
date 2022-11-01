@@ -2,14 +2,15 @@
 # -*- coding: utf-8 -*-
 
 """
-File: jd_opencard102401.py(10.24-10.31 联合钜惠 大牌狂欢季)
+File: jd_opencardH110101.py(11.01-1112 狂欢抢先购 入会下单有惊喜)
 Author: HarbourJ
-Date: 2022/10/24 08:00
+Date: 2022/11/01 08:00
 TG: https://t.me/HarbourToulu
 TgChat: https://t.me/HarbourChat
-cron: 0 30 1,11,21 24-31 10 *
-new Env('10.24-10.31 联合钜惠 大牌狂欢季');
-ActivityEntry: https://lzdz1-isv.isvjcloud.com/dingzhi/joinCommon/activity/activity?activityId=ec3fb09b241b43c28cacc16624d189ca
+cron: 0 30 1,12,21 1-12 11 *
+new Env('11.01-1112 狂欢抢先购 入会下单有惊喜');
+ActivityEntry: https://lzdz1-isv.isvjcloud.com/dingzhi/joinCommon/activity/activity?activityId=7cc1806092924738bee676cf34c35fc3
+Update: 2022/11/01 更新入会算法，内置船新入会本地算法
 """
 
 import time, requests, sys, re, os, json, random
@@ -37,8 +38,8 @@ redis_port = os.environ.get("redis_port") if os.environ.get("redis_port") else "
 redis_pwd = os.environ.get("redis_pwd") if os.environ.get("redis_pwd") else ""
 inviterUuid = os.environ.get("jd_joinCommon_uuid") if os.environ.get("jd_joinCommon_uuid") else ""
 
-activityId = "ec3fb09b241b43c28cacc16624d189ca"
-shopId = "1000003443"
+activityId = "7cc1806092924738bee676cf34c35fc3"
+shopId = "1000000904"
 activity_url = f"https://lzdz1-isv.isvjcloud.com/dingzhi/joinCommon/activity/5929859?activityId={activityId}&shareUuid={inviterUuid}&adsource=null&shareuserid4minipg=null&lng=00.000000&lat=00.000000&sid=&un_area=&&shopid={shopId}"
 print(f"【🛳活动入口】https://lzdz1-isv.isvjcloud.com/dingzhi/joinCommon/activity/5929859?activityId={activityId}")
 
@@ -468,20 +469,27 @@ def bindWithVender(cookie, venderId):
     try:
         shopcard_url0 = f"https://lzdz1-isv.isvjcloud.com/dingzhi/joinCommon/activity/7854908?activityId={activityId}&shareUuid={shareUuid}"
         shopcard_url = f"https://shopmember.m.jd.com/shopcard/?venderId={venderId}&channel=401&returnUrl={quote_plus(shopcard_url0)}"
-        body = {"venderId": venderId, "bindByVerifyCodeFlag": 1,"registerExtend": {},"writeChildFlag":0, "channel": 401}
-        h5st = getH5st("bindWithVender", body)
-        url = f"https://api.m.jd.com/client.action?appid=jd_shop_member&functionId=bindWithVender&body={quote_plus(json.dumps(body, separators=(',', ':')))}&client=H5&clientVersion=9.2.0&uuid=88888&h5st={h5st}"
-        headers = {
-            'Host': 'api.m.jd.com',
-            'Cookie': cookie,
-            'Accept-Encoding': 'gzip, deflate, br',
+        s.headers = {
             'Connection': 'keep-alive',
-            'Accept': '*/*',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
             'User-Agent': ua,
-            'Referer': shopcard_url
+            'Cookie': cookie,
+            'Host': 'api.m.jd.com',
+            'Referer': 'https://shopmember.m.jd.com/',
+            'Accept-Language': 'zh-Hans-CN;q=1 en-CN;q=0.9',
+            'Accept': '*/*'
         }
-        response = requests.get(url=url, headers=headers, timeout=30).text
-        res = json.loads(re.match(".*?({.*}).*", response, re.S).group(1))
+        s.params = {
+            'appid': 'jd_shop_member',
+            'functionId': 'bindWithVender',
+            'body': json.dumps({
+                'venderId': venderId,
+                'shopId': venderId,
+                'bindByVerifyCodeFlag': 1
+            }, separators=(',', ':'))
+        }
+        res = s.post('https://api.m.jd.com/', verify=False, timeout=30).json()
         if res['success']:
             return res['message']
     except Exception as e:
