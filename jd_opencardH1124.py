@@ -10,7 +10,7 @@ TgChat: https://t.me/HarbourChat
 cron: 1 1 1 1 1 1
 new Env('Origins悦木之源邀请有礼2');
 ActivityEntry: https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/index?activityType=10006&activityId=1595256546199793665&templateId=20201228083300yqrhyl011&nodeId=101001005&prd=cjwx
-Description: 邀请18人 200豆,自动助力,自动领奖,‼️该活动有且仅能领取一次奖励,默认领100豆🎁,或者手动领取
+Description: 邀请18人 100豆,自动助力,自动领奖,‼️该活动有且仅能领取一次奖励,默认领100豆🎁,或者手动领取
 """
 
 import time, requests, sys, re, os, json, random
