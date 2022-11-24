@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-File: jd_opencardH1114.py(Origins悦木之源邀请有礼2)
+File: jd_opencardH1124.py(Origins悦木之源邀请有礼2)
 Author: HarbourJ
 Date: 2022/11/24 10:00
 TG: https://t.me/HarbourToulu
