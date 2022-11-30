@@ -11,6 +11,7 @@ cron: 1 1 1 1 1 1
 new Env('关注有礼-JK');
 ActivityEntry: https://shop.m.jd.com/?shopId=12342136
                变量 export jd_shopFollowGiftId="店铺shopId1&店铺shopId2&店铺shopId3" #变量为店铺🆔
+                   export jd_shopFollowGiftRunNums=xx #变量为需要运行账号数量
 """
 
 import time, requests, sys, re, os, json, random
