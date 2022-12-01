@@ -10,8 +10,8 @@ TgChat: https://t.me/HarbourChat
 cron: 1 1 1 1 1 1
 new Env('关注有礼-JK');
 ActivityEntry: https://shop.m.jd.com/?shopId=12342136
-               变量 export jd_shopFollowGiftId="店铺shopId1&店铺shopId2&店铺shopId3" #变量为店铺🆔
-                   export jd_shopFollowGiftRunNums=xx #变量为需要运行账号数量
+               变量 export jd_shopFollowGiftId="店铺shopId1&店铺shopId2" #变量为店铺🆔,建议一次仅运行2-3个shopId
+                   export jd_shopFollowGiftRunNums=xx #变量为需要运行账号数量,默认跑前10个账号
 """
 
 import time, requests, sys, re, os, json, random
