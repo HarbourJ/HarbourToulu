@@ -211,7 +211,7 @@ if __name__ == '__main__':
     num = 0
     for cookie in cks[:runNums]:
         num += 1
-        if num % 5 == 0:
+        if num % 10 == 0:
             print("⏰等待3s,休息一下")
             time.sleep(3)
         global ua
@@ -261,13 +261,13 @@ if __name__ == '__main__':
                     else:
                         print('⛈奖励领取失败3！')
                         MSG1 += f"\n    ⛈【{shopName}】奖励领取失败3！"
-            time.sleep(1)
+            time.sleep(0.5)
 
         if not MSG1:
             MSG += " 💨💨💨\n"
         else:
             MSG += MSG1 + "\n"
-        time.sleep(2)
+        time.sleep(1)
 
     MSG = f"⏰{str(datetime.now())[:19]}\n" + MSG
     send(title, MSG)
