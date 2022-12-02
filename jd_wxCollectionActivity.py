@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-File: jd_wxBulidActivity.py(加购有礼-监控脚本)
+File: jd_wxCollectionActivity.py(加购有礼-监控脚本)
 Author: HarbourJ
 Date: 2022/9/18 19:52
 TG: https://t.me/HarbourToulu
