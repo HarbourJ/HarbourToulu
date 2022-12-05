@@ -39,8 +39,6 @@ redis_port = os.environ.get("redis_port") if os.environ.get("redis_port") else "
 redis_pwd = os.environ.get("redis_pwd") if os.environ.get("redis_pwd") else ""
 activityId = os.environ.get("jd_wxBirthGiftsId") if os.environ.get("jd_wxBirthGiftsId") else ""
 
-activityId = "1f2c69530fa046789d02161893f9cb91"
-
 if not activityId:
     print("⚠️未发现有效活动变量,退出程序!")
     sys.exit()
