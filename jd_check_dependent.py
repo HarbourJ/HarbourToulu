@@ -29,6 +29,9 @@ def updateDependent():
     system = platform.system().lower()
     PyVersion_ = platform.python_version()
     PyVersion = ''.join(PyVersion_.split('.')[:2])
+    if int(PyVersion) > 310:
+        print(f"✅识别本机设备Py版本为{PyVersion_},版本太高暂不支持,可退回青龙2.11.3版本!\n")
+        sys.exit()
     if system == "windows":
         fileName = f"jd_sign-win-amd64-py{PyVersion}.zip"
         print(f"✅识别本机设备为Windows amd64,Py版本为{PyVersion_}\n")
