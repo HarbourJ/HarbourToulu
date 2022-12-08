@@ -34,8 +34,6 @@ except:
 
 inviteId = os.environ.get("inviteId") if os.environ.get("inviteId") else ""
 
-inviteId = "T016v_h2Qh4Y81zRKHWpCjRQl4aW5kRrbA"
-
 if not inviteId:
     print("⚠️未发现有效助力码,退出程序!")
     sys.exit()
