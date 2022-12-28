@@ -55,7 +55,7 @@ def redis_conn():
     try:
         import redis
         try:
-            pool = redis.ConnectionPool(host=redis_url, port=6379, decode_responses=True, socket_connect_timeout=5, password=redis_pwd)
+            pool = redis.ConnectionPool(host=redis_url, port=redis_port, decode_responses=True, socket_connect_timeout=5, password=redis_pwd)
             r = redis.Redis(connection_pool=pool)
             r.get('conn_test')
             print('✅redis连接成功')
