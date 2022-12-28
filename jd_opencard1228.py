@@ -46,10 +46,6 @@ redis_port = os.environ.get("redis_port") if os.environ.get("redis_port") else "
 redis_pwd = os.environ.get("redis_pwd") if os.environ.get("redis_pwd") else ""
 inviterUuid = os.environ.get("jd_opencard1228_uuid") if os.environ.get("jd_opencard1228_uuid") else ""
 
-# 测试
-redis_url = "harbourj.eu.org"
-redis_pwd = "418342839HJ!"
-
 venderId = "1000072521"
 activityId = "dzd5d739ab4fa4916380c44baa9c45"
 activity_url = f"https://lzdz1-isv.isvjcloud.com/m/1000072521/9380848/{activityId}/?shareUuid={inviterUuid}&adsource=null"
