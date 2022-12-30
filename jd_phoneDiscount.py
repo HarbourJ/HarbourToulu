@@ -296,7 +296,7 @@ if __name__ == '__main__':
     activityUrl = f"https://sjtx-dz.isvjcloud.com/phone_discount/?invite_id={shareUuid}&source=test&baseInfo=LM6HIKdH%2Cbrand_two"
 
     num = 0
-    for cookie in cks[0:100]:
+    for cookie in cks[:]:
         num += 1
         if num == 1:
             firstCk = cookie
