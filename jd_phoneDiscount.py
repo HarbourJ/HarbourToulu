@@ -371,6 +371,8 @@ if __name__ == '__main__':
             if inviteSuccNum >= 10:
                 token = getToken(firstCk, r)
                 time.sleep(0.2)
+                getActivity()
+                time.sleep(0.2)
                 authToken0 = getAuth()
                 time.sleep(0.2)
                 getUserInfo(authToken0)
