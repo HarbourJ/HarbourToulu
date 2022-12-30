@@ -380,7 +380,7 @@ if __name__ == '__main__':
                 for i in range(2):
                     invite_type = i + 1
                     print(f"开始第{invite_type}次抽奖")
-                    drawPrize0 = inviteDrawPrize(str(invite_type), authToken)
+                    drawPrize0 = inviteDrawPrize(str(invite_type), authToken0)
                     if "prize_info" not in drawPrize0:
                         print(drawPrize0['message'])
                     else:
