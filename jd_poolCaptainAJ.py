@@ -396,7 +396,7 @@ def saveCaptain(pin, pinImg, nickname):
         print(res['errorMessage'])
 
 def updateCaptain(uuid):
-    url = "https://lzkjdz-isv.isvjcloud.com/common/pool/updateCaptain"
+    url = "https://lzkjdz-isv.isvjcloud.com/pool/updateCaptain"
     payload = f"uuid={uuid}"
     headers = {
         'Host': 'lzkjdz-isv.isvjcloud.com',
