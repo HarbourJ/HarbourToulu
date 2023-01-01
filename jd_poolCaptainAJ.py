@@ -36,7 +36,7 @@ except:
 redis_url = os.environ.get("redis_url") if os.environ.get("redis_url") else "172.17.0.1"
 redis_port = os.environ.get("redis_port") if os.environ.get("redis_port") else "6379"
 redis_pwd = os.environ.get("redis_pwd") if os.environ.get("redis_pwd") else ""
-jd_poolCaptainNums = os.environ.get("jd_poolCaptainNums") if os.environ.get("jd_poolCaptainNums") else "100"
+jd_poolCaptainNums = os.environ.get("jd_poolCaptainNums") if os.environ.get("jd_poolCaptainNums") else "80"
 
 activityId = "36cc0f18d3eb4e178f2a3632f7af1c14"
 shopId = "1000014486"
