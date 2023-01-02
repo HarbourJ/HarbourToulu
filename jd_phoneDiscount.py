@@ -388,7 +388,31 @@ if __name__ == '__main__':
         inviteInfo = inviteFriend(shareUuid, authToken)
         if "prize_info" not in inviteInfo:
             print(inviteInfo['message'])
-            pass
+            if "已达到好友邀请上限" in inviteInfo['message']:
+                if num == 1:
+                    shareUuid = shareUuid1
+                    activityUrl = f"https://sjtx-dz.isvjcloud.com/phone_discount/?invite_id={shareUuid}&source=test&baseInfo={baseInfo}"
+                    print(f"🤖后面的号全部助力: {shareUuid}")
+                    continue
+                else:
+                    token = getToken(firstCk, r)
+                    time.sleep(0.2)
+                    getActivity()
+                    time.sleep(0.2)
+                    authToken0 = getAuth()
+                    time.sleep(0.2)
+                    getUserInfo(authToken0)
+                    time.sleep(0.2)
+                    for i in range(2):
+                        invite_type = i + 1
+                        print(f"开始第{invite_type}次抽奖")
+                        drawPrize0 = inviteDrawPrize(str(invite_type), authToken0)
+                        if "prize_info" not in drawPrize0:
+                            print(drawPrize0['message'])
+                        else:
+                            prize_info = f"{drawPrize0['prize_info']['user_prize']['prize_name']}{drawPrize0['prize_info']['user_prize']['prize_info']['quota']}"
+                            print(f"🎁抽奖获得:{prize_info}")
+                    sys.exit()
         else:
             inviteSuccNum += 1
             print(f"🎉助力成功！已邀请{inviteSuccNum}人")
