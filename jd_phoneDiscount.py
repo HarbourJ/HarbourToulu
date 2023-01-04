@@ -290,26 +290,6 @@ def inviteFriend(inviter_id, authToken):
     res = response.json()
     return res
 
-# def clickActive(authToken):
-#     url = f"https://sjtx-dz.isvjcloud.com/burying/stat?action=click_active&value={appKey}&source=test"
-#     headers = {
-#         'Host': 'sjtx-dz.isvjcloud.com',
-#         'Accept': 'application/json, text/plain, */*',
-#         'App-Key': appKey,
-#         'Authorization': f'Bearer {authToken}',
-#         'brand': brand,
-#         'Accept-Language': 'zh-CN,zh-Hans;q=0.9',
-#         'Accept-Encoding': 'gzip, deflate, br',
-#         'Content-Type': 'application/json',
-#         'Origin': 'https://sjtx-dz.isvjcloud.com',
-#         'User-Agent': ua,
-#         'Referer': activityUrl,
-#         'Connection': 'keep-alive'
-#     }
-#     response = requests.request("POST", url, headers=headers)
-#     res = response.json()
-#     return res
-
 def invite(authToken):
     url = f"https://sjtx-dz.isvjcloud.com/burying/stat?action=invite&source=test&is_share=1"
     headers = {
@@ -602,11 +582,14 @@ if __name__ == '__main__':
                     invite_type = i + 1
                     print(f"开始第{invite_type}次抽奖")
                     drawPrize0 = inviteDrawPrize(str(invite_type), authToken0)
-                    if "prize_info" not in drawPrize0:
-                        print(drawPrize0['message'])
-                    else:
-                        prize_info = f"{drawPrize0['prize_info']['user_prize']['prize_name']}{drawPrize0['prize_info']['user_prize']['prize_info']['quota']}"
-                        print(f"🎁抽奖获得:{prize_info}")
+                    try:
+                        if "prize_info" not in drawPrize0:
+                            print(drawPrize0['message'])
+                        else:
+                            prize_info = f"{drawPrize0['prize_info']['user_prize']['prize_name']}{drawPrize0['prize_info']['user_prize']['prize_info']['quota']}"
+                            print(f"🎁抽奖获得:{prize_info}")
+                    except:
+                        print(drawPrize0)
                 sys.exit()
         else:
             inviteInfo = inviteFriend(shareUuid, authToken)
@@ -631,11 +614,14 @@ if __name__ == '__main__':
                             invite_type = i + 1
                             print(f"开始第{invite_type}次抽奖")
                             drawPrize0 = inviteDrawPrize(str(invite_type), authToken0)
-                            if "prize_info" not in drawPrize0:
-                                print(drawPrize0['message'])
-                            else:
-                                prize_info = f"{drawPrize0['prize_info']['user_prize']['prize_name']}{drawPrize0['prize_info']['user_prize']['prize_info']['quota']}"
-                                print(f"🎁抽奖获得:{prize_info}")
+                            try:
+                                if "prize_info" not in drawPrize0:
+                                    print(drawPrize0['message'])
+                                else:
+                                    prize_info = f"{drawPrize0['prize_info']['user_prize']['prize_name']}{drawPrize0['prize_info']['user_prize']['prize_info']['quota']}"
+                                    print(f"🎁抽奖获得:{prize_info}")
+                            except:
+                                print(drawPrize0)
                         sys.exit()
             else:
                 inviteSuccNum += 1
@@ -655,11 +641,14 @@ if __name__ == '__main__':
                         invite_type = i + 1
                         print(f"开始第{invite_type}次抽奖")
                         drawPrize0 = inviteDrawPrize(str(invite_type), authToken0)
-                        if "prize_info" not in drawPrize0:
-                            print(drawPrize0['message'])
-                        else:
-                            prize_info = f"{drawPrize0['prize_info']['user_prize']['prize_name']}{drawPrize0['prize_info']['user_prize']['prize_info']['quota']}"
-                            print(f"🎁抽奖获得:{prize_info}")
+                        try:
+                            if "prize_info" not in drawPrize0:
+                                print(drawPrize0['message'])
+                            else:
+                                prize_info = f"{drawPrize0['prize_info']['user_prize']['prize_name']}{drawPrize0['prize_info']['user_prize']['prize_info']['quota']}"
+                                print(f"🎁抽奖获得:{prize_info}")
+                        except:
+                            print(drawPrize0)
                     sys.exit()
         if num == 1:
             shareUuid = shareUuid1
