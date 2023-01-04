@@ -521,6 +521,7 @@ if __name__ == '__main__':
                 time.sleep(1.5)
                 continue
         shareUuid1 = userInfo[0]
+        print(f"🤖助力码: {shareUuid1}")
         is_acvite_complete = userInfo[1]
         user_new = userInfo[4]
         time.sleep(0.2)
