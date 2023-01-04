@@ -37,6 +37,7 @@ redis_url = os.environ.get("redis_url") if os.environ.get("redis_url") else "172
 redis_port = os.environ.get("redis_port") if os.environ.get("redis_port") else "6379"
 redis_pwd = os.environ.get("redis_pwd") if os.environ.get("redis_pwd") else ""
 jd_wxCompleteInfoId = os.environ.get("jd_wxCompleteInfoId") if os.environ.get("jd_wxCompleteInfoId") else ""
+proxies = {"https": os.environ.get('JK_ALL_PROXY', None), "http": os.environ.get('JK_ALL_PROXY', None)}
 
 if not jd_wxCompleteInfoId or "&" not in jd_wxCompleteInfoId:
     print("⚠️未发现有效活动变量jd_wxCompleteInfoId,退出程序!")
@@ -172,7 +173,7 @@ def getActivity():
         'Accept-Encoding': 'gzip, deflate, br',
         'Connection': 'keep-alive'
     }
-    response = requests.request("GET", url, headers=headers)
+    response = requests.request("GET", url, headers=headers, proxies=proxies)
     if response.status_code == 200:
         if response.cookies:
             cookies = response.cookies.get_dict()
@@ -200,7 +201,7 @@ def getOpenStatus():
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
 
 def getSystemConfig():
     url = "https://cjhy-isv.isvjcloud.com/wxCommonInfo/getSystemConfig"
@@ -218,7 +219,7 @@ def getSystemConfig():
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
 
 def getSimpleActInfoVo():
@@ -237,7 +238,7 @@ def getSimpleActInfoVo():
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
     res = response.json()
     if res['result']:
@@ -261,7 +262,7 @@ def getMyPing(venderId):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     if response.status_code == 200:
         refresh_cookies(response)
         res = response.json()
@@ -290,7 +291,7 @@ def _selectById(venderId):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=body)
+    response = requests.request("POST", url, headers=headers, data=body, proxies=proxies)
     res = response.json()
     if res['result']:
         saveInfo = ""
@@ -357,7 +358,7 @@ def getOpenCardInfo(venderId, pin, activityType):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=body)
+    response = requests.request("POST", url, headers=headers, data=body, proxies=proxies)
     res = response.json()
     if res['result']:
         return res['data']
@@ -380,7 +381,7 @@ def getShopInfoVO(venderId):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     res = response.json()
     if res['result']:
         return res['data']
@@ -403,7 +404,7 @@ def accessLog(venderId, pin, activityType):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    requests.request("POST", url, headers=headers, data=payload)
+    requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
 
 def listDrawContent(activityType):
     url = "https://cjhy-isv.isvjcloud.com/drawContent/listDrawContent"
@@ -421,7 +422,7 @@ def listDrawContent(activityType):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=body)
+    response = requests.request("POST", url, headers=headers, data=body, proxies=proxies)
     res = response.json()
     if res['result']:
         return res['data']
@@ -446,7 +447,7 @@ def selectById(pin, venderId):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=body)
+    response = requests.request("POST", url, headers=headers, data=body, proxies=proxies)
     refresh_cookies(response)
     res = response.json()
     if res['result']:
@@ -469,7 +470,7 @@ def getInfo():
         'X-Requested-With': 'XMLHttpRequest',
         'Cookie': activityCookie,
     }
-    requests.request("GET", url, headers=headers)
+    requests.request("GET", url, headers=headers, proxies=proxies)
 
 def get_mobile():
     mobiles = ['130', '131', '132', '133', '134']
@@ -493,7 +494,7 @@ def save(saveInfo, venderId, pin, drawInfoId):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=body)
+    response = requests.request("POST", url, headers=headers, data=body, proxies=proxies)
     res = response.json()
     if res['result']:
         return res['data']

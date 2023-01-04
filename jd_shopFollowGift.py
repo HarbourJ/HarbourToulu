@@ -41,6 +41,7 @@ redis_url = os.environ.get("redis_url") if os.environ.get("redis_url") else "172
 redis_pwd = os.environ.get("redis_pwd") if os.environ.get("redis_pwd") else ""
 jd_shopFollowGiftId = os.environ.get("jd_shopFollowGiftId") if os.environ.get("jd_shopFollowGiftId") else ""
 runNums = os.environ.get("jd_shopFollowGiftRunNums") if os.environ.get("jd_shopFollowGiftRunNums") else 10
+proxies = {"https": os.environ.get('JK_ALL_PROXY', None), "http": os.environ.get('JK_ALL_PROXY', None)}
 
 if not jd_shopFollowGiftId:
     print("⚠️未发现有效活动变量jd_shopFollowGiftId,退出程序!")
@@ -75,7 +76,7 @@ def check(ua, ck):
             "Referer": "https://home.m.jd.com/myJd/newhome.action?sceneval=2&ufc=&",
             "Accept-Encoding": "gzip, deflate",
         }
-        result = requests.get(url=url, headers=header, timeout=None).text
+        result = requests.get(url=url, headers=header, timeout=None, proxies=proxies).text
         codestate = json.loads(result)
         if codestate['retcode'] == '1001':
             return {'code': 1001, 'data': '⚠️当前ck已失效，请检查'}
@@ -96,7 +97,7 @@ def get_venderId(index, shopId):
         'user-agent': ua,
         'cookie': cookie
     }
-    response = requests.request("GET", url, headers=headers)
+    response = requests.request("GET", url, headers=headers, proxies=proxies)
     res = response.json()
     if res['success']:
         venderId = res['data']['shopInfo']['venderId']

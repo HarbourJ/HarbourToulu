@@ -37,6 +37,7 @@ redis_url = os.environ.get("redis_url") if os.environ.get("redis_url") else "172
 redis_port = os.environ.get("redis_port") if os.environ.get("redis_port") else "6379"
 redis_pwd = os.environ.get("redis_pwd") if os.environ.get("redis_pwd") else ""
 inviterUuid = os.environ.get("jd_joinCommon_uuid") if os.environ.get("jd_joinCommon_uuid") else ""
+proxies = {"https": os.environ.get('JK_ALL_PROXY', None), "http": os.environ.get('JK_ALL_PROXY', None)}
 
 activityId = "1a62e8cf4dd34e9e9be4fcd11b574621"
 shopId = "1000000904"
@@ -142,7 +143,7 @@ def getActivity():
         'Connection': 'keep-alive'
     }
 
-    response = requests.request("GET", url, headers=headers)
+    response = requests.request("GET", url, headers=headers, proxies=proxies)
     if response.status_code == 200:
         if response.cookies:
             cookies = response.cookies.get_dict()
@@ -169,7 +170,7 @@ def getSystemConfigForNew():
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
 
 def getSimpleActInfoVo():
@@ -188,7 +189,7 @@ def getSimpleActInfoVo():
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
     res = response.json()
     if res['result']:
@@ -212,7 +213,7 @@ def getMyPing(index, venderId):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
     res = response.json()
     if res['result']:
@@ -239,7 +240,7 @@ def accessLogWithAD(venderId, pin):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
 
 def getSystime():
@@ -257,7 +258,7 @@ def getSystime():
         'Accept-Language': 'zh-CN,zh-Hans;q=0.9',
         'X-Requested-With': 'XMLHttpRequest'
     }
-    response = requests.request("POST", url, headers=headers)
+    response = requests.request("POST", url, headers=headers, proxies=proxies)
     refresh_cookies(response)
 
 def getUserInfo(pin):
@@ -276,7 +277,7 @@ def getUserInfo(pin):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
     res = response.json()
     if res['result']:
@@ -304,7 +305,7 @@ def activityContent(pin, pinImg, nickname):
         'Referer': activityUrl,
         'Cookie': f'IsvToken={token};{activityCookie}'
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
     res = response.json()
     if res['result']:
@@ -330,7 +331,7 @@ def shareRecord(pin, actorUuid):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
 
 def taskRecord(pin, actorUuid):
@@ -349,7 +350,7 @@ def taskRecord(pin, actorUuid):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
 
 def drawContent(actorUuid, pin):
@@ -368,7 +369,7 @@ def drawContent(actorUuid, pin):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    requests.request("POST", url, headers=headers, data=payload)
+    requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
 
 def taskInfo(pin):
     url = "https://lzdz1-isv.isvjcloud.com/dingzhi/joinCommon/taskInfo"
@@ -386,7 +387,7 @@ def taskInfo(pin):
         'Referer': activityUrl,
         'Cookie':  activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     res = response.json()
     if res['result']:
         return res['data']
@@ -409,7 +410,7 @@ def assist(pin, uuid):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     res = response.json()
     if res['result']:
         return res['data']
@@ -432,7 +433,7 @@ def doTask(actorUuid, pin, taskType):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     res = response.json()
     print('doTask', res)
     if res['result']:
@@ -490,7 +491,7 @@ def getShopOpenCardInfo(cookie, venderId):
             'Referer': shopcard_url,
             'Accept-Encoding': 'gzip, deflate'
         }
-        response = requests.get(url=url, headers=headers, timeout=5).text
+        response = requests.get(url=url, headers=headers, timeout=5, proxies=proxies).text
         res = json.loads(response)
         if res['success']:
             venderCardName = res['result']['shopMemberCardInfo']['venderCardName']

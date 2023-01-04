@@ -42,6 +42,7 @@ redis_port = os.environ.get("redis_port") if os.environ.get("redis_port") else "
 redis_pwd = os.environ.get("redis_pwd") if os.environ.get("redis_pwd") else ""
 activityId = os.environ.get("jd_lzkjInteractId") if os.environ.get("jd_lzkjInteractId") else ""
 share_userId = os.environ.get("jd_lzkjInteractUserId") if os.environ.get("jd_lzkjInteractUserId") else ""
+proxies = {"https": os.environ.get('JK_ALL_PROXY', None), "http": os.environ.get('JK_ALL_PROXY', None)}
 
 if not activityId:
     print("⚠️未发现有效活动变量jd_lzkjInteractId,退出程序!")
@@ -160,7 +161,7 @@ def check(ck):
             "Referer": "https://home.m.jd.com/myJd/newhome.action?sceneval=2&ufc=&",
             "Accept-Encoding": "gzip, deflate",
         }
-        result = requests.get(url=url, headers=header).text
+        result = requests.get(url=url, headers=header, proxies=proxies).text
         codestate = json.loads(result)
         if codestate['retcode'] == '1001':
             msg = "当前ck已失效，请检查"
@@ -181,7 +182,7 @@ def getActivity():
         'Accept-Encoding': 'gzip, deflate, br',
         'Connection': 'keep-alive'
     }
-    response = requests.request("GET", url, headers=headers)
+    response = requests.request("GET", url, headers=headers, proxies=proxies)
     if response.status_code != 200:
         print(response.status_code, "⚠️ip疑似黑了,休息一会再来撸~")
         sys.exit()
@@ -208,7 +209,7 @@ def getUserInfo(shareUserId):
         'Referer': activityUrl,
         'Cookie': f'IsvToken={token};'
     }
-    response = requests.request("POST", url, headers=headers, data=json.dumps(body))
+    response = requests.request("POST", url, headers=headers, data=json.dumps(body), proxies=proxies)
     if response.status_code == 200:
         res = response.json()
         if res['data']:
@@ -236,7 +237,7 @@ def guestMyself(Token, shareUserId):
         'Connection': 'keep-alive',
         'Referer': activityUrl
     }
-    requests.post(url, headers=headers, data=json.dumps(body))
+    requests.post(url, headers=headers, data=json.dumps(body), proxies=proxies)
 
 def getMember(Token, shareUserId):
     url = "https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/api/task/member/getMember"
@@ -255,7 +256,7 @@ def getMember(Token, shareUserId):
         'Connection': 'keep-alive',
         'Referer': activityUrl
     }
-    response = requests.post(url, headers=headers, data=json.dumps(body))
+    response = requests.post(url, headers=headers, data=json.dumps(body), proxies=proxies)
     try:
         res = response.json()
         inviteNum = res['data']['shareUser']
@@ -279,7 +280,7 @@ def prizeList(Token):
         'Connection': 'keep-alive',
         'Referer': activityUrl
     }
-    response = requests.post(url, headers=headers, data=json.dumps(body))
+    response = requests.post(url, headers=headers, data=json.dumps(body), proxies=proxies)
     try:
         return response.json()
     except:
@@ -302,7 +303,7 @@ def joinCheck(Token):
         'Connection': 'keep-alive',
         'Referer': activityUrl
     }
-    response = requests.post(url, headers=headers, data=json.dumps(body))
+    response = requests.post(url, headers=headers, data=json.dumps(body), proxies=proxies)
     try:
         return response.json()
     except:
@@ -323,7 +324,7 @@ def getUserId(Token):
         'Connection': 'keep-alive',
         'Referer': activityUrl
     }
-    response = requests.post(url, headers=headers, data=json.dumps(body))
+    response = requests.post(url, headers=headers, data=json.dumps(body), proxies=proxies)
     try:
         return response.json()['data']['shareUserId']
     except Exception as e:
@@ -347,7 +348,7 @@ def receiveAcquire(Token, id):
         'Connection': 'keep-alive',
         'Referer': activityUrl
     }
-    response = requests.post(url, headers=headers, data=json.dumps(body))
+    response = requests.post(url, headers=headers, data=json.dumps(body), proxies=proxies)
     try:
         return response.json()['resp_code']
     except:
@@ -397,7 +398,7 @@ def getShopOpenCardInfo(cookie, venderId):
             'Referer': shopcard_url,
             'Accept-Encoding': 'gzip, deflate'
         }
-        response = requests.get(url=url, headers=headers, timeout=5).text
+        response = requests.get(url=url, headers=headers, timeout=5, proxies=proxies).text
         res = json.loads(response)
         if res['success']:
             venderCardName = res['result']['shopMemberCardInfo']['venderCardName']

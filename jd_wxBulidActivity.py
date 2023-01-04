@@ -37,6 +37,7 @@ redis_url = os.environ.get("redis_url") if os.environ.get("redis_url") else "172
 redis_port = os.environ.get("redis_port") if os.environ.get("redis_port") else "6379"
 redis_pwd = os.environ.get("redis_pwd") if os.environ.get("redis_pwd") else ""
 activityId = os.environ.get("jd_wxBulidActivityId") if os.environ.get("jd_wxBulidActivityId") else ""
+proxies = {"https": os.environ.get('JK_ALL_PROXY', None), "http": os.environ.get('JK_ALL_PROXY', None)}
 
 if not activityId:
     print("⚠️未发现有效盖楼有礼活动变量,退出程序!")
@@ -162,7 +163,7 @@ def getActivity():
         'Accept-Encoding': 'gzip, deflate, br',
         'Connection': 'keep-alive'
     }
-    response = requests.request("GET", url, headers=headers)
+    response = requests.request("GET", url, headers=headers, proxies=proxies)
     if response.status_code == 200:
         if response.cookies:
             cookies = response.cookies.get_dict()
@@ -189,7 +190,7 @@ def getSystemConfigForNew():
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
 
 def getSimpleActInfoVo():
@@ -208,7 +209,7 @@ def getSimpleActInfoVo():
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
     res = response.json()
     if res['result']:
@@ -230,7 +231,7 @@ def getMyPing(venderId):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
     res = response.json()
     if res['result']:
@@ -254,7 +255,7 @@ def accessLogWithAD(venderId, pin):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
 
 def activityContent(pin):
@@ -273,7 +274,7 @@ def activityContent(pin):
         'Referer': activityUrl,
         'Cookie': f'IsvToken={token};{activityCookie}'
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
     res = response.json()
     if res['result']:
@@ -304,7 +305,7 @@ def getShopInfoVO(venderId):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
     res = response.json()
     if res['result']:
@@ -329,7 +330,7 @@ def getActMemberInfo(venderId, pin):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
     res = response.json()
     if res['result']:
@@ -351,7 +352,7 @@ def miniProgramShareInfo():
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("GET", url, headers=headers)
+    response = requests.request("GET", url, headers=headers, proxies=proxies)
     refresh_cookies(response)
 
 def getPublishs(pin):
@@ -370,7 +371,7 @@ def getPublishs(pin):
         'Referer': activityUrl,
         'Cookie': f'IsvToken={token};{activityCookie}'
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
 
 def currentFloor(pin):
@@ -389,7 +390,7 @@ def currentFloor(pin):
         'Referer': activityUrl,
         'Cookie': f'IsvToken={token};{activityCookie}'
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
     res = response.json()
     if res['result']:
@@ -414,7 +415,7 @@ def publish(pin):
         'Referer': activityUrl,
         'Cookie': f'IsvToken={token};{activityCookie}'
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
     res = response.json()
     if res['result']:

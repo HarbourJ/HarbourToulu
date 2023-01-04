@@ -33,6 +33,8 @@ except:
     print("请先下载依赖脚本，\n下载链接: https://raw.githubusercontent.com/HarbourJ/HarbourToulu/main/jdCookie.py")
     sys.exit(3)
 
+proxies = {"https": os.environ.get('JK_ALL_PROXY', None), "http": os.environ.get('JK_ALL_PROXY', None)}
+
 def randomString(e, flag=False):
     t = "0123456789abcdef"
     if flag: t = t.upper()
@@ -48,7 +50,7 @@ def doTask(cookie):
         'Host': 'api.m.jd.com',
         'User-Agent': ua
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     try:
         res = response.json()
         if res['isSuccess']:

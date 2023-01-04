@@ -41,6 +41,7 @@ redis_url = os.environ.get("redis_url") if os.environ.get("redis_url") else "172
 redis_port = os.environ.get("redis_port") if os.environ.get("redis_port") else "6379"
 redis_pwd = os.environ.get("redis_pwd") if os.environ.get("redis_pwd") else ""
 jd_wdz_activityId = os.environ.get("jd_wdz_activityId") if os.environ.get("jd_wdz_activityId") else ""
+proxies = {"https": os.environ.get('JK_ALL_PROXY', None), "http": os.environ.get('JK_ALL_PROXY', None)}
 
 if not jd_wdz_activityId:
     print("⚠️未发现有效活动变量,退出程序!")
@@ -173,7 +174,7 @@ def getActivity():
         'Connection': 'keep-alive'
     }
     try:
-        response = requests.request("GET", url, headers=headers)
+        response = requests.request("GET", url, headers=headers, proxies=proxies)
         if "活动未开始" in response.text:
             print("⚠活动未开始,晚点再来~")
             sys.exit()
@@ -205,7 +206,7 @@ def getSystemConfigForNew():
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
 
 def getMyPing(index):
@@ -224,7 +225,7 @@ def getMyPing(index):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     print(response.status_code)
     refresh_cookies(response)
     res = response.json()
@@ -252,7 +253,7 @@ def getSimpleActInfoVo():
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     # refresh_cookies(response)
     res = response.json()
     if res['result']:
@@ -276,7 +277,7 @@ def accessLog(pin):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
 
 def getUserInfo(pin):
@@ -295,7 +296,7 @@ def getUserInfo(pin):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
     res = response.json()
     if res['result']:
@@ -319,7 +320,7 @@ def getOpenCardAllStatuesNew(pin, again=1):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     # refresh_cookies(response)
     res = response.json()
     if res['result']:
@@ -349,7 +350,7 @@ def isInvited(pin):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     # refresh_cookies(response)
     res = response.json()
     if res['result']:
@@ -377,7 +378,7 @@ def acceptInvite(inviterNick, inviterPin, inviterImg, pin, nickName, inviteeImg)
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     # refresh_cookies(response)
     res = response.json()
     if res['result']:
@@ -428,7 +429,7 @@ def getShopOpenCardInfo(cookie, venderId):
             'Referer': shopcard_url,
             'Accept-Encoding': 'gzip, deflate'
         }
-        response = requests.get(url=url, headers=headers, timeout=5).text
+        response = requests.get(url=url, headers=headers, timeout=5, proxies=proxies).text
         res = json.loads(response)
         if res['success']:
             venderCardName = res['result']['shopMemberCardInfo']['venderCardName']

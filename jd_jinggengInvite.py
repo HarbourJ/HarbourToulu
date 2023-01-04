@@ -39,6 +39,7 @@ redis_url = os.environ.get("redis_url") if os.environ.get("redis_url") else "172
 redis_port = os.environ.get("redis_port") if os.environ.get("redis_port") else "6379"
 redis_pwd = os.environ.get("redis_pwd") if os.environ.get("redis_pwd") else ""
 jinggengInviteJoin = os.environ.get("jinggengInviteJoin") if os.environ.get("jinggengInviteJoin") else ""
+proxies = {"https": os.environ.get('JK_ALL_PROXY', None), "http": os.environ.get('JK_ALL_PROXY', None)}
 
 inviterNicks = [
     "Ny0m1K1tVHIJvt0j4SQ9RbRPXMHHf%2BDrNmMVfT8S5hq3SjYMAACrbEHZQ40J5yPY",
@@ -148,7 +149,7 @@ def getJdTime():
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36'
     }
     try:
-        response = requests.request("GET", url, headers=headers, timeout=2)
+        response = requests.request("GET", url, headers=headers, timeout=2, proxies=proxies)
         if response.status_code == 200:
             res = response.json()
             jdTime = res['currentTime2']
@@ -191,7 +192,7 @@ def getActivity(index=1, isOpenCard=0, inviterCode=None, getIndex=0):
       'Referer': url,
       'Cookie': IsvToken + activityCookie
     }
-    response = requests.request("GET", url, headers=headers)
+    response = requests.request("GET", url, headers=headers, proxies=proxies)
     html_text = response.text
     if response.status_code == 493:
         print(response.status_code, "⚠️ip疑似黑了,休息一会再来撸~")
@@ -270,7 +271,7 @@ def setMixNick(token):
         'Cookie': activityCookie
     }
     try:
-        response = requests.request("POST", url, headers=headers, data=payload)
+        response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
         res = response.text
         setMixNick0 = eval(res.replace('true', 'True').replace('false', 'False').replace('none', 'None'))['msg']
         refresh_cookies(response)
@@ -296,7 +297,7 @@ def recordActPvUvdata(token):
         'Content-Length': '56',
         'Cookie': f"IsvToken={token};" + activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
 
 def checkTokenInSession(token):
@@ -316,7 +317,7 @@ def checkTokenInSession(token):
         'Content-Length': '99',
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
 
 def shopmember(cookie):
@@ -331,7 +332,7 @@ def shopmember(cookie):
         'Referer': 'https://jinggeng-isv.isvjcloud.com/',
         'Accept-Encoding': 'gzip, deflate, br'
     }
-    requests.request("GET", url, headers=headers)
+    requests.request("GET", url, headers=headers, proxies=proxies)
 
 def bindWithVender(cookie):
     try:
@@ -382,7 +383,7 @@ def receiveInviteJoinAward(token, awardId):
         'Content-Length': '99',
         'Cookie': f"IsvToken={token};" + activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload).text
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies).text
     res = eval(response.replace('true', 'True').replace('false', 'False').replace('none', 'None'))
     if res['succ'] is True:
         msg = eval(str(res['msg']).replace('\\\\', ''))

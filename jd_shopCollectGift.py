@@ -36,6 +36,7 @@ except:
     sys.exit(3)
 
 venderId = os.environ.get("jd_shopCollectGiftId") if os.environ.get("jd_shopCollectGiftId") else ""
+proxies = {"https": os.environ.get('JK_ALL_PROXY', None), "http": os.environ.get('JK_ALL_PROXY', None)}
 
 if not venderId:
     print("⚠️未发现有效活动变量,退出程序!")
@@ -53,7 +54,7 @@ def collectGift(venderId, activityId, activityType, cookie):
         'Referer': 'https://shopmember.m.jd.com/',
         'Accept-Encoding': 'gzip, deflate, br'
     }
-    response = requests.request("GET", url, headers=headers)
+    response = requests.request("GET", url, headers=headers, proxies=proxies)
     res = response.json()
     if res['success']:
         return res['message']
@@ -72,7 +73,7 @@ def getFansDetail(venderId, cookie):
         'Referer': 'https://shopmember.m.jd.com/',
         'Accept-Encoding': 'gzip, deflate, br'
     }
-    response = requests.request("GET", url, headers=headers)
+    response = requests.request("GET", url, headers=headers, proxies=proxies)
     res = response.json()
     if res['success']:
         brandName = res['data'][0]['cardInfo']['brandName']
