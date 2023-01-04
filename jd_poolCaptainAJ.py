@@ -37,6 +37,7 @@ redis_url = os.environ.get("redis_url") if os.environ.get("redis_url") else "172
 redis_port = os.environ.get("redis_port") if os.environ.get("redis_port") else "6379"
 redis_pwd = os.environ.get("redis_pwd") if os.environ.get("redis_pwd") else ""
 jd_poolCaptainNums = os.environ.get("jd_poolCaptainNums") if os.environ.get("jd_poolCaptainNums") else "80"
+proxies = {"https": os.environ.get('JK_ALL_PROXY', None), "http": os.environ.get('JK_ALL_PROXY', None)}
 
 activityId = "36cc0f18d3eb4e178f2a3632f7af1c14"
 shopId = "1000014486"
@@ -119,7 +120,7 @@ def getJdTime():
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36'
     }
     try:
-        response = requests.request("GET", url, headers=headers, timeout=2)
+        response = requests.request("GET", url, headers=headers, timeout=2, proxies=proxies)
         if response.status_code == 200:
             res = response.json()
             jdTime = res['currentTime2']
@@ -159,7 +160,7 @@ def getActivity():
         'Connection': 'keep-alive',
         'Referer': activityUrl
     }
-    response = requests.request("GET", url, headers=headers)
+    response = requests.request("GET", url, headers=headers, proxies=proxies)
     if response.status_code == 200:
         if response.cookies:
             cookies = response.cookies.get_dict()
@@ -187,7 +188,7 @@ def getSystemConfigForNew():
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
 
 def getSimpleActInfoVo():
@@ -206,7 +207,7 @@ def getSimpleActInfoVo():
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
 
 def getInfo():
@@ -224,7 +225,7 @@ def getInfo():
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    requests.request("GET", url, headers=headers)
+    requests.request("GET", url, headers=headers, proxies=proxies)
 
 def getMyPing(index):
     url = "https://lzkjdz-isv.isvjcloud.com/customer/getMyPing"
@@ -242,7 +243,7 @@ def getMyPing(index):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
     res = response.json()
     if res['result']:
@@ -269,7 +270,7 @@ def accessLogWithAD(pin):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
 
 def getSystime():
@@ -287,7 +288,7 @@ def getSystime():
         'Accept-Language': 'zh-CN,zh-Hans;q=0.9',
         'X-Requested-With': 'XMLHttpRequest'
     }
-    response = requests.request("POST", url, headers=headers)
+    response = requests.request("POST", url, headers=headers, proxies=proxies)
     refresh_cookies(response)
 
 def activityContent(pin):
@@ -306,7 +307,7 @@ def activityContent(pin):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     # print('activityContent', response.text)
     # refresh_cookies(response)
     res = response.json()
@@ -333,7 +334,7 @@ def getUserInfo(pin):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
     res = response.json()
     # print('getUserInfo', res)
@@ -363,7 +364,7 @@ def saveCandidate(pin, pinImg, nickname):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
 
 def saveCaptain(pin, pinImg, nickname):
@@ -387,7 +388,7 @@ def saveCaptain(pin, pinImg, nickname):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
     res = response.json()
     if res['result']:
@@ -411,7 +412,7 @@ def updateCaptain(uuid):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     res = response.json()
     if res['result']:
         return res['data']['captainStatus']
@@ -432,7 +433,7 @@ def getShopOpenCardInfo(cookie):
         'Referer': shopcard_url,
         'Accept-Encoding': 'gzip, deflate'
     }
-    response = requests.get(url=url, headers=headers, timeout=5).text
+    response = requests.get(url=url, headers=headers, timeout=5, proxies=proxies).text
     return json.loads(response)
 
 def bindWithVender(cookie):

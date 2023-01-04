@@ -40,6 +40,7 @@ redis_port = os.environ.get("redis_port") if os.environ.get("redis_port") else "
 redis_pwd = os.environ.get("redis_pwd") if os.environ.get("redis_pwd") else ""
 activity_url = os.environ.get("jd_wxCollectionActivityUrl") if os.environ.get("jd_wxCollectionActivityUrl") else ""
 runNums = os.environ.get("jd_wxCollectionActivityRunNums") if os.environ.get("jd_wxCollectionActivityRunNums") else 10
+proxies = {"https": os.environ.get('JK_ALL_PROXY', None), "http": os.environ.get('JK_ALL_PROXY', None)}
 
 if not activity_url or "wxCollectionActivity/activity" not in activity_url:
     print("⚠️未发现有效加购有礼活动变量,退出程序!")
@@ -173,7 +174,7 @@ def getActivity():
         'Accept-Encoding': 'gzip, deflate, br',
         'Connection': 'keep-alive'
     }
-    response = requests.request("GET", url, headers=headers)
+    response = requests.request("GET", url, headers=headers, proxies=proxies)
     if response.status_code == 200:
         if response.cookies:
             cookies = response.cookies.get_dict()
@@ -212,7 +213,7 @@ def getSystemConfigForNew(activityType):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
 
 def getSimpleActInfoVo():
@@ -231,7 +232,7 @@ def getSimpleActInfoVo():
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
     res = response.json()
     if res['result']:
@@ -253,7 +254,7 @@ def getMyPing(venderId):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     if response.status_code == 200:
         refresh_cookies(response)
         res = response.json()
@@ -282,7 +283,7 @@ def accessLogWithAD(venderId, pin, activityType):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
 
 def activityContent(pin):
@@ -301,7 +302,7 @@ def activityContent(pin):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     # refresh_cookies(response)
     res = response.json()
     if res['result']:
@@ -335,7 +336,7 @@ def shopInfo():
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
     res = response.json()
     if res['result']:
@@ -360,7 +361,7 @@ def getActMemberInfo(venderId, pin):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     # refresh_cookies(response)
     res = response.json()
     print(res)
@@ -386,7 +387,7 @@ def followShop(venderId, pin, activityType):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
     res = response.json()
     if res['result']:
@@ -410,7 +411,7 @@ def getInfo():
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("GET", url, headers=headers)
+    response = requests.request("GET", url, headers=headers, proxies=proxies)
     refresh_cookies(response)
 
 def addCard(productId, pin):
@@ -430,7 +431,7 @@ def addCard(productId, pin):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
     res = response.json()
     if res['result']:
@@ -456,7 +457,7 @@ def collection(productId, pin):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
     res = response.json()
     if res['result']:
@@ -482,7 +483,7 @@ def oneKeyAdd(productIds, pin):
         'Referer': activityUrl,
         'Cookie': activityCookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     refresh_cookies(response)
     res = response.json()
     if res['result']:
@@ -507,7 +508,7 @@ def getPrize(pin):
         'Referer': activityUrl,
         'Cookie': f'IsvToken={token};{activityCookie}'
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     res = response.json()
     if res['result']:
         data = res['data']

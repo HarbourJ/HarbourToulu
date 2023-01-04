@@ -19,7 +19,6 @@ from functools import partial
 print = partial(print, flush=True)
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
-
 try:
     from jd_sign import *
 except ImportError as e:
@@ -33,7 +32,7 @@ try:
 except:
     print("请先下载依赖脚本，\n下载链接: https://raw.githubusercontent.com/HarbourJ/HarbourToulu/main/jdCookie.py")
     sys.exit(3)
-
+proxies = {"https": os.environ.get('JK_ALL_PROXY', None), "http": os.environ.get('JK_ALL_PROXY', None)}
 def randomString(e, flag=False):
     t = "0123456789abcdef"
     if flag: t = t.upper()
@@ -56,7 +55,7 @@ def doTask(cookie):
         'request-from': 'native',
         'Cookie': cookie
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     try:
         res = response.json()
         if res['isSuccess']:

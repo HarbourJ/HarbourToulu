@@ -41,6 +41,8 @@ if not dpcj:
     print("⚠️未发现有效店铺签到活动变量DPCJID,退出程序!")
     sys.exit()
 
+proxies = {"https": os.environ.get('JK_ALL_PROXY', None), "http": os.environ.get('JK_ALL_PROXY', None)}
+
 def check(ua, ck):
     try:
         url = 'https://me-api.jd.com/user_new/info/GetJDUserInfoUnion'
@@ -54,7 +56,7 @@ def check(ua, ck):
             "Referer": "https://home.m.jd.com/myJd/newhome.action?sceneval=2&ufc=&",
             "Accept-Encoding": "gzip, deflate",
         }
-        result = requests.get(url=url, headers=header, timeout=None).text
+        result = requests.get(url=url, headers=header, timeout=None, proxies=proxies).text
         codestate = json.loads(result)
         if codestate['retcode'] == '1001':
             msg = "⚠️当前ck已失效，请检查"
@@ -80,7 +82,7 @@ def getSignInfo(ua, ck, shopId, venderId):
         'referer': 'https://shop.m.jd.com/',
         'user-agent': ua
     }
-    response = requests.request("GET", url, headers=headers)
+    response = requests.request("GET", url, headers=headers, proxies=proxies)
     res = response.json()
     return res
 
@@ -95,7 +97,7 @@ def sign(ua, ck, shopId, venderId):
         'referer': 'https://shop.m.jd.com/',
         'user-agent': ua
     }
-    response = requests.request("GET", url, headers=headers)
+    response = requests.request("GET", url, headers=headers, proxies=proxies)
     res = response.json()
     return res
 
@@ -110,7 +112,7 @@ def get_venderId(ua, ck, shopId):
         'user-agent': ua,
         'cookie': ck
     }
-    response = requests.request("GET", url, headers=headers)
+    response = requests.request("GET", url, headers=headers, proxies=proxies)
     res = response.json()
     try:
         if res['success']:

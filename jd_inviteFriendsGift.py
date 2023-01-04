@@ -39,6 +39,7 @@ activatyname = '邀请赢大礼'
 activityId = 'dVF7gQUVKyUcuSsVhuya5d2XD4F'  # 活动类型
 
 authorCode = os.environ.get("jd_inv_authorCode") if os.environ.get("jd_inv_authorCode") else ""
+proxies = {"https": os.environ.get('JK_ALL_PROXY', None), "http": os.environ.get('JK_ALL_PROXY', None)}
 
 if not authorCode:
     print("⚠️未发现有效活动变量jd_inv_authorCode,退出程序!")
@@ -58,7 +59,7 @@ async def check(ua, ck):
             "Referer": "https://home.m.jd.com/myJd/newhome.action?sceneval=2&ufc=&",
             "Accept-Encoding": "gzip, deflate",
         }
-        result = requests.get(url=url, headers=header, timeout=None).text
+        result = requests.get(url=url, headers=header, timeout=None, proxies=proxies).text
         codestate = json.loads(result)
         if codestate['retcode'] == '1001':
             msg = "⚠️当前ck已失效，请检查"
@@ -88,7 +89,7 @@ async def plogin(ua, cookie):
         'Referer': 'https://prodev.m.jd.com/',
         'User-Agent': ua
     }
-    response = requests.get(url=url, headers=header, timeout=None).text
+    response = requests.get(url=url, headers=header, timeout=None, proxies=proxies).text
     return response
 
 # 邀请排名
@@ -110,7 +111,7 @@ async def memberBringRanking(ua, cookie):
         'referer': 'https://prodev.m.jd.com/',
         'user-agent': ua
     }
-    response = requests.request("GET", url, headers=headers).text
+    response = requests.request("GET", url, headers=headers, proxies=proxies).text
     print(response)
     return json.loads(response)
 
@@ -133,7 +134,7 @@ async def memberBringActPage(ua, cookie):
         'referer': 'https://prodev.m.jd.com/',
         'user-agent': ua
     }
-    response = requests.request("GET", url, headers=headers).text
+    response = requests.request("GET", url, headers=headers, proxies=proxies).text
     # print(response)
     return json.loads(response)
 
@@ -155,7 +156,7 @@ async def memberBringJoinMember(ua, cookie):
         'referer': 'https://prodev.m.jd.com/',
         'user-agent': ua
     }
-    response = requests.request("GET", url, headers=headers).text
+    response = requests.request("GET", url, headers=headers, proxies=proxies).text
     return json.loads(response)
 
 async def check_ruhui(body, cookie, venderId, ua):
@@ -170,7 +171,7 @@ async def check_ruhui(body, cookie, venderId, ua):
         'Referer': f'https://shopmember.m.jd.com/shopcard/?venderId={venderId}&channel=801&returnUrl={json.dumps(activityUrl)}',
         'Accept-Encoding': 'gzip, deflate'
     }
-    response = requests.get(url=url, headers=headers, timeout=None).text
+    response = requests.get(url=url, headers=headers, timeout=None, proxies=proxies).text
     return json.loads(response)
 
 # 领取奖励 new
@@ -191,7 +192,7 @@ async def memberBringInviteReward(cookie, ua, number):
         'referer': 'https://prodev.m.jd.com/',
         'user-agent': ua
     }
-    response = requests.request("GET", url, headers=headers).text
+    response = requests.request("GET", url, headers=headers, proxies=proxies).text
     return json.loads(response)
 
 # 开启活动
@@ -210,7 +211,7 @@ async def memberBringFirstInvite(cookie, ua):
         'referer': 'https://prodev.m.jd.com/',
         'user-agent': ua
     }
-    response = requests.request("GET", url, headers=headers).text
+    response = requests.request("GET", url, headers=headers, proxies=proxies).text
     return json.loads(response)
 
 async def get_ck(data):

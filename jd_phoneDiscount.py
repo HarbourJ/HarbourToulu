@@ -37,6 +37,7 @@ redis_url = os.environ.get("redis_url") if os.environ.get("redis_url") else "172
 redis_port = os.environ.get("redis_port") if os.environ.get("redis_port") else "6379"
 redis_pwd = os.environ.get("redis_pwd") if os.environ.get("redis_pwd") else ""
 baseInfo = os.environ.get("baseInfo") if os.environ.get("baseInfo") else ""
+proxies = {"https": os.environ.get('JK_ALL_PROXY', None), "http": os.environ.get('JK_ALL_PROXY', None)}
 
 if not baseInfo:
     print('未设置export baseInfo="品牌编号",默认运行第九个任务brand_ten')
@@ -146,7 +147,7 @@ def getJdTime():
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36'
     }
     try:
-        response = requests.request("GET", url, headers=headers, timeout=2)
+        response = requests.request("GET", url, headers=headers, timeout=2, proxies=proxies)
         if response.status_code == 200:
             res = response.json()
             jdTime = res['currentTime2']
@@ -187,7 +188,7 @@ def getActivity():
         'Referer': activityUrl,
         'Cookie': f'IsvToen={token}'
     }
-    response = requests.request("GET", url, headers=headers)
+    response = requests.request("GET", url, headers=headers, proxies=proxies)
     if response.status_code == 200:
         return
     else:
@@ -210,7 +211,7 @@ def getAuth():
         'Referer': activityUrl,
         'Connection': 'keep-alive'
     }
-    response = requests.request("POST", url, headers=headers)
+    response = requests.request("POST", url, headers=headers, proxies=proxies)
     res = response.json()
     if res['status'] == 0:
         return res['body']['access_token']
@@ -232,7 +233,7 @@ def getUserInfo(authToken):
         'Referer': activityUrl,
         'Connection': 'keep-alive'
     }
-    response = requests.request("GET", url, headers=headers)
+    response = requests.request("GET", url, headers=headers, proxies=proxies)
     res = response.json()
     try:
         code = res['code']
@@ -259,7 +260,7 @@ def getFriendList(authToken):
         'Referer': activityUrl,
         'Connection': 'keep-alive'
     }
-    response = requests.request("GET", url, headers=headers)
+    response = requests.request("GET", url, headers=headers, proxies=proxies)
     res = response.json()
     # print("getFriendList:", res)
     try:
@@ -286,7 +287,7 @@ def inviteFriend(inviter_id, authToken):
         'Referer': activityUrl,
         'Connection': 'keep-alive'
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     res = response.json()
     return res
 
@@ -306,7 +307,7 @@ def invite(authToken):
         'Referer': activityUrl,
         'Connection': 'keep-alive'
     }
-    response = requests.request("POST", url, headers=headers)
+    response = requests.request("POST", url, headers=headers, proxies=proxies)
     res = response.json()
     return res
 
@@ -327,7 +328,7 @@ def inviteFriendNew(inviter_id, authToken):
         'Referer': activityUrl,
         'Connection': 'keep-alive'
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     res = response.json()
     return res
 
@@ -347,7 +348,7 @@ def clickHomeGetPrize(authToken):
         'Referer': activityUrl,
         'Connection': 'keep-alive'
     }
-    response = requests.request("POST", url, headers=headers)
+    response = requests.request("POST", url, headers=headers, proxies=proxies)
     res = response.json()
     return res
 
@@ -367,7 +368,7 @@ def clickEffectGetPrize(authToken):
         'Referer': activityUrl,
         'Connection': 'keep-alive'
     }
-    response = requests.request("POST", url, headers=headers)
+    response = requests.request("POST", url, headers=headers, proxies=proxies)
     res = response.json()
     return res
 
@@ -387,7 +388,7 @@ def homeSendPrizes(authToken):
         'Referer': activityUrl,
         'Connection': 'keep-alive'
     }
-    response = requests.request("POST", url, headers=headers)
+    response = requests.request("POST", url, headers=headers, proxies=proxies)
     res = response.json()
     return res
 
@@ -407,7 +408,7 @@ def clickCouponSenPrize(authToken):
         'Referer': activityUrl,
         'Connection': 'keep-alive'
     }
-    response = requests.request("POST", url, headers=headers)
+    response = requests.request("POST", url, headers=headers, proxies=proxies)
     res = response.json()
     return res
 
@@ -427,7 +428,7 @@ def userClickInvite(authToken):
         'Referer': activityUrl,
         'Connection': 'keep-alive'
     }
-    requests.request("POST", url, headers=headers)
+    requests.request("POST", url, headers=headers, proxies=proxies)
 
 def inviteDrawPrize(invite_type, authToken):
     url = "https://sjtx-dz.isvjcloud.com/phone-discount-api/invite_draw_prize?source=test&is_share=1"
@@ -446,7 +447,7 @@ def inviteDrawPrize(invite_type, authToken):
         'Referer': activityUrl,
         'Connection': 'keep-alive'
     }
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
     res = response.json()
     return res
 
