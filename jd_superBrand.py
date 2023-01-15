@@ -1,11 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# @Time    : 2023/1/15 20:58
-# @Author  : HarbourJ
-# @File    : jd_superBrand.py
-
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """
 File: jd_superBrand.py(超级品牌日12豆)
