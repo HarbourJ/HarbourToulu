@@ -632,6 +632,5 @@ if __name__ == '__main__':
             assistState1 = ass1['assistState']
             if assStat and assistState1 == 1:
                 pass
-            print(f"助力 {shareUuid}")
 
         time.sleep(3)
