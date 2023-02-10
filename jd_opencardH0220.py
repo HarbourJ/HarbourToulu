@@ -6,7 +6,7 @@ File: jd_opencardH0210.py(2.10-2.17 心动二月 为爱献礼)
 Author: HarbourJ
 Date: 2023/2/10 00:00
 TG: https://t.me/HarbourToulu
-cron: 0 0 3/* 10-17 2 *
+cron: 0 0 */3 10-17 2 *
 new Env('2.10-2.17 心动二月 为爱献礼(金币)');
 ActivityEntry: https://lzdz1-isv.isvjcloud.com/dingzhi/joinCommon/activity/activity?activityId=92bbca6be5174058bb6896e4fa689b07
 """

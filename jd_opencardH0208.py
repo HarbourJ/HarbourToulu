@@ -6,7 +6,7 @@ File: jd_opencardH0208.py(2.8-2.15 心意之选 为挚爱献礼)
 Author: HarbourJ
 Date: 2023/2/8 00:00
 TG: https://t.me/HarbourToulu
-cron: 0 0 3/* 8-15 2 *
+cron: 0 0 */3 8-15 2 *
 new Env('2.8-2.15 心意之选 为挚爱献礼(金币)');
 ActivityEntry: https://lzdz1-isv.isvjcloud.com/dingzhi/joinCommon/activity/activity?activityId=25fee1e103434b66bb109d2042e673cb
 """
