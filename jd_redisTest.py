@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-File: redisTest.py(本地redis连接测试)
+File: jd_redisTest.py(本地redis连接测试)
 Author: HarbourJ
 Date: 2023/2/8 21:00
 TG: https://t.me/HarbourToulu
