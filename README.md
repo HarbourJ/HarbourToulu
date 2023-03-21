@@ -32,6 +32,9 @@ docker run -p 6379:6379 --name redis \
 export redis_url=""  # 填redis服务器ip
 export redis_port=""   # 支持更换自定义端口
 export redis_pwd=""  # 未设置redis密码就空着
+
+
+运行库里redisTest监测脚本（jd_redisTest.py）测试redis是否正常连接。
 ``` 
 
 【🛳船长库脚本汇总及变量🛳】
