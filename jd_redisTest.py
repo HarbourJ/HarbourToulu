@@ -6,7 +6,7 @@ File: jd_redisTest.py(本地redis连接测试)
 Author: HarbourJ
 Date: 2023/2/8 21:00
 TG: https://t.me/HarbourToulu
-cron: 9 9 9 9 9
+cron: 1 1 1 1 1 *
 new Env('本地redis连接测试');
 Description: 测试redis是否正常连接，运行脚本前请先设置redis_url、redis_port、redis_pwd这三个变量（可选）
 """
