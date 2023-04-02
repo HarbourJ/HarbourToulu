@@ -172,7 +172,7 @@ if __name__ == "__main__":
                         print(f"\t⛈店铺已抽奖")
                     else:
                         toSign = sign(ua, cookie, shopId, venderId)
-                        if toSign['isSuccess']:
+                        if toSign['isSuccess'] and 'isWin' in str(toSign):
                             if toSign['result']['result']['isWin']:
                                 signReward = toSign['result']['result']['signReward']['name']
                                 print(f"\t🎉{signReward}")
@@ -181,6 +181,8 @@ if __name__ == "__main__":
                                 signRewards.append(signReward)
                             else:
                                 print("\t💨💨💨")
+                        else:
+                            print("\t💨💨💨")
             except Exception as e:
                 print(e)
                 time.sleep(1)
