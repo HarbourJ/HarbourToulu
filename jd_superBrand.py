@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-File: jd_superBrand.py(超级品牌日12豆)
+File: jd_superBrand.py(超级品牌日)
 Author: HarbourJ
 Date: 2023/1/15 08:00
 TG: https://t.me/HarbourToulu
 cron: 1 1 1 1 1 *
-new Env('超级品牌日12豆');
+new Env('超级品牌日');
 ActivityEntry: APP搜索"超级品牌日"
 """
 
@@ -43,7 +43,7 @@ def superBrandTask(ua, ck):
     return res
 
 def superBrandDoTask(ua, ck):
-    url = f"https://api.m.jd.com/?client=wh5&appid=ProductZ4Brand&functionId=superBrandDoTask&t={getJdTime()}&body=%7B%22source%22%3A%22hall_1111%22%2C%22activityId%22%3A1012353%2C%22completionFlag%22%3A1%2C%22encryptProjectId%22%3A%22mCqqcvGW1LKeAWqJtc6NwHGXK2u%22%2C%22encryptAssignmentId%22%3A%22H8VttZkAwM83dpETucHznqaNGAc%22%2C%22assignmentType%22%3A0%2C%22actionType%22%3A0%7D"
+    url = f"https://api.m.jd.com/?client=wh5&appid=ProductZ4Brand&functionId=superBrandDoTask&t={getJdTime()}&body=%7B%22source%22:%22hall_1111%22,%22activityId%22:1013387,%22completionFlag%22:1,%22encryptProjectId%22:%22z5dySbJNHkV3ZmzDx4T9adQCP1n%22,%22encryptAssignmentId%22:%224BgwqUBL4VxMVXtQzCmjEB1Zm5bg%22,%22assignmentType%22:0,%22actionType%22:0%7D"
     headers = {
         'User-Agent': ua,
         'Cookie': ck,
@@ -87,7 +87,8 @@ if __name__ == '__main__':
             pt_pin = re.compile(r'pt_pin=(.*?);').findall(cookie)[0]
             pt_pin = unquote_plus(pt_pin)
         except IndexError:
-            pt_pin = f'用户{num}'
+            pt_pin = re.compile(r'pin=(.*?);').findall(cookie)[0]
+            pt_pin = unquote_plus(pt_pin)
         print(f'\n******开始【京东账号{num}】{pt_pin} *********\n')
         print(datetime.now())
 
