@@ -6,7 +6,6 @@ File: jd_dpcj.py(店铺抽奖-JK)
 Author: HarbourJ
 Date: 2022/10/15 23:00
 TG: https://t.me/HarbourToulu
-TgChat: https://t.me/HarbourChat
 cron: 1 1 1 1 1 1
 new Env('店铺抽奖-JK');
 ActivityEntry：https://shop.m.jd.com/shop/lottery?shopId=xxxxx&venderId=xxxxx
@@ -155,14 +154,14 @@ if __name__ == "__main__":
             continue
         signRewards = []
         for shopId in shopIds:
-            print(f"{shopId}")
-            venderId = get_venderId(ua, cookie, shopId)
-            time.sleep(0.2)
-            if not venderId:
-                continue
-            signInfo = getSignInfo(ua, cookie, shopId, venderId)
-            time.sleep(0.2)
             try:
+                print(f"{shopId}")
+                venderId = get_venderId(ua, cookie, shopId)
+                time.sleep(0.2)
+                if not venderId:
+                    continue
+                signInfo = getSignInfo(ua, cookie, shopId, venderId)
+                time.sleep(0.2)
                 if signInfo['isSuccess']:
                     try:
                         signInfo_ = signInfo['result']['result']['signInfo']
@@ -182,9 +181,10 @@ if __name__ == "__main__":
                                 signRewards.append(signReward)
                             else:
                                 print("\t💨💨💨")
-            except:
+            except Exception as e:
+                print(e)
+                time.sleep(1)
                 continue
-            # time.sleep(0.3)
         if signRewards:
             price = ','.join(signRewards)
             msg += f'【账号{num}】{pt_pin} 🎉{price}\n'
