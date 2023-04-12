@@ -36,9 +36,9 @@ except:
 redis_url = os.environ.get("redis_url") if os.environ.get("redis_url") else "172.17.0.1"
 redis_port = os.environ.get("redis_port") if os.environ.get("redis_port") else "6379"
 redis_pwd = os.environ.get("redis_pwd") if os.environ.get("redis_pwd") else ""
-jd_poolCaptainNums = os.environ.get("jd_poolCaptainNums") if os.environ.get("jd_poolCaptainNums") else "80"
+jd_poolCaptainNums = os.environ.get("jd_poolCaptainNums") if os.environ.get("jd_poolCaptainNums") else "40"
 
-activityId = "36cc0f18d3eb4e178f2a3632f7af1c14"
+activityId = "8481334587da4707bbd553c413db28d9"
 shopId = "1000014486"
 print(f"【🛳活动入口】https://lzkjdz-isv.isvjcloud.com/pool/captain/8451632?activityId={activityId}")
 
