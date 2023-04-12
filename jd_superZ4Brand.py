@@ -36,9 +36,9 @@ redis_url = os.environ.get("redis_url") if os.environ.get("redis_url") else "172
 redis_port = os.environ.get("redis_port") if os.environ.get("redis_port") else "6379"
 redis_pwd = os.environ.get("redis_pwd") if os.environ.get("redis_pwd") else ""
 
-activityId = "1013398"
-encryptProjectId = "i6Qe1DQr8pvZcsUCjyk2YpAbMM5"
-activityUrl = "https://pro.m.jd.com/mall/active/3RMz35ViGkDgjNdgHSNTFDhZpVLM/index.html"
+activityId = "1013485"
+encryptProjectId = "43QMWAnGpyfb4SQnngtCD8Cf1X3J"
+activityUrl = "https://pro.m.jd.com/mall/active/3RExfXqAW3a3rvM9ziTvhyqJ7W7T/index.html"
 print(f"【🛳活动入口】app首页下拉")
 
 def redis_conn():
@@ -130,7 +130,7 @@ def refresh_cookies(res):
         activityCookie = ''.join(sorted([(set_cookie + ";") for set_cookie in list(set(activityCookieMid + set_cookie))]))
 
 def superBrandTaskList(ua, ck):
-    url = f"https://api.m.jd.com/?uuid=&client=wh5&area=12_1212_1212_22222&appid=ProductZ4Brand&functionId=superBrandTaskList&t={getJdTime()}&body=%7B%22source%22:%22run%22,%22activityId%22:1013398,%22assistInfoFlag%22:1%7D"
+    url = f"https://api.m.jd.com/?uuid=&client=wh5&area=12_1212_1212_22222&appid=ProductZ4Brand&functionId=superBrandTaskList&t={getJdTime()}&body=%7B%22source%22:%22run%22,%22activityId%22:{activityId},%22assistInfoFlag%22:1%7D"
     headers = {
         'Host': 'api.m.jd.com',
         'Accept': 'application/json, text/plain, */*',
@@ -138,7 +138,7 @@ def superBrandTaskList(ua, ck):
         'Accept-Encoding': 'gzip, deflate, br',
         'Accept-Language': 'zh-CN,zh-Hans;q=0.9',
         'Connection': 'keep-alive',
-        'Referer': 'https://prodev.m.jd.com/mall/active/2gCyo8WxMQVseDmP5PTrST7XhCJw/index.html',
+        'Referer': activityUrl,
         'User-Agent': ua,
         'Cookie': ck
     }
@@ -182,7 +182,7 @@ def superBrandDoTask(ua, ck, activityId, encryptProjectId, itemId, assignmentTyp
         print('任务出错')
 
 def superBrandTaskLottery(ua, ck):
-    url = f"https://api.m.jd.com/?uuid=&client=wh5&area=12_1212_1212_22222&appid=ProductZ4Brand&functionId=superBrandTaskLottery&t={getJdTime()}&body=%7B%22source%22:%22run%22,%22activityId%22:1013398%7D"
+    url = f"https://api.m.jd.com/?uuid=&client=wh5&area=12_1212_1212_22222&appid=ProductZ4Brand&functionId=superBrandTaskLottery&t={getJdTime()}&body=%7B%22source%22:%22run%22,%22activityId%22:{activityId}%7D"
     headers = {
         'Host': 'api.m.jd.com',
         'Accept': 'application/json, text/plain, */*',
@@ -310,7 +310,8 @@ if __name__ == '__main__':
                     # 关注店铺
                     followShopInfo = oneTask['ext']['followShop']
                     for i in followShopInfo:
-                        comments = i['comments'][0]
+                        comments = i['comments']
+                        comments = comments[0] if comments else oneTask['assignmentName']
                         itemId = i['itemId']
                         status = i['status']
                         if status == 1:
