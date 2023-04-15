@@ -76,6 +76,10 @@ export redis_pwd=""  # 未设置redis密码就空着
 脚本变量: export jd_shopFollowGiftId="shopId1&shopId2&..." #变量为店铺🆔; export jd_shopFollowGiftRunNums="需要运行账号数量"
 
 
+* [x] jd_wxShopFollow.py(关注店铺有礼-JK)
+脚本变量: export jd_wxShopFollowId="活动🆔" #变量为店铺🆔; export jd_wxShopFollowRunNums="需要运行账号数量,默认前12个账号"
+
+
 * [x] jd_dpcj.py(店铺抽奖-JK)
 脚本变量: export DPCJID="shopId1&shopId2&..." #变量为店铺🆔
 

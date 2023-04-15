@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-File: jd_wxShopFollowActivity.py(关注店铺有礼-JK)
+File: jd_wxShopFollow.py(关注店铺有礼-JK)
 Author: HarbourJ
 Date: 2022/8/8 19:52
 TG: https://t.me/HarbourToulu
