@@ -36,9 +36,9 @@ redis_url = os.environ.get("redis_url") if os.environ.get("redis_url") else "172
 redis_port = os.environ.get("redis_port") if os.environ.get("redis_port") else "6379"
 redis_pwd = os.environ.get("redis_pwd") if os.environ.get("redis_pwd") else ""
 
-activityId = "1013485"
-encryptProjectId = "43QMWAnGpyfb4SQnngtCD8Cf1X3J"
-activityUrl = "https://pro.m.jd.com/mall/active/3RExfXqAW3a3rvM9ziTvhyqJ7W7T/index.html"
+activityId = "1013526"
+encryptProjectId = "2bEZS3UewMUyK3icSVhT4MC94eHe"
+activityUrl = "https://pro.m.jd.com/mall/active/2SFC2qDsJC9H1K75VAiFbSmaPrk/index.html"
 print(f"【🛳活动入口】app首页下拉")
 
 def redis_conn():
