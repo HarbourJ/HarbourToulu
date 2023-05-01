@@ -167,7 +167,7 @@ def removeOldSign():
     fileList = os.listdir()
     if "jd_sign.so" in fileList:
         try:
-            os.remove("../HarbourToulu/jd_sign.so")
+            os.remove("jd_sign.so")
             print("✅成功删除历史jd_sign依赖文件\n")
         except:
             pass
@@ -219,15 +219,15 @@ def signReleaseUpdate(rawproxy="https://raw.githubusercontent.com/", again=1):
         new_version = res[-1].split(' v')[-1]
         # 获取上一次检查所记录的version值
         try:
-            with open('../HarbourToulu/signUpdate.log', "r") as f0:
+            with open('signUpdate.log', "r") as f0:
                 last_version = f0.read()
         except Exception as e:
             # print(e)
             # 以log格式写入文件
-            with open("../HarbourToulu/signUpdate.log", "w") as f1:
+            with open("signUpdate.log", "w") as f1:
                 f1.write('')
                 last_version = ''
-        with open("../HarbourToulu/signUpdate.log", "w") as f2:
+        with open("signUpdate.log", "w") as f2:
             f2.write(new_version)
         if new_version != last_version:
             print("⏰检测到依赖版本有更新,自动更新...\n")
@@ -249,6 +249,7 @@ def signReleaseUpdate(rawproxy="https://raw.githubusercontent.com/", again=1):
         return False
 
 def main():
+    print("🤖开始运行Harbour库依赖一键检测安装脚本")
     updateDependent()
     try:
         from jd_sign import remote_redis
