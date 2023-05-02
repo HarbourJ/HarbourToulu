@@ -497,7 +497,7 @@ if __name__ == '__main__':
                 print(f"CK1准备助力【{shareUserId}】")
             else:
                 print(f"未填写助力码,CK1准备助力💨")
-            if "不是会员无法参加" not in joinCodeInfo['joinDes']:
+            if "不是会员无法参加" not in joinCodeInfo['joinDes'] and "需加入会员" not in joinCodeInfo['joinDes']:
                 print("已经是会员,助力失败！")
                 joinCheck(Token)
                 time.sleep(0.2)
@@ -509,10 +509,8 @@ if __name__ == '__main__':
                 prizeListResponse = prizeList(Token)
                 prizeListRecord = []
                 prizeNameList = []
-                index = 0
                 try:
                     for prizeitem in prizeListResponse['data']['prizeInfo']:
-                        index += 1
                         print(f"🎁 奖品: {prizeitem['prizeName']}, 助力人数: {prizeitem['days']}, 总数：{prizeitem['allNum']}, 剩余：{prizeitem['leftNum']}, ID: {prizeitem['id']}")
                         prizeNameList.append(f"🎁奖品:{prizeitem['prizeName']},助力人数:{prizeitem['days']},总数:{prizeitem['allNum']},剩余:{prizeitem['leftNum']}\n")
                         if prizeitem['leftNum'] > 0:
@@ -560,7 +558,7 @@ if __name__ == '__main__':
             else:
                 inviteSuccNum = 0
 
-        if "不是会员无法参加" in joinCodeInfo['joinDes']:
+        if "不是会员无法参加" in joinCodeInfo['joinDes'] or "需加入会员" in joinCodeInfo['joinDes']:
             print(f"未开卡 现在去开卡")
             open_result = bindWithVender(cookie, shopId, venderId)
             if open_result is not None:
@@ -580,10 +578,8 @@ if __name__ == '__main__':
                     prizeListResponse = prizeList(Token)
                     prizeListRecord = []
                     prizeNameList = []
-                    index = 0
                     try:
                         for prizeitem in prizeListResponse['data']['prizeInfo']:
-                            index += 1
                             if num == 1:
                                 print(f"🎁 奖品: {prizeitem['prizeName']}, 助力人数: {prizeitem['days']}, 总数：{prizeitem['allNum']}, 剩余：{prizeitem['leftNum']}, ID: {prizeitem['id']}")
                                 prizeNameList.append(f"🎁奖品:{prizeitem['prizeName']},助力人数:{prizeitem['days']},总数:{prizeitem['allNum']},剩余:{prizeitem['leftNum']}\n")
