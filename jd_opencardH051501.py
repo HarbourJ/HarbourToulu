@@ -7,7 +7,7 @@ Author: HarbourJ
 Date: 2023/3/15 10:00
 TG: https://t.me/HarbourToulu
 cron: 0 0 */3 15-21 5 *
-new Env('5.9-5.21 爱让好物 成为礼物3');
+new Env('5.9-5.21 爱让好物 成为礼物4');
 ActivityEntry: https://lzdz1-isv.isvjcloud.com/m/1000003221/8950936/dz7d03871942fc8f0dd9382d76af63/
 Description: 开卡30 邀请20
             并发变量: export jd_opencardH051501_uuid="你的助力码"
