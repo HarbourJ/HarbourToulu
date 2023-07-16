@@ -592,7 +592,6 @@ if __name__ == '__main__':
             sendBeanNum = checkOC['sendBeanNum']
             cardList = checkOC['cardList']
             assStat = False
-            print(allOpenCard, assistStatus, beanNum, sendBeanNum)
             if allOpenCard:
                 print("已完成全部开卡任务")
                 if assistStatus == 0:
