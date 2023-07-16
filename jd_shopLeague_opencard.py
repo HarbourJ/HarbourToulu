@@ -13,6 +13,7 @@ ActivityEntry: https://lzdz1-isv.isvjd.com/dingzhi/shop/league/activity?activity
 Description: dingzhi/shop/league系列通用开卡脚本(通常情况下,开一张卡5,最高获得220豆,邀请成功获得20豆)。
             本地sign算法+redis缓存Token
             变量: export jd_shopLeagueId="2b870a1a7450xxxxxxxxxxxxx" 变量值需要传入活动id
+            并发变量：export jd_shopLeague_uuid="你的shareUuid"
 Update: 2022/11/01 更新入会算法，内置船新入会本地算法
 """
 
