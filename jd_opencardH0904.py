@@ -6,7 +6,7 @@ File: jd_opencardH0904.py(9.4-9.11 感恩有你 99聚惠)
 Author: HarbourJ
 Date: 2023/9/4 00:00
 TG: https://t.me/HarbourToulu
-cron: 0 0 3/* 4-11 9 *
+cron: 0 0 */3 4-11 9 *
 new Env('9.4-9.11 感恩有你 99聚惠(金币)');
 ActivityEntry: https://lzdz1-isv.isvjcloud.com/dingzhi/joinCommon/activity/5929859?activityId=00de8798c16d46bca107fe4115b8d2ed
 并发变量：export jd_joinCommon_uuid="你的uuid"
