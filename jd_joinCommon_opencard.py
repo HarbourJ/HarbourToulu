@@ -463,8 +463,6 @@ def doTask(actorUuid, pin, taskType):
 
 def bindWithVender(cookie, venderId):
     try:
-        shopcard_url0 = f"https://lzdz1-isv.isvjcloud.com/dingzhi/joinCommon/activity/7854908?activityId={activityId}&shareUuid={shareUuid}"
-        shopcard_url = f"https://shopmember.m.jd.com/shopcard/?venderId={venderId}&channel=401&returnUrl={quote_plus(shopcard_url0)}"
         s.headers = {
             'Connection': 'keep-alive',
             'Accept-Encoding': 'gzip, deflate, br',
