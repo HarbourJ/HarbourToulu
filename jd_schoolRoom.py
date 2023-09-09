@@ -372,7 +372,7 @@ if __name__ == '__main__':
             print(f"🧑‍🤝‍🧑CK1已邀请{inviteSuccNum}人")
             if inviteSuccNum >= 5:
                 lottery_num = lottery_num_tips(authToken)
-                for i in range(6):
+                for i in range(50):
                     invite_type = i + 1
                     print(f"开始第{invite_type}次抽奖")
                     drawPrize = lottery(authToken)
@@ -394,7 +394,9 @@ if __name__ == '__main__':
             else:
                 if assistInfo[1] == "请先认证校园身份" and num == 1:
                     exit_flag = True
-        for i in range(6):
+                elif assistInfo[1] == "宿舍已经满员了":
+                    exit_flag = True
+        for i in range(50):
             invite_type = i + 1
             print(f"开始第{invite_type}次抽奖")
             drawPrize1 = lottery(authToken)
