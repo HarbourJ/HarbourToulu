@@ -394,7 +394,7 @@ if __name__ == '__main__':
             else:
                 if assistInfo[1] == "请先认证校园身份" and num == 1:
                     exit_flag = True
-                elif assistInfo[1] == "宿舍已经满员了":
+                elif assistInfo[1] == "宿舍已经满员了" and num != 1:
                     exit_flag = True
         for i in range(50):
             invite_type = i + 1
