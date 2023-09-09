@@ -392,7 +392,7 @@ if __name__ == '__main__':
                 inviteSuccNum += 1
                 print(f"🎉助力成功！已邀请{inviteSuccNum}人")
             else:
-                if assistInfo[1] == "请先认证校园身份":
+                if assistInfo[1] == "请先认证校园身份" and num == 1:
                     exit_flag = True
         for i in range(6):
             invite_type = i + 1
