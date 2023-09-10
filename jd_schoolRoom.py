@@ -179,8 +179,8 @@ def getUserInfo(authToken):
     except Exception as e:
         print(f"getUserInfo Error: {e}")
 
-def assist(authToken):
-    url = "https://xinrui-isv.isvjcloud.com/jd-school-room-api/api/assist?inviter_id=47049&is_share=0&source=zhuhuichang&channel=2"
+def assist(authToken, shareUuid):
+    url = f"https://xinrui-isv.isvjcloud.com/jd-school-room-api/api/assist?inviter_id={shareUuid}&is_share=0&source=zhuhuichang&channel=2"
     headers = {
         'Host': 'xinrui-isv.isvjcloud.com',
         'App-Key': '6myeMAtP',
@@ -198,12 +198,12 @@ def assist(authToken):
     try:
         response = requests.request("POST", url, headers=headers)
         res = response.json()
-        print(f"assist:{res}")
+        # print(f"assist:{res}")
         status = res['status']
         message = res['message']
         body = res['body']
         if status == 0:
-            print(f"助力结果: {res}")
+            print(f"助力结果: {message}")
         else:
             message = res['message']
             print(f"助力结果: {message}")
@@ -368,7 +368,8 @@ if __name__ == '__main__':
         print(f"🤖助力码: {shareUuid1}")
         time.sleep(0.1)
         if num == 1:
-            inviteSuccNum = len(rooms) - 1
+            if rooms:
+                inviteSuccNum = len(rooms) - 1
             print(f"🧑‍🤝‍🧑CK1已邀请{inviteSuccNum}人")
             if inviteSuccNum >= 5:
                 lottery_num = lottery_num_tips(authToken)
@@ -385,7 +386,7 @@ if __name__ == '__main__':
                         print(f"抽奖有误: {e}")
                 sys.exit()
         time.sleep(0.1)
-        assistInfo = assist(authToken)
+        assistInfo = assist(authToken, shareUuid)
         exit_flag = False
         if assistInfo:
             if assistInfo[0] == 0:
@@ -413,7 +414,7 @@ if __name__ == '__main__':
         school_share(authToken)
 
         if inviteSuccNum >= 5:
-            print("已邀请5人")
+            print(f"已邀请{inviteSuccNum}人")
             token = getToken(firstCk, r)
             time.sleep(0.1)
             getActivity()
