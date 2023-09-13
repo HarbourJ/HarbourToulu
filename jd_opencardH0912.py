@@ -2,15 +2,15 @@
 # -*- coding: utf-8 -*-
 
 """
-File: jd_opencardH0906.py(9.6-9.12 秋日限定 萌宝专场)
+File: jd_opencardH0912.py(9.12-9.18 秋妆美礼 好物惊喜(金币))
 Author: HarbourJ
-Date: 2023/9/4 00:00
+Date: 2023/9/12 00:00
 TG: https://t.me/HarbourToulu
-cron: 0 0 */3 6-12 9 *
-new Env('秋日限定 萌宝专场(金币)');
-ActivityEntry: https://lzdz1-isv.isvjcloud.com/dingzhi/joinCommon/activity/5929859?activityId=bf127104ecb140e6aad2107c5095dd6c
+cron: 0 0 */3 12-18 9 *
+new Env('秋妆美礼 好物惊喜');
+ActivityEntry: https://lzdz1-isv.isvjcloud.com/dingzhi/joinCommon/activity/5929859?activityId=8036fbc67e784f81a807034147c21dc4
 并发变量：export jd_joinCommon_uuid="你的uuid"
-并发命令：task HarbourJ_HarbourToulu_main/jd_opencardH0906.py conc JD_COOKIE 1-20
+并发命令：task HarbourJ_HarbourToulu_main/jd_opencardH0912.py conc JD_COOKIE 1-20
 """
 
 import time, requests, sys, re, os, json, random
@@ -39,7 +39,7 @@ redis_port = os.environ.get("redis_port") if os.environ.get("redis_port") else "
 redis_pwd = os.environ.get("redis_pwd") if os.environ.get("redis_pwd") else ""
 inviterUuid = os.environ.get("jd_joinCommon_uuid") if os.environ.get("jd_joinCommon_uuid") else ""
 
-activityId = "bf127104ecb140e6aad2107c5095dd6c"
+activityId = "8036fbc67e784f81a807034147c21dc4"
 shopId = "1000003829"
 activity_url = f"https://lzdz1-isv.isvjcloud.com/dingzhi/joinCommon/activity/5929859?activityId={activityId}&shareUuid={inviterUuid}&adsource=null&shareuserid4minipg=null&lng=00.000000&lat=00.000000&sid=&un_area=&&shopid={shopId}"
 print(f"【🛳活动入口】https://lzdz1-isv.isvjcloud.com/dingzhi/joinCommon/activity/5929859?activityId={activityId}")
