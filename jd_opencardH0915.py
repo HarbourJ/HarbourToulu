@@ -38,7 +38,7 @@ except:
 redis_url = os.environ.get("redis_url") if os.environ.get("redis_url") else "172.17.0.1"
 redis_port = os.environ.get("redis_port") if os.environ.get("redis_port") else "6379"
 redis_pwd = os.environ.get("redis_pwd") if os.environ.get("redis_pwd") else ""
-inviterUuid = os.environ.get("jd_opencardH0509_uuid") if os.environ.get("jd_opencardH0509_uuid") else ""
+inviterUuid = os.environ.get("jd_opencardH0915_uuid") if os.environ.get("jd_opencardH0915_uuid") else ""
 
 venderId = "1000007395"
 activityId = "dz9f1130630baa40dba5d55231c537"
