@@ -216,42 +216,43 @@ if __name__ == '__main__':
     print(f"\n****************抽奖结束,共抽奖{total}次,💵获得:{'{:.2f}'.format(sum([float(x) for x in cash]))}元现金,🧧获得:{'{:.2f}'.format(sum([float(x) for x in redpacket]))}元红包,开始提现****************\n")
 
     print(f"****************最大提现页数apCashPageSize设置为{apCashPageSize},请根据实际情况设置****************")
-    i = 0
-    while True:
-        print(f"\n开始获取第{i + 1}页奖励列表\n")
-        body = {"pageNum": i, "pageSize": 20, "linkId": linkId, "business": "fission"}
-        info = superRedBagList(ua, cookie, "superRedBagList", "f2b1d", body)
-        if not info:
-            print("等待10s重新获取")
-            time.sleep(10)
-            continue
-        i += 1
-        items = info['items']
-        if not items:
-            printf(cookie, "全部提现完成！")
-            break
-        for item in items:
-            # printf(cookie, item)
-            id = item['id']
-            amount = item['amount']
-            prizeType = item['prizeType']
-            state = item['state']
-            prizeConfigName = item['prizeConfigName']
-            prizeGroupId = item['prizeGroupId']
-            poolBaseId = item['poolBaseId']
-            prizeBaseId = item['prizeBaseId']
-            if prizeType == 4 and state != 3 and state != 4:
-                cashInfo = apCashWithDraw(cookie, id, poolBaseId, prizeGroupId, prizeBaseId)
-                if cashInfo:
-                    printf(cookie, f"{amount}现金 {cashInfo}")
-                    if "上限" in cashInfo or "其他pin" in cashInfo:
-                        cashInfo = apRecompenseDrawPrize(cookie, id, poolBaseId, prizeGroupId, prizeBaseId)
-                        printf(cookie, f"{amount}现金 {cashInfo}")
-                time.sleep(2)
-            else:
+    for index, linkId in enumerate(linkIds, 1):
+        i = 0
+        while True:
+            print(f"\n开始获取第{i + 1}页奖励列表\n")
+            body = {"pageNum": i, "pageSize": 20, "linkId": linkId, "business": "fission"}
+            info = superRedBagList(ua, cookie, "superRedBagList", "f2b1d", body)
+            if not info:
+                print("等待10s重新获取")
+                time.sleep(10)
                 continue
+            i += 1
+            items = info['items']
+            if not items:
+                printf(cookie, "全部提现完成！")
+                break
+            for item in items:
+                # printf(cookie, item)
+                id = item['id']
+                amount = item['amount']
+                prizeType = item['prizeType']
+                state = item['state']
+                prizeConfigName = item['prizeConfigName']
+                prizeGroupId = item['prizeGroupId']
+                poolBaseId = item['poolBaseId']
+                prizeBaseId = item['prizeBaseId']
+                if prizeType == 4 and state != 3 and state != 4:
+                    cashInfo = apCashWithDraw(cookie, id, poolBaseId, prizeGroupId, prizeBaseId)
+                    if cashInfo:
+                        printf(cookie, f"{amount}现金 {cashInfo}")
+                        if "上限" in cashInfo or "其他pin" in cashInfo:
+                            cashInfo = apRecompenseDrawPrize(cookie, id, poolBaseId, prizeGroupId, prizeBaseId)
+                            printf(cookie, f"{amount}现金 {cashInfo}")
+                    time.sleep(2)
+                else:
+                    continue
 
-        time.sleep(1)
+            time.sleep(1)
 
-        if i >= apCashPageSize:
-            break
+            if i >= apCashPageSize:
+                break
