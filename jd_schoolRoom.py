@@ -408,8 +408,8 @@ if __name__ == '__main__':
                     break
             except Exception as e:
                 print(f"抽奖有误: {e}")
-        if exit_flag:
-            sys.exit()
+        # if exit_flag:
+        #     sys.exit()
         time.sleep(0.1)
         school_share(authToken)
 
@@ -434,7 +434,7 @@ if __name__ == '__main__':
                         break
                 except Exception as e:
                     print(f"抽奖有误: {e}")
-            sys.exit()
+            # sys.exit()
 
         if num == 1:
             shareUuid = shareUuid1
