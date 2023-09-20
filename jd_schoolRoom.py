@@ -337,8 +337,8 @@ if __name__ == '__main__':
         token = getToken(cookie, r)
         if token is None:
             if num == 1:
-                print(f"⚠️车头获取Token失败,退出本程序！")
-                sys.exit()
+                print(f"⚠️车头获取Token失败！")
+                # sys.exit()
             print(f"⚠️获取Token失败！⏰等待3s")
             time.sleep(3)
             continue
@@ -349,7 +349,7 @@ if __name__ == '__main__':
         if not authToken:
             if num == 1:
                 print("‼️车头为火爆号,换车头重新运行！")
-                sys.exit()
+                # sys.exit()
             else:
                 print("📝移除火爆账号")
                 time.sleep(1.5)
@@ -357,9 +357,9 @@ if __name__ == '__main__':
         time.sleep(0.1)
         userInfo = getUserInfo(authToken)
         if not userInfo:
-            if num == 1:
-                sys.exit()
-            else:
+            # if num == 1:
+            #     sys.exit()
+            # else:
                 time.sleep(1.5)
                 continue
         rooms, room_order_num, user = userInfo[0], userInfo[1], userInfo[2]
@@ -384,7 +384,7 @@ if __name__ == '__main__':
                             break
                     except Exception as e:
                         print(f"抽奖有误: {e}")
-                sys.exit()
+                # sys.exit()
         time.sleep(0.1)
         assistInfo = assist(authToken, shareUuid)
         exit_flag = False
