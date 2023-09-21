@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-File: jd_lzkjInteractAddCart.py(jd_lzkjInteract关注有礼)
+File: jd_lzkjInteractFollow.py(jd_lzkjInteract关注有礼)
 Author: HarbourJ
 Date: 2022/11/24 10:00
 TG: https://t.me/HarbourToulu
@@ -506,104 +506,107 @@ if __name__ == '__main__':
         print(f'\n******开始【京东账号{num}】{pt_pin} *********\n')
         print(datetime.now())
 
-        result = check(cookie)
-        if result['code'] != 200:
-            print(f"⚠️当前CK失效！跳过")
-            continue
-        token = getToken(cookie, r)
-        if token is None:
-            print(f"⚠️获取Token失败！⏰等待3s")
-            time.sleep(2)
-            continue
-        time.sleep(0.2)
-        getActivity()
-        time.sleep(0.2)
-        userInfo = getUserInfo(shareUserId)
-        if not userInfo:
-            time.sleep(2)
-            continue
-        shopId = userInfo['shopId']
-        openCardUrl = userInfo['joinInfo']['openCardUrl']
-        venderId = re.findall(r"venderId=(\w+)", openCardUrl)
-        venderId = venderId[0] if venderId else shopId
-        Token = userInfo['token']
-        shopName = userInfo['shopName']
-        actName = userInfo['actName']
-        joinCodeInfo = userInfo['joinInfo']['joinCodeInfo']
-        customerId = userInfo['customerId']
-        time.sleep(0.2)
-
-        if num == 1:
-            print(f"✅ 开启【{actName}】活动")
-            print(f"店铺名称：{shopName} {shopId}")
-            MSG += f'✅开启{shopName}--{actName}活动\n📝活动地址 {activityUrl.split("&shareUserId=")[0]}\n'
-
-        prize = drawPrize(Token)
-        prizeListRecord = []
-        prizeNameList = []
-        index = 0
         try:
-            for prizeitem in prize['prizeInfo']:
-                index += 1
-                print(f"🎁 奖品: {prizeitem['prizeName']}, 剩余：{prizeitem['leftNum']}")
-                prizeNameList.append(f"🎁奖品:{prizeitem['prizeName']},剩余:{prizeitem['leftNum']}\n")
-                if prizeitem['leftNum'] > 0:
-                    prizeListRecord.append((prizeitem['prizeName'], prizeitem['id']))
-            MSG += f"🎁当前活动奖品如下: \n{str(''.join(prizeNameList))}\n" if num == 1 else ""
-        except:
-            print('⚠️无法获取奖品列表')
-
-        print(f"参加活动状态：{joinCodeInfo['joinDes']}")
-        if "未关注店铺" in joinCodeInfo['joinDes']:
-            followShop(Token)
-            print(f"关注店铺成功")
+            result = check(cookie)
+            if result['code'] != 200:
+                print(f"⚠️当前CK失效！跳过")
+                continue
+            token = getToken(cookie, r)
+            if token is None:
+                print(f"⚠️获取Token失败！⏰等待3s")
+                time.sleep(2)
+                continue
             time.sleep(0.2)
-        if "不是会员" in joinCodeInfo['joinDes'] or "加入会员" in joinCodeInfo['joinDes']:
-            venderCardName = getShopOpenCardInfo(cookie, venderId)
-            open_result = bindWithVender(cookie, shopId, venderId)
-            if open_result is not None:
-                if "火爆" in open_result or "失败" in open_result or "解绑" in open_result:
-                    print(f"⛈{open_result},无法完成关注任务")
-                    continue
-                if "加入店铺会员成功" in open_result:
-                    print(f"🎉🎉{venderCardName} {open_result}")
-    # if "可以参加活动" in joinCodeInfo['joinDes']:  # 1004
-        skuInfo = followGoodsAct(Token)
-        # print(f"skuInfo: {skuInfo}")
-        finishNum = skuInfo[0]['finishNum']
-        completeCount = skuInfo[0]['completeCount']
-        oneClickFollowPurchase = skuInfo[0]['oneClickFollowPurchase']
-        if oneClickFollowPurchase:
-            print(f"需要关注{finishNum},已关注{completeCount}")
-        else:
-            print(f"需要一键关注{finishNum}个商品")
-        taskId = skuInfo[0]['taskId']
-        skuInfoVO = skuInfo[0]['skuInfoVO']
-        skuIds = [i['skuId'] for i in skuInfoVO if not i['status']]
-        status = skuInfo[0]['status']
-        if completeCount >= finishNum or status:
-            print("已经完成过关注任务")
-        else:
-            needAddCount = finishNum - completeCount
-            for x in range(needAddCount):
-                skuId = skuIds[x] if oneClickFollowPurchase else ""
-                followGoodsResult = followGoods(Token, skuId)
-                # print(f"followGoodsResult: {followGoodsResult}")
-                if followGoodsResult == 99:
-                    if x == needAddCount - 1:
-                        print(f"成功关注{needAddCount}个商品,获得💨💨💨")
-                else:
-                    # 1 京豆、4 积分
-                    prizeName = followGoodsResult['prizeName']
-                    prizeType = followGoodsResult['prizeType']
-                    print(f"🎁成功关注{needAddCount}个商品,获得{prizeName}")
-                    MSG += f'【账号{num}】{pt_pin} 🎉{prizeName}\n'
-                    if "积分" not in prizeName and "京豆" not in prizeName and "优惠券" not in prizeName:
-                        print(f"🎉恭喜获得实物,请前往{activityUrl}手动领取奖励！")
-                        MSG_ = f'【账号{num}】{pt_pin} 🎉恭喜获得实物,请前往{activityUrl} 手动领取奖励！'
-                        msg_ = f"⏰{str(datetime.now())[:19]}\n" + MSG_
-                        send(title, msg_)
-                time.sleep(0.1)
+            getActivity()
+            time.sleep(0.2)
+            userInfo = getUserInfo(shareUserId)
+            if not userInfo:
+                time.sleep(2)
+                continue
+            shopId = userInfo['shopId']
+            openCardUrl = userInfo['joinInfo']['openCardUrl']
+            venderId = re.findall(r"venderId=(\w+)", openCardUrl)
+            venderId = venderId[0] if venderId else shopId
+            Token = userInfo['token']
+            shopName = userInfo['shopName']
+            actName = userInfo['actName']
+            joinCodeInfo = userInfo['joinInfo']['joinCodeInfo']
+            customerId = userInfo['customerId']
+            time.sleep(0.2)
+
+            if num == 1:
+                print(f"✅ 开启【{actName}】活动")
+                print(f"店铺名称：{shopName} {shopId}")
+                MSG += f'✅开启{shopName}--{actName}活动\n📝活动地址 {activityUrl.split("&shareUserId=")[0]}\n'
+
+            prize = drawPrize(Token)
+            prizeListRecord = []
+            prizeNameList = []
+            index = 0
+            try:
+                for prizeitem in prize['prizeInfo']:
+                    index += 1
+                    print(f"🎁 奖品: {prizeitem['prizeName']}, 剩余：{prizeitem['leftNum']}")
+                    prizeNameList.append(f"🎁奖品:{prizeitem['prizeName']},剩余:{prizeitem['leftNum']}\n")
+                    if prizeitem['leftNum'] > 0:
+                        prizeListRecord.append((prizeitem['prizeName'], prizeitem['id']))
+                MSG += f"🎁当前活动奖品如下: \n{str(''.join(prizeNameList))}\n" if num == 1 else ""
+            except:
+                print('⚠️无法获取奖品列表')
+
+            print(f"参加活动状态：{joinCodeInfo['joinDes']}")
+            if "未关注店铺" in joinCodeInfo['joinDes']:
+                followShop(Token)
+                print(f"关注店铺成功")
+                time.sleep(0.2)
+            if "不是会员" in joinCodeInfo['joinDes'] or "加入会员" in joinCodeInfo['joinDes']:
+                venderCardName = getShopOpenCardInfo(cookie, venderId)
+                open_result = bindWithVender(cookie, shopId, venderId)
+                if open_result is not None:
+                    if "火爆" in open_result or "失败" in open_result or "解绑" in open_result:
+                        print(f"⛈{open_result},无法完成关注任务")
+                        continue
+                    if "加入店铺会员成功" in open_result:
+                        print(f"🎉🎉{venderCardName} {open_result}")
+        # if "可以参加活动" in joinCodeInfo['joinDes']:  # 1004
+            skuInfo = followGoodsAct(Token)
+            # print(f"skuInfo: {skuInfo}")
+            finishNum = skuInfo[0]['finishNum']
+            completeCount = skuInfo[0]['completeCount']
+            oneClickFollowPurchase = skuInfo[0]['oneClickFollowPurchase']
+            if oneClickFollowPurchase:
+                print(f"需要关注{finishNum},已关注{completeCount}")
+            else:
+                print(f"需要一键关注{finishNum}个商品")
+            taskId = skuInfo[0]['taskId']
+            skuInfoVO = skuInfo[0]['skuInfoVO']
+            skuIds = [i['skuId'] for i in skuInfoVO if not i['status']]
+            status = skuInfo[0]['status']
+            if completeCount >= finishNum or status:
+                print("已经完成过关注任务")
+            else:
+                needAddCount = finishNum - completeCount
+                for x in range(needAddCount):
+                    skuId = skuIds[x] if oneClickFollowPurchase else ""
+                    followGoodsResult = followGoods(Token, skuId)
+                    # print(f"followGoodsResult: {followGoodsResult}")
+                    if followGoodsResult == 99:
+                        if x == needAddCount - 1:
+                            print(f"成功关注{needAddCount}个商品,获得💨💨💨")
+                    else:
+                        # 1 京豆、4 积分
+                        prizeName = followGoodsResult['prizeName']
+                        prizeType = followGoodsResult['prizeType']
+                        print(f"🎁成功关注{needAddCount}个商品,获得{prizeName}")
+                        MSG += f'【账号{num}】{pt_pin} 🎉{prizeName}\n'
+                        if "积分" not in prizeName and "京豆" not in prizeName and "优惠券" not in prizeName:
+                            print(f"🎉恭喜获得实物,请前往{activityUrl}手动领取奖励！")
+                            MSG_ = f'【账号{num}】{pt_pin} 🎉恭喜获得实物,请前往{activityUrl} 手动领取奖励！'
+                            msg_ = f"⏰{str(datetime.now())[:19]}\n" + MSG_
+                            send(title, msg_)
+                    time.sleep(0.1)
+        except Exception as e:
+            print(e)
         time.sleep(2)
 
     msg = f"⏰{str(datetime.now())[:19]}\n" + MSG
