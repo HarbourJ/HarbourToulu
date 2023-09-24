@@ -262,7 +262,7 @@ if __name__ == '__main__':
                     cashInfo = apCashWithDraw(cookie, id, poolBaseId, prizeGroupId, prizeBaseId)
                     if cashInfo:
                         printf(cookie, f"{amount}现金 {cashInfo}")
-                        if "上限" in cashInfo or "其他pin" in cashInfo:
+                        if "上限" in cashInfo or "其他pin" in cashInfo or "其它pin" in cashInfo:
                             cashInfo = apRecompenseDrawPrize(cookie, id, poolBaseId, prizeGroupId, prizeBaseId)
                             printf(cookie, f"{amount}现金 {cashInfo}")
                     time.sleep(2)
