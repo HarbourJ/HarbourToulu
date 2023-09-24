@@ -9,6 +9,7 @@ TG: https://t.me/HarbourToulu
 cron: 30 0 1,21 * * *
 new Env('邀好友抽现金抽奖');
 ActivityEntry: https://prodev.m.jd.com/jdlite/active/23CeE8ZXA4uFS9M9mTjtta9T4S5x/index.html
+变量：export inviteDrawPin="车头pin"
 """
 
 import time, requests, sys, re, os, json, random
@@ -179,7 +180,15 @@ if __name__ == '__main__':
         print("未获取到有效COOKIE,退出程序！")
         sys.exit()
 
-    cookie = cks[0]
+    inviteDrawPin = os.environ.get("inviteDrawPin") if os.environ.get("inviteDrawPin") else ""
+    if inviteDrawPin:
+        cookie_ = [ck for ck in cks if inviteDrawPin in ck]
+        if cookie_:
+            cookie = cookie_[0]
+        else:
+            cookie = cks[0]
+    else:
+        cookie = cks[0]
     ua = userAgent()
     cash = []
     successful = []
@@ -189,7 +198,15 @@ if __name__ == '__main__':
 
     for index, linkId in enumerate(linkIds, 1):
         while True:
-            info = inviteFissionDrawPrize(ua, cookie, "inviteFissionDrawPrize", "c02c6", {"linkId":linkId})
+            try:
+                info = inviteFissionDrawPrize(ua, cookie, "inviteFissionDrawPrize", "c02c6", {"linkId":linkId})
+                if "活动太火爆" in str(info):
+                    printf(cookie, info)
+                    time.sleep(0.2)
+                    continue
+            except Exception as e:
+                printf(cookie, e)
+                continue
             if not info:
                 continue
             if not info[1]:

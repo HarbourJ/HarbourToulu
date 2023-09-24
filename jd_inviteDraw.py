@@ -9,9 +9,10 @@ TG: https://t.me/HarbourToulu
 cron: 30 0 0,20 * * *
 new Env('邀好友抽现金助力');
 ActivityEntry: https://prodev.m.jd.com/jdlite/active/23CeE8ZXA4uFS9M9mTjtta9T4S5x/index.html
+变量：export inviteDrawPin="车头pin"
 """
 
-import time, requests, sys, re, threading
+import time, requests, sys, re, threading, os
 from functools import partial
 print = partial(print, flush=True)
 import warnings
@@ -228,7 +229,16 @@ if __name__ == '__main__':
         print("未获取到有效COOKIE,退出程序！")
         sys.exit()
     inviter = remote_redis(f"inviteFissionBeforeHome", 3)
-    cookie = cks[0] # 获取车头助力码
+    inviteDrawPin = os.environ.get("inviteDrawPin") if os.environ.get("inviteDrawPin") else ""
+    if inviteDrawPin:
+        cookie_ = [ck for ck in cks if inviteDrawPin in ck]
+        if cookie_:
+            cookie = cookie_[0]
+        else:
+            cookie = cks[0]
+    else:
+        cookie = cks[0]
+    # 获取车头助力码
     ua = userAgent()
     for index, linkId in enumerate(linkIds, 1):
         response = H5API(ua, cookie, "inviteFissionBeforeHome", {'linkId': linkId, "isJdApp": True, 'inviter': inviter}, '02f8d').json()
