@@ -234,10 +234,12 @@ if __name__ == '__main__':
     if inviteDrawPin:
         cookie_ = [ck for ck in cks if inviteDrawPin in ck]
         if cookie_:
+            print(f"当前使用【{inviteDrawPin}】作为车头！")
             cookie = cookie_[0]
         else:
-            cookie = cks[0]
+            print(f"未发现【{inviteDrawPin}】车头CK,退出程序！")
     else:
+        print("未设置inviteDrawPin车头,默认CK1作为车头")
         cookie = cks[0]
     # 获取车头助力码
     ua = userAgent()
