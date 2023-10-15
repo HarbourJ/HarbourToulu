@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-File: jd_inviteDrawPrize.py(邀好友抽现金抽奖)
+File: jd_inviteDrawPrize_JD.py(邀好友抽现金抽奖JD)
 Author: HarbourJ
 Date: 2023/3/15 10:00
 TG: https://t.me/HarbourToulu
 cron: 30 0 1,21 * * *
-new Env('邀好友抽现金抽奖');
+new Env('邀好友抽现金抽奖JD');
 ActivityEntry: https://prodev.m.jd.com/jdlite/active/23CeE8ZXA4uFS9M9mTjtta9T4S5x/index.html
 变量：export inviteDrawPin="车头pin"
 """
@@ -34,7 +34,7 @@ except:
     sys.exit(3)
 
 apCashPageSize = 20  # 提现的最大页数，可根据实际情况修改
-linkIds = ['Wvzc_VpNTlSkiQdHT8r7QA', '3orGfh1YkwNLksxOcN8zWQ']
+linkIds = ['3orGfh1YkwNLksxOcN8zWQ']
 activityUrl = "https://prodev.m.jd.com/jdlite/active/23CeE8ZXA4uFS9M9mTjtta9T4S5x/index.html"
 
 
@@ -190,6 +190,7 @@ if __name__ == '__main__':
             cookie = cookie_[0]
         else:
             print(f"未发现【{inviteDrawPin}】车头CK,退出程序！")
+            sys.exit()
     else:
         print("未设置inviteDrawPin车头,默认CK1作为车头")
         cookie = cks[0]
@@ -233,6 +234,22 @@ if __name__ == '__main__':
                     else:
                         printf(cookie, f"{info[0]} 💵获得{info[1]}现金")
                         cash.append(info[1])
+            # 提现金
+            info = inviteFissionReceive(ua, cookie, "inviteFissionReceive", "b8469", {"linkId": linkId})
+            if "火爆" in str(info):
+                printf(cookie, f"{info['errMsg']}")
+                continue
+            amount_all = info['amount']
+            leftAmount = info['leftAmount']
+            if info['receiveList']:
+                msg = '💰提现金成功'
+                amount = info['receiveList'][0]['amount']
+                printf(cookie, f"{msg} 获得{amount},当前{amount_all},还差{leftAmount}")
+            else:
+                msg = '❌提现金失败'
+                printf(cookie, f"{msg}")
+            time.sleep(1.5)
+
 
     print(f"\n****************抽奖结束,共抽奖{total}次,💵获得:{'{:.2f}'.format(sum([float(x) for x in cash]))}元现金,🧧获得:{'{:.2f}'.format(sum([float(x) for x in redpacket]))}元红包,开始提现****************\n")
 
