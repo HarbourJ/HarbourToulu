@@ -8,7 +8,7 @@ Date: 2023/9/12 00:00
 TG: https://t.me/HarbourToulu
 cron: 0 0 */3 24-31 10 *
 new Env('预售来袭 多重好礼');
-ActivityEntry: https://lzdz1-isv.isvjcloud.com/dingzhi/joinCommon/activity/5929859?activityId=0a8061fb4cca483085540025ab158ab2
+ActivityEntry: https://lzdz1-isv.isvjcloud.com/dingzhi/joinCommon/activity/5929859?activityId=aef4fa15b0604b429c858a0ca6292c00
 并发变量：export jd_joinCommon_uuid="你的uuid"
 并发命令：task HarbourJ_HarbourToulu_main/jd_opencardH1024.py conc JD_COOKIE 1-20
 """
@@ -39,7 +39,7 @@ redis_port = os.environ.get("redis_port") if os.environ.get("redis_port") else "
 redis_pwd = os.environ.get("redis_pwd") if os.environ.get("redis_pwd") else ""
 inviterUuid = os.environ.get("jd_joinCommon_uuid") if os.environ.get("jd_joinCommon_uuid") else ""
 
-activityId = "0a8061fb4cca483085540025ab158ab2"
+activityId = "aef4fa15b0604b429c858a0ca6292c00"
 shopId = "1000003829"
 activity_url = f"https://lzdz1-isv.isvjcloud.com/dingzhi/joinCommon/activity/5929859?activityId={activityId}&shareUuid={inviterUuid}&adsource=null&shareuserid4minipg=null&lng=00.000000&lat=00.000000&sid=&un_area=&&shopid={shopId}"
 print(f"【🛳活动入口】https://lzdz1-isv.isvjcloud.com/dingzhi/joinCommon/activity/5929859?activityId={activityId}")
