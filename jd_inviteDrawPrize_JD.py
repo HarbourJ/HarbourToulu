@@ -234,20 +234,20 @@ if __name__ == '__main__':
                     else:
                         printf(cookie, f"{info[0]} 💵获得{info[1]}现金")
                         cash.append(info[1])
-            # 提现金
-            info = inviteFissionReceive(ua, cookie, "inviteFissionReceive", "b8469", {"linkId": linkId})
-            if "火爆" in str(info):
-                printf(cookie, f"{info['errMsg']}")
-                continue
-            amount_all = info['amount']
-            leftAmount = info['leftAmount']
-            if info['receiveList']:
-                msg = '💰提现金成功'
-                amount = info['receiveList'][0]['amount']
-                printf(cookie, f"{msg} 获得{amount},当前{amount_all},还差{leftAmount}")
-            else:
-                msg = '❌提现金失败'
-                printf(cookie, f"{msg}")
+            # # 提现金
+            # info = inviteFissionReceive(ua, cookie, "inviteFissionReceive", "b8469", {"linkId": linkId})
+            # if "火爆" in str(info):
+            #     printf(cookie, f"{info['errMsg']}")
+            #     continue
+            # amount_all = info['amount']
+            # leftAmount = info['leftAmount']
+            # if info['receiveList']:
+            #     msg = '💰提现金成功'
+            #     amount = info['receiveList'][0]['amount']
+            #     printf(cookie, f"{msg} 获得{amount},当前{amount_all},还差{leftAmount}")
+            # else:
+            #     msg = '❌提现金失败'
+            #     printf(cookie, f"{msg}")
             time.sleep(1.5)
 
 
