@@ -186,7 +186,7 @@ def H5API (OOOOO0000OO0OOO0O ,OOO0OO00O0000000O ,OOO0O0000OO000000 ,O00O0O0OO00O
         printf (OOO0OO00O0000000O ,OO000O00OOOO0OO0O .status_code )#line:68
 def Result (O0000000OO00000OO ,OOOO0O0OO00O0O000 ,OOO0O0O0OO0OO0OO0 ,O000000000O0OOOOO ):#line:70
     for OOOO000OO0OOOO0OO ,O0000OO0O0OOO0000 in enumerate (linkIds ,1 ):#line:71
-        O0000OO000OOOOOO0 =H5API (O0000000OO00000OO ,OOOO0O0OO00O0O000 ,"inviteFissionBeforeHome",{'linkId':O0000OO0O0OOO0000 ,"isJdApp":True ,'inviter':OOO0O0O0OO0OO0OO0 },'02f8d',O000000000O0OOOOO )#line:72
+        O0000OO000OOOOOO0 =H5API (O0000000OO00000OO ,OOOO0O0OO00O0O000 ,"inviteFissionhelp",{'linkId':O0000OO0O0OOO0000 ,"isJdApp":True ,'inviter':OOO0O0O0OO0OO0OO0 },'02f8d',O000000000O0OOOOO )#line:72
         if not O0000OO000OOOOOO0 :#line:73
             return #line:74
         if int (O0000OO000OOOOOO0 .status_code )!=int (200 ):#line:75
@@ -229,7 +229,7 @@ if __name__ == '__main__':
     except:
         print("未获取到有效COOKIE,退出程序！")
         sys.exit()
-    inviter = remote_redis(f"inviteFissionBeforeHome", 3)
+    inviter = remote_redis(f"inviteFissionhelp", 3)
     inviteDrawPin = os.environ.get("inviteDrawPin") if os.environ.get("inviteDrawPin") else ""
     if inviteDrawPin:
         cookie_ = [ck for ck in cks if inviteDrawPin in ck]
@@ -244,7 +244,7 @@ if __name__ == '__main__':
     # 获取车头助力码
     ua = userAgent()
     for index, linkId in enumerate(linkIds, 1):
-        response = H5API(ua, cookie, "inviteFissionBeforeHome", {'linkId': linkId, "isJdApp": True, 'inviter': inviter}, '02f8d').json()
+        response = H5API(ua, cookie, "inviteFissionhelp", {'linkId': linkId, "isJdApp": True, 'inviter': inviter}, '02f8d').json()
         if response['success'] == False and response['code'] == 1000:
             printf(cookie, f"{response['errMsg']}")
             sys.exit()
