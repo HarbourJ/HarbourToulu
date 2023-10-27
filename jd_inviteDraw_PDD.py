@@ -154,7 +154,8 @@ def get_h5st_body (OO00O00O0O000O0O0 ,O0OO00000O0O0000O ,OOO00000O00O0000O ,OOO0
     OO0000OO0000O0O00 ={"appId":OOO00O000OOOOOO0O ,"appid":"activities_platform","ua":OO00O00O0O000O0O0 ,"pin":O00O00O0OOO0O00O0 ,"functionId":OOO00000O00O0000O ,"body":OO0000OO0000O0O00 ,"expand":{"url":"https://pro.m.jd.com/jdlite/active/23CeE8ZXA4uFS9M9mTjtta9T4S5x/index.html","og":"https://pro.m.jd.com"},"clientVersion":O0OO000OO0O00OO0O ,"version":"4.1"}#line:22
     try :#line:23
         import base64 #line:24
-        O0OO000000O0OOO00 ="aHR0cDovLzEyNy4wLjAuMTozMDAxL2FwaS9oNXN0"#line:25
+        O0OO000000O0OOO00 = ["aHR0cDovLzEuOTQuOC4yNDQ6MzAwMS9hcGkvaDVzdA==","aHR0cDovL2hhcmJvdXJqLmNmOjMwMDEvYXBpL2g1c3Q=","aHR0cDovLzEzMi4yMjYuMjM4LjE4NjozMDAxL2FwaS9oNXN0"] #line:25
+        OO0000OO0000O0O00 = random.choice(O0OO000000O0OOO00)
         O00000OO0000OO00O =json .dumps (OO0000OO0000O0O00 )#line:26
         OOOOO0O0O00OOO0OO ={'Content-Type':'application/json'}#line:29
         OOO0O00OOOOOOOO0O =requests .request ("POST",base64 .b64decode (O0OO000000O0OOO00 .encode ('utf-8')).decode ('utf-8'),headers =OOOOO0O0O00OOO0OO ,timeout =10 ,data =O00000OO0000OO00O ).json ()#line:30
