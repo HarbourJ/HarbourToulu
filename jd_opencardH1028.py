@@ -662,7 +662,7 @@ if __name__ == '__main__':
                                     break
                                 else:
                                     time.sleep(3)
-                                if retry_time >= 2:
+                                if retry_time >= 3:
                                     break
                             if openExit:
                                 break
