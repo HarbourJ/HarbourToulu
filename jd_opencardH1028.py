@@ -437,7 +437,16 @@ def helpFriend(actorUuid, pin):
 
 def bindWithVender(cookie, venderId):
     try:
-        s.headers = {
+        payload = {
+                'appid': 'jd_shop_member',
+                'functionId': 'bindWithVender',
+                'body': json.dumps({
+                    'venderId': venderId,
+                    'shopId': venderId,
+                    'bindByVerifyCodeFlag': 1
+                }, separators=(',', ':'))
+            }
+        headers = {
             'Connection': 'keep-alive',
             'Accept-Encoding': 'gzip, deflate, br',
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -448,20 +457,13 @@ def bindWithVender(cookie, venderId):
             'Accept-Language': 'zh-Hans-CN;q=1 en-CN;q=0.9',
             'Accept': '*/*'
         }
-        s.params = {
-            'appid': 'jd_shop_member',
-            'functionId': 'bindWithVender',
-            'body': json.dumps({
-                'venderId': venderId,
-                'shopId': venderId,
-                'bindByVerifyCodeFlag': 1
-            }, separators=(',', ':'))
-        }
-        res = s.post('https://api.m.jd.com/', verify=False, timeout=30).json()
+        response = requests.request("POST", "https://api.m.jd.com/", headers=headers, data=payload, timeout=10).text
+        res = json.loads(response)
         if res['success']:
+            # return res['message'], res['result']['giftInfo'] if res['result'] else ""
             return res['message']
     except Exception as e:
-        print(e)
+        print(f"bindWithVender Error: {venderId} {e}")
 
 def getShopOpenCardInfo(cookie, venderId):
     try:
@@ -641,18 +643,29 @@ if __name__ == '__main__':
                         print("关注店铺成功")
                     if len(unOpenCardLists) > 0:
                         print(f"现在去开卡,开{len(unOpenCardLists)}张卡")
+                        openExit = False
                         for shop in unOpenCardLists:
                             print(f"去开卡 {shop[1]} {shop[0]}")
                             venderId = shop[0]
                             venderCardName = shop[1]
                             # getShopOpenCardInfo(cookie, venderId)
-                            open_result = bindWithVender(cookie, venderId)
-                            if open_result is not None:
-                                if "火爆" in open_result or "失败" in open_result or "解绑" in open_result:
-                                    print(f"\t⛈⛈{venderCardName} {open_result}")
+                            retry_time = 0
+                            while True:
+                                retry_time += 1
+                                open_result = bindWithVender(cookie, venderId)
+                                if open_result is not None:
+                                    if "火爆" in open_result or "失败" in open_result or "解绑" in open_result:
+                                        print(f"\t⛈⛈{venderCardName} {open_result}")
+                                        openExit = True
+                                    else:
+                                        print(f"\t🎉🎉{venderCardName} {open_result}")
                                     break
                                 else:
-                                    print(f"\t🎉🎉{venderCardName} {open_result}")
+                                    time.sleep(3)
+                                if retry_time >= 2:
+                                    break
+                            if openExit:
+                                break
                             time.sleep(3.5)
                         actContent0 = activityContent(pin, yunMidImageUrl, nickname)
                         isVip0 = actContent0['isVip']
