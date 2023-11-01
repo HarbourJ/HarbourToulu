@@ -252,7 +252,7 @@ if __name__ == '__main__':
             printf(cookie, f'✅助力作者成功 谢谢你 你是个好人！！！')
         else:
             printf(cookie, f'❌助理作者失败 下次记得把助理留给我 呜呜呜！！！')
-        response = H5API(ua, cookie, 'inviteFissionHome', {'linkId': linkId, "inviter": ""}, 'af89e').json()
+        response = H5API(ua, cookie, 'inviteFissionHome', {'linkId': linkId, "inviter": ""}, 'eb67b').json()
         if index == 1:
             printf(cookie, f'【JX】⏰剩余时间:{convert_ms_to_hours_minutes(response["data"]["countDownTime"])} 🎉已获取助力{response["data"]["prizeNum"] + response["data"]["drawPrizeNum"]}次 ✅【助力码】:{response["data"]["inviter"]}')
             prizeNum1 = response["data"]["prizeNum"] + response["data"]["drawPrizeNum"]
