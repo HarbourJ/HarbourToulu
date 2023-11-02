@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-File: jd_opencardH1028.py(10.27-11.17 嗨购狂欢节 惊喜享不停)
+File: jd_opencardH1028.py(10.27-11.17 同心陪伴 豪礼相惠)
 Author: HarbourJ
 Date: 2023/9/12 00:00
 TG: https://t.me/HarbourToulu
 cron: 0 0 */3 27-31,1-17 10,11 *
-new Env('嗨购狂欢节 惊喜享不停');
+new Env('同心陪伴 豪礼相惠');
 ActivityEntry: https://lzdz-isv.isvjcloud.com/dingzhi/bd/common/activity/740291?activityId=90523102701
 并发变量：export jd_lzdzCommon_uuid="你的uuid"
 并发命令：task HarbourJ_HarbourToulu_main/jd_opencardH1028.py conc JD_COOKIE 1-20
