@@ -164,9 +164,9 @@ def download(version, systemFile, gitproxy="", again=1):
             print(f"开始第{again}次重试获取{systemFile}")
             again = again + 1
             if again == 2:
-                gitproxy = "https://git.metauniverse-cn.com/"
+                gitproxy = "https://mirror.ghproxy.com/"
             elif again == 3:
-                gitproxy = "https://kgithub.com/"
+                gitproxy = "https://git.metauniverse-cn.com/"
             elif again == 4:
                 gitproxy = "https://hub.gitmirror.com/"
             time.sleep(1)
@@ -215,7 +215,7 @@ def signReleaseUpdate(rawproxy="https://raw.githubusercontent.com/", again=1):
             print(f"开始第{again}次重试获取signUpdateLog.log")
             again = again + 1
             if again == 2:
-                rawproxy = "https://git.metauniverse-cn.com/"
+                rawproxy = "https://mirror.ghproxy.com/https://raw.githubusercontent.com/"
             elif again == 3:
                 rawproxy = "https://raw.kgithub.com/"
             elif again == 4:
