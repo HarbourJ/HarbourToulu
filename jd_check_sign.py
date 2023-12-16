@@ -32,8 +32,14 @@ def updateDependent():
         print(f"✅识别本机设备Py版本为{PyVersion_},版本太高暂不支持,可退回青龙2.11.3版本!\n")
         sys.exit()
     os.system("pip install requests")
-    os.system("pip uninstall -y urllib3")
-    os.system("pip install urllib3==1.25.11")
+    try:
+        import urllib3
+        if urllib3.__version__ != "1.25.11":
+            os.system("pip uninstall -y urllib3")
+            os.system("pip install urllib3==1.25.11")
+    except ImportError as e:
+        print(e)
+        os.system("pip install urllib3==1.25.11")
     if system == "windows":
         fileName = f"jd_sign-win-amd64-py{PyVersion}.zip"
         print(f"✅识别本机设备为Windows amd64,Py版本为{PyVersion_}\n")
@@ -158,7 +164,7 @@ def download(version, systemFile, gitproxy="", again=1):
             print(f"开始第{again}次重试获取{systemFile}")
             again = again + 1
             if again == 2:
-                gitproxy = "https://ghproxy.com/"
+                gitproxy = "https://git.metauniverse-cn.com/"
             elif again == 3:
                 gitproxy = "https://kgithub.com/"
             elif again == 4:
@@ -209,7 +215,7 @@ def signReleaseUpdate(rawproxy="https://raw.githubusercontent.com/", again=1):
             print(f"开始第{again}次重试获取signUpdateLog.log")
             again = again + 1
             if again == 2:
-                rawproxy = "https://raw.iqiq.io/"
+                rawproxy = "https://git.metauniverse-cn.com/"
             elif again == 3:
                 rawproxy = "https://raw.kgithub.com/"
             elif again == 4:
@@ -252,7 +258,7 @@ def signReleaseUpdate(rawproxy="https://raw.githubusercontent.com/", again=1):
         return False
 
 def main():
-    print("🤖开始运行Harbour库依赖一键检测安装脚本\n本库仅支持python3版本为3.8-3.10,太高或太低都无法使用‼️‼️‼️\n")
+    print("\n🤖开始运行Harbour库依赖一键检测安装脚本\n本库仅支持python3版本为3.8-3.10,太高或太低都无法使用‼️‼️‼️\n")
     updateDependent()
     try:
         from jd_sign import remote_redis
@@ -265,5 +271,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
