@@ -6,12 +6,11 @@ File: jd_joinCommon_opencard.py(通用开卡-joinCommon系列)
 Author: HarbourJ
 Date: 2022/8/12 20:37
 TG: https://t.me/HarbourToulu
-TgChat: https://t.me/HarbourSailing
 cron: 1 1 1 1 1 1
 new Env('通用开卡-joinCommon系列');
 ActivityEntry: https://lzdz1-isv.isvjcloud.com/dingzhi/joinCommon/activity?activityId=2b870a1a74504c45995a5d5119487f3a
 Description: dingzhi/joinCommon系列通用开卡脚本(通常情况下,开一张卡10豆，邀请成功获得20豆)。
-            本地sign算法+redis缓存Token+代理ip(自行配置，实测可行)
+            本地sign算法+redis缓存Token
             变量: export jd_joinCommonId="2b870a1a7450xxxxxxxxxxxxx&1000000904" 变量值需要传入活动id&shopId
 Update: 2022/11/01 更新入会算法，内置船新入会本地算法
 """
@@ -463,31 +462,34 @@ def doTask(actorUuid, pin, taskType):
 
 def bindWithVender(cookie, venderId):
     try:
-        s.headers = {
-            'Connection': 'keep-alive',
-            'Accept-Encoding': 'gzip, deflate, br',
-            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-            'User-Agent': ua,
-            'Cookie': cookie,
+        payload = {
+                'appid': 'shopmember_m_jd_com',
+                'functionId': 'bindWithVender',
+                'body': json.dumps({
+                    'venderId': venderId,
+                    'shopId': venderId,
+                    'bindByVerifyCodeFlag': 1
+                }, separators=(',', ':'))
+            }
+        headers = {
             'Host': 'api.m.jd.com',
-            'Referer': 'https://shopmember.m.jd.com/',
-            'Accept-Language': 'zh-Hans-CN;q=1 en-CN;q=0.9',
-            'Accept': '*/*'
+            'Accept': '*/*',
+            'x-rp-client': 'h5_1.0.0',
+            'Accept-Language': 'zh-CN,zh-Hans;q=0.9',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Origin': 'https://shop.m.jd.com',
+            'x-referer-page': 'https://shop.m.jd.com/member/m/shopcard',
+            'Referer': 'https://shop.m.jd.com/',
+            'User-Agent': ua,
+            'Cookie': cookie
         }
-        s.params = {
-            'appid': 'jd_shop_member',
-            'functionId': 'bindWithVender',
-            'body': json.dumps({
-                'venderId': venderId,
-                'shopId': venderId,
-                'bindByVerifyCodeFlag': 1
-            }, separators=(',', ':'))
-        }
-        res = s.post('https://api.m.jd.com/', verify=False, timeout=30).json()
+        response = requests.request("POST", "https://api.m.jd.com/", headers=headers, data=payload, timeout=10).text
+        res = json.loads(response)
         if res['success']:
-            return res['message']
+            return res['message'], res['result']['giftInfo'] if res['result'] else ""
     except Exception as e:
-        print(e)
+        print(f"bindWithVender Error: {venderId} {e}")
 
 def getShopOpenCardInfo(cookie, venderId):
     try:
@@ -631,21 +633,39 @@ if __name__ == '__main__':
                 openCardList = task_info0['1']['settingInfo']
                 openCardLists = [(int(i['value']), i['name']) for i in openCardList]
                 unOpenCardLists = [i for i in openCardLists if i[0] not in openVenderId0]
+                open_num = 0
+                openExit = False
                 for shop in unOpenCardLists:
-                    print(f"去开卡 {shop[1]} {shop[0]}")
+                    open_num += 1
+                    print(f"去开卡 {open_num}/{len(unOpenCardLists)} {shop[0]}")
                     venderId = shop[0]
                     venderCardName = shop[1]
-                    getShopOpenCardInfo(cookie, venderId)
-                    open_result = bindWithVender(cookie, venderId)
-                    if open_result is not None:
-                        if "火爆" in open_result or "失败" in open_result or "解绑" in open_result:
-                            print(f"\t⛈⛈{venderCardName} {open_result}")
-                            assStat = False
+                    # getShopOpenCardInfo(cookie, venderId)
+                    retry_time = 0
+                    while True:
+                        retry_time += 1
+                        open_result = bindWithVender(cookie, venderId)
+                        if open_result is not None:
+                            if "火爆" in open_result[0] or "失败" in open_result[0] or "解绑" in open_result[0]:
+                                print(f"\t⛈⛈{venderCardName} {open_result[0]}")
+                                assStat = False
+                                openExit = True
+                            else:
+                                print(f"\t🎉🎉{venderCardName} {open_result[0]}")
+                                assStat = True
                             break
                         else:
-                            print(f"\t🎉🎉{venderCardName} {open_result}")
-                            assStat = True
-                    time.sleep(1.5)
+                            time.sleep(0.5)
+                        if retry_time >= 3:
+                            break
+                    if openExit:
+                        break
+                    if open_num % 5 == 0:
+                        print("⏰等待3s,休息一下")
+                        time.sleep(3)
+                    else:
+                        time.sleep(1.5)
+
             activityContent(pin, yunMidImageUrl, nickname)
             shareRecord(pin, actorUuid)
             time.sleep(0.5)

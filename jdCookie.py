@@ -41,6 +41,7 @@ def get_cookies():
 
     print(f"====================共{len(CookieJDs)}个京东账号Cookie=========\n")
     print(f"==================脚本执行- 北京时间(UTC+8)：{time.strftime('%Y/%m/%d %H:%M:%S', time.localtime())}=====================\n")
+    print(f"==================🗣活动通知- https://t.me/HarbourToulu=====================\n")
     return CookieJDs
 
 # if __name__ == "__main__":

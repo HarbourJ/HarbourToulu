@@ -446,7 +446,7 @@ def saveTask(actorUuid, shareUuid, pin, taskType, taskValue):
 def bindWithVender(cookie, venderId):
     try:
         payload = {
-                'appid': 'jd_shop_member',
+                'appid': 'shopmember_m_jd_com',
                 'functionId': 'bindWithVender',
                 'body': json.dumps({
                     'venderId': venderId,
@@ -455,15 +455,17 @@ def bindWithVender(cookie, venderId):
                 }, separators=(',', ':'))
             }
         headers = {
-            'Connection': 'keep-alive',
-            'Accept-Encoding': 'gzip, deflate, br',
-            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-            'User-Agent': ua,
-            'Cookie': cookie,
             'Host': 'api.m.jd.com',
-            'Referer': 'https://shopmember.m.jd.com/',
-            'Accept-Language': 'zh-Hans-CN;q=1 en-CN;q=0.9',
-            'Accept': '*/*'
+            'Accept': '*/*',
+            'x-rp-client': 'h5_1.0.0',
+            'Accept-Language': 'zh-CN,zh-Hans;q=0.9',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Origin': 'https://shop.m.jd.com',
+            'x-referer-page': 'https://shop.m.jd.com/member/m/shopcard',
+            'Referer': 'https://shop.m.jd.com/',
+            'User-Agent': ua,
+            'Cookie': cookie
         }
         response = requests.request("POST", "https://api.m.jd.com/", headers=headers, data=payload, timeout=10).text
         res = json.loads(response)
@@ -610,24 +612,32 @@ if __name__ == '__main__':
                 openCardLists = [(int(i['value']), i['name']) for i in cardList if i['status'] == 0]
                 print(f"现在去开卡,共计{len(openCardLists)}个会员💳")
                 open_num = 0
+                openExit = False
                 for shop in openCardLists:
                     open_num += 1
                     print(f"去开卡 {open_num}/{len(openCardLists)} {shop[0]}")
                     venderId = shop[0]
                     venderCardName = shop[1]
-                    getShopOpenCardInfo(cookie, venderId)
-                    open_result = bindWithVender(cookie, venderId)
-                    if open_result is not None:
-                        if "火爆" in open_result[0] or "失败" in open_result[0] or "解绑" in open_result[0]:
-                            time.sleep(1.5)
-                            print(f"\t⛈⛈{venderCardName} {open_result[0]}")
-                            assStat = False
+                    # getShopOpenCardInfo(cookie, venderId)
+                    retry_time = 0
+                    while True:
+                        retry_time += 1
+                        open_result = bindWithVender(cookie, venderId)
+                        if open_result is not None:
+                            if "火爆" in open_result[0] or "失败" in open_result[0] or "解绑" in open_result[0]:
+                                print(f"\t⛈⛈{venderCardName} {open_result[0]}")
+                                assStat = False
+                                openExit = True
+                            else:
+                                print(f"\t🎉🎉{venderCardName} {open_result[0]}")
+                                assStat = True
                             break
                         else:
-                            print(f"\t🎉🎉{venderCardName} {open_result[0]}")
-                            assStat = True
-                            if open_result[1]:
-                                print(f"\t🎁获得{','.join([gift['discountString'] + gift['prizeName'] for gift in open_result[1]['giftList']])}")
+                            time.sleep(0.5)
+                        if retry_time >= 3:
+                            break
+                    if openExit:
+                        break
                     if open_num % 5 == 0:
                         print("⏰等待5s,休息一下")
                         time.sleep(5)

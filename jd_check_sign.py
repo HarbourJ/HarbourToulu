@@ -31,6 +31,9 @@ def updateDependent():
     if int(PyVersion) > 310:
         print(f"✅识别本机设备Py版本为{PyVersion_},版本太高暂不支持,可退回青龙2.11.3版本!\n")
         sys.exit()
+    os.system("pip install requests")
+    os.system("pip uninstall -y urllib3")
+    os.system("pip install urllib3==1.25.11")
     if system == "windows":
         fileName = f"jd_sign-win-amd64-py{PyVersion}.zip"
         print(f"✅识别本机设备为Windows amd64,Py版本为{PyVersion_}\n")
@@ -249,7 +252,7 @@ def signReleaseUpdate(rawproxy="https://raw.githubusercontent.com/", again=1):
         return False
 
 def main():
-    print("🤖开始运行Harbour库依赖一键检测安装脚本\n")
+    print("🤖开始运行Harbour库依赖一键检测安装脚本\n本库仅支持python3版本为3.8-3.10,太高或太低都无法使用‼️‼️‼️\n")
     updateDependent()
     try:
         from jd_sign import remote_redis
