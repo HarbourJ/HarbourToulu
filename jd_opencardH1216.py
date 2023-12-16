@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-File: jd_opencardH1216.py(12.16-12.25 年终礼遇盛典(金币))
+File: jd_opencardH1216.py(12.16-12.25 年终礼遇盛典)
 Author: HarbourJ
 Date: 2023/9/12 00:00
 TG: https://t.me/HarbourToulu
