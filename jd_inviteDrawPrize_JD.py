@@ -76,7 +76,7 @@ def get_h5st_body (O00O00O0OO00OO0O0 ,OOOOOO0OOOOOOO0O0 ,O0O00OO0OOOOO0OOO ,O0O0
     O0O00O0O0O00OO000 ={"appId":O0O0OO00O0O0O00OO ,"appid":"activities_platform","ua":O00O00O0OO00OO0O0 ,"pin":OOO0OOOO0OOO0OO00 ,"functionId":O0O00OO0OOOOO0OOO ,"body":O0O00O0O0O00OO000 ,"expand":{"url":"https://pro.m.jd.com/jdlite/active/23CeE8ZXA4uFS9M9mTjtta9T4S5x/index.html","og":"https://pro.m.jd.com"},"clientVersion":OO0OOOOOO0O0O0000 ,"version":"4.1"}#line:68
     try :#line:69
         import base64 #line:70
-        OOO0OOOO000O0O00O =["aHR0cDovLzEuOTQuOC4yNDQ6MzAwMS9hcGkvaDVzdA==","aHR0cDovL2hhcmJvdXJqLmNmOjMwMDEvYXBpL2g1c3Q=","aHR0cDovLzEzMi4yMjYuMjM4LjE4NjozMDAxL2FwaS9oNXN0"]#line:71
+        OOO0OOOO000O0O00O =["aHR0cDovLzEuOTQuOC4yNDQ6MzAwMS9hcGkvaDVzdA==","aHR0cDovLzEzMi4yMjYuMjM4LjE4NjozMDAxL2FwaS9oNXN0","aHR0cDovLzEuMTQuMjA4LjE3ODozMDAxL2FwaS9oNXN0"]#line:71
         OOO0OOOO000O0O00O =random .choice (OOO0OOOO000O0O00O )#line:72
         OO00000O0O000O00O =json .dumps (O0O00O0O0O00OO000 )#line:73
         OO0000000O0OO00O0 ={'Content-Type':'application/json'}#line:74

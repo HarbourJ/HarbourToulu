@@ -125,7 +125,7 @@ def get_h5st_body (O0OOO000OO000OO0O ,O0000O0OOOO0OO000 ,O000OOO00OO0O0OO0 ,O0O0
     OO00OO0OO000OOOOO ={"appId":O0O0O0O0000O0OOO0 ,"appid":"activities_platform","ua":O0OOO000OO000OO0O ,"pin":OO000OOO000OOO0O0 ,"functionId":O000OOO00OO0O0OO0 ,"body":OO00OO0OO000OOOOO ,"expand":{"url":"https://pro.m.jd.com/jdlite/active/23CeE8ZXA4uFS9M9mTjtta9T4S5x/index.html","og":"https://pro.m.jd.com"},"clientVersion":O0000000O0OO0OO0O ,"version":"4.1"}#line:140
     try :#line:141
         import base64 #line:142
-        OO00O0O0O00O00O0O =["aHR0cDovLzEuOTQuOC4yNDQ6MzAwMS9hcGkvaDVzdA==","aHR0cDovL2hhcmJvdXJqLmNmOjMwMDEvYXBpL2g1c3Q=","aHR0cDovLzEzMi4yMjYuMjM4LjE4NjozMDAxL2FwaS9oNXN0"]#line:143
+        OO00O0O0O00O00O0O =["aHR0cDovLzEuOTQuOC4yNDQ6MzAwMS9hcGkvaDVzdA==","aHR0cDovLzEzMi4yMjYuMjM4LjE4NjozMDAxL2FwaS9oNXN0","aHR0cDovLzEuMTQuMjA4LjE3ODozMDAxL2FwaS9oNXN0"]#line:143
         OO00O0O0O00O00O0O =random .choice (OO00O0O0O00O00O0O )#line:144
         O00000OO0OOO0O0O0 =json .dumps (OO00OO0OO000OOOOO )#line:145
         OO0O0OO0OOOO0OO00 ={'Content-Type':'application/json'}#line:146
@@ -157,7 +157,7 @@ def H5API (OOO0O000OO00OOOOO ,O00O0OOO00000O0O0 ,OO0OO000O0OOO0000 ,O0O00O00O0O0
         printf (O00O0OOO00000O0O0 ,OOO00OO0OO00000OO .status_code )#line:172
 def Result (OO0OOO0OO0OO0000O ,O0O0OOOOO0OOO0OO0 ,O00O000O0O00O0OOO ,O00OO00OOO0O0O0O0 ):#line:173
     for OO00OO00O0O00OOOO ,O0OO00O0OOO00000O in enumerate (linkIds ,1 ):#line:174
-        O0OO00OOO00OO00OO =H5API (OO0OOO0OO0OO0000O ,O0O0OOOOO0OOO0OO0 ,"inviteFissionhelp",{'linkId':O0OO00O0OOO00000O ,"isJdApp":True ,'inviter':O00O000O0O00O0OOO },'02f8d',O00OO00OOO0O0O0O0 )#line:175
+        O0OO00OOO00OO00OO =H5API (OO0OOO0OO0OO0000O ,O0O0OOOOO0OOO0OO0 ,"inviteFissionhelp",{'linkId':O0OO00O0OOO00000O ,"isJdApp":True ,'inviter':O00O000O0O00O0OOO },'c5389',O00OO00OOO0O0O0O0 )#line:175
         if not O0OO00OOO00OO00OO :#line:176
             return #line:177
         if int (O0OO00OOO00OO00OO .status_code )!=int (200 ):#line:178
@@ -212,7 +212,7 @@ if __name__ =='__main__':#line:210
         cookie =cks [0 ]#line:229
     ua =userAgent ()#line:231
     for index ,linkId in enumerate (linkIds ,1 ):#line:232
-        response =H5API (ua ,cookie ,"inviteFissionhelp",{'linkId':linkId ,"isJdApp":True ,'inviter':inviter },'02f8d').json ()#line:233
+        response =H5API (ua ,cookie ,"inviteFissionBeforeHome",{'linkId':linkId ,"isJdApp":True ,'inviter':inviter },'02f8d').json ()#line:233
         if response ['success']==False and response ['code']==1000 :#line:234
             printf (cookie ,f"{response['errMsg']}")#line:235
             sys .exit ()#line:236
