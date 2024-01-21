@@ -1,3 +1,7 @@
+# 京豆快充
+支持APP扫二维码登录和短信登录:
+http://harborj.cf:10096
+
 【船新脚本使用教程】(脚本发布频道:https://t.me/HarbourToulu)
 
 ``` bash
