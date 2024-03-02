@@ -97,3 +97,7 @@ export redis_pwd=""  # 未设置redis密码就空着
 * [x] jd_lzkjInteract邀请有礼(jd_lzkjInteract.py)
 脚本变量: export jd_lzkjInteractUrl="活动链接🔗"
 并发变量: export jd_lzkjInteractUserId=“你的助力码”
+
+# 京豆快充
+支持APP扫二维码登录和短信登录:
+http://harborj.cf:10096
