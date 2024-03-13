@@ -136,6 +136,9 @@ def superRedBagList (OOO00OO000OO00OOO ,OOO0OO000O0OOOOOO ,OO0O0O00O00000OO0 ,O0
             return OO0O0O0000O0O0OO0 .text #line:129
     else :#line:130
         printf (OOO0OO000O0OOOOOO ,f"{OO0O0O0000O0O0OO0.status_code}")#line:131
+        if OO0O0O0000O0O0OO0 .status_code == 403:
+            printf(OOO0OO000O0OOOOOO, "提现接口403,退出！建议换ip后重试~")
+            exit()
 def apCashWithDraw (OO0OOOOO000OO00OO ,OO0O0O0O0O00O0000 ,OOOOOO0000O0OO00O ,OO0OO00O0O000OOO0 ,OOOOO0000OO000O0O ):#line:132
     OOOO000O0OOO0OO00 ="https://api.m.jd.com/"#line:133
     O0O0000OOOOO0OOOO ={"linkId":linkId ,"businessSource":"NONE","base":{"id":OO0O0O0O0O00O0000 ,"business":"fission","poolBaseId":OOOOOO0000O0OO00O ,"prizeGroupId":OO0OO00O0O000OOO0 ,"prizeBaseId":OOOOO0000OO000O0O ,"prizeType":4 }}#line:134
