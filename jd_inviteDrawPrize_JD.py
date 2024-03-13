@@ -12,7 +12,7 @@ ActivityEntry: https://prodev.m.jd.com/jdlite/active/23CeE8ZXA4uFS9M9mTjtta9T4S5
 变量：export inviteDrawPin="车头pin"
 """
 
-import time ,requests ,sys ,re ,os ,json ,random #line:1
+import time ,requests ,sys ,re ,os ,json ,random, base64 #line:1
 from urllib .parse import quote_plus ,unquote_plus ,quote #line:2
 from functools import partial #line:3
 print =partial (print ,flush =True )#line:4
@@ -73,10 +73,9 @@ def get_h5st_body (O00O00O0OO00OO0O0 ,OOOOOO0OOOOOOO0O0 ,O0O00OO0OOOOO0OOO ,O0O0
         OOO0OOOO0OOO0OO00 =re .compile (r'pin=(.*?);').findall (OOOOOO0OOOOOOO0O0 )[0 ]#line:65
         OOO0OOOO0OOO0OO00 =unquote_plus (OOO0OOOO0OOO0OO00 )#line:66
     OO0OOOOOO0O0O0000 =O00O00O0OO00OO0O0 .split (";")[2 ]#line:67
-    O0O00O0O0O00OO000 ={"appId":O0O0OO00O0O0O00OO ,"appid":"activities_platform","ua":O00O00O0OO00OO0O0 ,"pin":OOO0OOOO0OOO0OO00 ,"functionId":O0O00OO0OOOOO0OOO ,"body":O0O00O0O0O00OO000 ,"expand":{"url":"https://pro.m.jd.com/jdlite/active/23CeE8ZXA4uFS9M9mTjtta9T4S5x/index.html","og":"https://pro.m.jd.com"},"clientVersion":OO0OOOOOO0O0O0000 ,"version":"4.1"}#line:68
+    O0O00O0O0O00OO000 ={"appId":O0O0OO00O0O0O00OO ,"appid":"activities_platform","ua":O00O00O0OO00OO0O0 ,"pin":OOO0OOOO0OOO0OO00 ,"functionId":O0O00OO0OOOOO0OOO ,"body":O0O00O0O0O00OO000 ,"clientVersion":OO0OOOOOO0O0O0000 , "client":"ios", "version":"4.4"}#line:68
     try :#line:69
-        import base64 #line:70
-        OOO0OOOO000O0O00O =["aHR0cDovLzEuOTQuOC4yNDQ6MzAwMS9hcGkvaDVzdA==","aHR0cDovLzEzMi4yMjYuMjM4LjE4NjozMDAxL2FwaS9oNXN0","aHR0cDovLzEuMTQuMjA4LjE3ODozMDAxL2FwaS9oNXN0"]#line:71
+        OOO0OOOO000O0O00O =["aHR0cDovLzEuMTQuMjA4LjE3ODozMDAyL2FwaS9oNXN0","aHR0cDovLzE0MS4xNDQuMjI1LjI1MDozMDAyL2FwaS9oNXN0","aHR0cDovLzEzMi4yMjYuMjM4LjE4NjozMDAyL2FwaS9oNXN0","aHR0cDovLzEuOTQuOC4yNDQ6MzAwMi9hcGkvaDVzdA=="]#line:71
         OOO0OOOO000O0O00O =random .choice (OOO0OOOO000O0O00O )#line:72
         OO00000O0O000O00O =json .dumps (O0O00O0O0O00OO000 )#line:73
         OO0000000O0OO00O0 ={'Content-Type':'application/json'}#line:74
@@ -126,7 +125,7 @@ def superRedBagList (OOO00OO000OO00OOO ,OOO0OO000O0OOOOOO ,OO0O0O00O00000OO0 ,O0
     O0O0OO00OO0O0000O =get_h5st_body (OOO00OO000OO00OOO ,OOO0OO000O0OOOOOO ,OO0O0O00O00000OO0 ,O0O00O00O0O0O0O0O ,OO0OOOOO0OOOO0O0O )#line:118
     if not O0O0OO00OO0O0000O :#line:119
         return #line:120
-    O000O0OOOOOO00OO0 ={'Connection':'keep-alive','Accept-Encoding':'gzip, deflate, br','Content-Type':'application/x-www-form-urlencoded; charset=UTF-8','User-Agent':OOO00OO000OO00OOO ,'Cookie':OOO0OO000O0OOOOOO ,'Host':'api.m.jd.com','Referer':activityUrl ,'Origin':'https://prodev.m.jd.com','Accept-Language':'zh-Hans-CN;q=1 en-CN;q=0.9','Accept':'*/*'}#line:121
+    O000O0OOOOOO00OO0 ={"Accept":"application/json, text/plain, */*","Accept-Encoding":"gzip, deflate, br","Accept-Language":"zh-cn","Connection":"keep-alive","Content-Type":"application/x-www-form-urlencoded","Referer":"https://pro.m.jd.com/jdlite/active/23CeE8ZXA4uFS9M9mTjtta9T4S5x/index.html","X-Referer-Page":"https://pro.m.jd.com/jdlite/active/23CeE8ZXA4uFS9M9mTjtta9T4S5x/index.html","Origin":"https://pro.m.jd.com","x-rp-client":"h5_1.0.0","Cookie":OOO0OO000O0OOOOOO ,"User-Agent":OOO00OO000OO00OOO }#line:121
     OO0O0O0000O0O0OO0 =requests .request ("POST",OO00O0O0O0OOOO00O ,headers =O000O0OOOOOO00OO0 ,data =O0O0OO00OO0O0000O )#line:122
     if OO0O0O0000O0O0OO0 .status_code ==200 :#line:123
         O000000O0O0OO000O =OO0O0O0000O0O0OO0 .json ()#line:124
@@ -231,7 +230,7 @@ if __name__ =='__main__':#line:162
         i =0 #line:244
         while True :#line:245
             print (f"\n开始获取第{i + 1}页奖励列表\n")#line:246
-            body ={"pageNum":i ,"pageSize":20 ,"linkId":linkId ,"business":"fission"}#line:247
+            body ={"pageNum":i ,"pageSize":400 ,"linkId":linkId ,"business":"fission"}#line:247
             info =superRedBagList (ua ,cookie ,"superRedBagList","f2b1d",body )#line:248
             if not info :#line:249
                 print ("等待10s重新获取")#line:250
