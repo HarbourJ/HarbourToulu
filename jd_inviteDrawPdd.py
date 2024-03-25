@@ -239,11 +239,19 @@ if __name__ =='__main__':#line:194
         if response ['success']==False and response ['code']==1000 :#line:217
             printf (cookie ,f"{response['errMsg']}")#line:218
             sys .exit ()#line:219
-        if response ['data']['helpResult']==1 :#line:220
-            printf (cookie ,f'✅助力作者成功 谢谢你 你是个好人！！！')#line:221
-        else :#line:222
-            printf (cookie ,f'❌助理作者失败 下次记得把助理留给我 呜呜呜！！！')#line:223
-            response =H5API (ua ,cookie ,'inviteFissionHome',{'linkId':linkId ,"inviter":""},'eb67b').json ()#line:224
+        time.sleep(0.1)
+        response = H5API(ua, cookie, "inviteFissionhelp", {'linkId':linkId, "isJdApp":True, 'inviter':inviter}, 'c5389')
+        if int(response.status_code) != 200:
+            printf(cookie, f'接口：{response.status_code}')
+            sys.exit()
+        if int(response.json()['code']) == 0:
+            if response.json()['data']['helpResult'] == 1:  # line:220
+                printf(cookie, f'✅助力作者成功 谢谢你 你是个好人！！！')  # line:221
+            else:  # line:222
+                printf(cookie, f'❌助理作者失败 下次记得把助理留给我 呜呜呜！！！')  # line:223
+        else:
+            printf(cookie, f"{response.json()['code']}  💔{response.json()['errMsg']}")
+        response =H5API (ua ,cookie ,'inviteFissionHome',{'linkId':linkId ,"inviter":""},'eb67b').json ()#line:224
         if index ==1 :#line:225
             printf (cookie ,f'【JD】⏰剩余时间:{convert_ms_to_hours_minutes(response["data"]["countDownTime"])} 🎉已获取助力{response["data"]["prizeNum"] + response["data"]["drawPrizeNum"]}次 ✅【助力码】:{response["data"]["inviter"]}')#line:226
             prizeNum1 =response ["data"]["prizeNum"]+response ["data"]["drawPrizeNum"]#line:227
