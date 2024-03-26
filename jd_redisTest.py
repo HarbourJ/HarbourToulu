@@ -27,6 +27,7 @@ redis_url = os.environ.get("redis_url") if os.environ.get("redis_url") else "172
 redis_port = os.environ.get("redis_port") if os.environ.get("redis_port") else "6379"
 redis_pwd = os.environ.get("redis_pwd") if os.environ.get("redis_pwd") else ""
 
+print(f"当前redis地址为：{redis_url}:{redis_port}, 连接密码为：{redis_pwd if redis_pwd else '未设置'}\n")
 
 def redis_conn():
     try:
