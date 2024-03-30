@@ -59,15 +59,25 @@ def check (O000000O0O0O0O000 ,OO0O0O0O0OOOOO00O ):#line:49
     try :#line:50
         OO00O0OOO000O00OO ='https://me-api.jd.com/user_new/info/GetJDUserInfoUnion'#line:51
         OO000OOOOO0O0OO0O ={"Host":"me-api.jd.com","Accept":"*/*","Connection":"keep-alive","Cookie":OO0O0O0O0OOOOO00O ,"User-Agent":O000000O0O0O0O000 ,"Accept-Language":"zh-cn","Referer":"https://home.m.jd.com/myJd/newhome.action?sceneval=2&ufc=&","Accept-Encoding":"gzip, deflate",}#line:61
-        OO0O0OO0OO000O0O0 =requests .get (url =OO00O0OOO000O00OO ,headers =OO000OOOOO0O0OO0O ,timeout =None ).text #line:62
+        OO0O0OO0OO000O0O0 =requests .get (url =OO00O0OOO000O00OO ,headers =OO000OOOOO0O0OO0O ,timeout =5 ).text #line:62
         O00OOO0000O00O000 =json .loads (OO0O0OO0OO000O0O0 )#line:63
         if O00OOO0000O00O000 ['retcode']=='1001':#line:64
             return {'code':1001 ,'data':'⚠️当前ck已失效，请检查'}#line:65
         elif O00OOO0000O00O000 ['retcode']=='0'and 'userInfo'in O00OOO0000O00O000 ['data']:#line:66
             O000OO0O00OOO00O0 =O00OOO0000O00O000 ['data']['userInfo']['baseInfo']['nickname']#line:67
             return {'code':200 ,'name':O000OO0O00OOO00O0 ,'ck':OO0O0O0O0OOOOO00O }#line:68
-    except Exception as OO0OO0OOO000OOOOO :#line:69
-        return {'code':0 ,'data':OO0OO0OOO000OOOOO }#line:70
+    except Exception as OO0OO0OOO000OOOOO:#line:69
+        print('check接口请求失败 -> ' + str(OO0OO0OOO000OOOOO) + ' 重试~')#line:70
+        OO00O0OOO000O00OO = "https://plogin.m.jd.com/cgi-bin/ml/islogin"
+        OO000OOOOO0O0OO0O ={"Host":"plogin.m.jd.com","Accept":"*/*","Cookie":OO0O0O0O0OOOOO00O ,"User-Agent":O000000O0O0O0O000 ,"Accept-Language":"zh-CN,zh;q=0.9","Accept-Encoding":"gzip, deflate, br, zstd"}#line:61
+        try:
+            O00OOO0000O00O000 = requests.get(url=OO00O0OOO000O00OO, headers=OO000OOOOO0O0OO0O, timeout=5).json()
+            if O00OOO0000O00O000["islogin"] == "1":
+                return {'code': 200}
+            else:
+                return {'code': 1001, 'data': '⚠️当前ck已失效，请检查'}
+        except Exception as OO0OO0OOO000OOOOO:
+            return {'code': 0, 'data': 'check接口请求失败 -> ' + str(OO0OO0OOO000OOOOO)}
 def get_venderId (O0O00O000O0OOOO0O ,O000OO0OO0O000000 ):#line:72
     OOO00OOOO00OO000O =f'https://api.m.jd.com/client.action?functionId=whx_getMShopOutlineInfo&body=%7B%22shopId%22%3A%22{O000OO0OO0O000000}%22%2C%22source%22%3A%22m-shop%22%7D&appid=shop_view&clientVersion=11.0.0&client=wh5'#line:73
     OO0O0OOOOOOO00000 ={'accept':'*/*','accept-encoding':'gzip, deflate, br','accept-language':'zh-CN,zh;q=0.9','origin':'https://shop.m.jd.com','referer':'https://shop.m.jd.com/','user-agent':ua ,'cookie':cookie }#line:82
