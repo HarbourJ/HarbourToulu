@@ -12,6 +12,7 @@ new Env('关注有礼-JK');
 ActivityEntry: https://shop.m.jd.com/?shopId=12342136
                变量 export jd_shopFollowGiftId="店铺shopId1&店铺shopId2" #变量为店铺🆔,建议一次仅运行2-3个shopId
                    export jd_shopFollowGiftRunNums=xx #变量为需要运行账号数量,默认跑前10个账号
+                   export jd_shopFollowGiftRunJF="true" #变量为跑积分关注,默认不跑
 """
 
 import time ,requests ,sys ,re ,os ,json ,random #line:1
@@ -39,9 +40,12 @@ redis_url =os .environ .get ("redis_url")if os .environ .get ("redis_url")else "
 redis_pwd =os .environ .get ("redis_pwd")if os .environ .get ("redis_pwd")else ""#line:25
 jd_shopFollowGiftId =os .environ .get ("jd_shopFollowGiftId")if os .environ .get ("jd_shopFollowGiftId")else ""#line:26
 runNums =os .environ .get ("jd_shopFollowGiftRunNums")if os .environ .get ("jd_shopFollowGiftRunNums")else 10 #line:27
+jfRun = os.environ.get("jd_shopFollowGiftRunJF") if os.environ.get("jd_shopFollowGiftRunJF") else False
 if not jd_shopFollowGiftId :#line:29
     print ("⚠️未发现有效活动变量jd_shopFollowGiftId,退出程序!")#line:30
     sys .exit ()#line:31
+if not jfRun:
+    print('🤖本次关注默认不跑积分,若跑积分可设置自定义变量:export jd_shopFollowGiftRunJF="true"')
 runNums =int (runNums )#line:33
 if runNums ==10 :#line:34
     print ('🤖本次关注默认跑前10个账号,设置自定义变量:export jd_shopFollowGiftRunNums="需要运行加购的ck数量"')#line:35
@@ -116,8 +120,13 @@ def getShopHomeActivityInfo (O0O0000O0OOOOOOO0 ,OO0O0OOOO0O000OOO ,OO0OO000OO0O0
                     OOOOOOOO0O00OO00O =OO000O000OOOOOOOO ['redWord']#line:136
                     OOOOO00OOO0O0O0O0 =OO000O000OOOOOOOO ['rearWord']#line:137
                     print (f'\t🎁关注有礼奖励：{OOOOOOOO0O00OO00O}{OOOOO00OOO0O0O0O0}')#line:138
+                    if jfRun:
+                        return O000OO00O0000O0OO['result']['activityId']
                     if OOOOO00OOO0O0O0O0 .find ('京豆')>-1 :#line:139
                         return O000OO00O0000O0OO ['result']['activityId']#line:140
+                    else:
+                        print(f'\t默认不跑积分活动,退出程序！')
+                        os._exit(0)
             else :#line:141
                 print ('\t⛈未发现关注有礼活动')#line:142
                 return #line:143
