@@ -186,6 +186,10 @@ if __name__ =='__main__':#line:182
                             drawResultDesc =drawResult ['result']['followDesc']#line:231
                             if '关注成功'in str (drawResultDesc ):#line:232
                                 drawResultTotal =''#line:233
+                                if "alreadyReceivedGifts" not in str(drawResult):
+                                    print('⛈关注成功,奖励领取失败！')
+                                    MSG1 += f"\n    ⛈【{shopName}】关注成功,奖励领取失败！"
+                                    continue
                                 drawResultPrizes =drawResult ['result']['alreadyReceivedGifts']#line:234
                                 for drawResultPrize in drawResultPrizes :#line:235
                                     drawResultTotal +=str (drawResultPrize ['redWord'])+drawResultPrize ['rearWord']+''#line:236
