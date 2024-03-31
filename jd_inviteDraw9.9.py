@@ -11,7 +11,7 @@ new Env('京喜自营抽奖助力');
 ActivityEntry: 京东-9.9包邮日-1分钱京喜自营好礼
 """
 
-import time, requests, sys, json, re, threading
+import time, requests, sys, json, re, threading, random
 from functools import partial
 print = partial(print, flush=True)
 import warnings
@@ -137,7 +137,8 @@ def get_h5st_body (O0O0O00O0O000O0OO ,O0OOO00O000OOOO00 ,O0O00000OO0O00000 ,OOOO
     O00000OOOO0O0000O ={"appId":OOOO0OO0O000000OO ,"appid":"signed_wh5","ua":O0O0O00O0O000O0OO ,"pin":O0OO000OO00O0O00O ,"functionId":O0O00000OO0O00000 ,"body":O00000OOOO0O0000O ,"clientVersion":"1.0.0","client":"wh5","version":"4.4"}#line:99
     try :#line:100
         import base64 #line:101
-        OOOOO00OOO0O00000 ="aHR0cDovLzEuOTQuOC4yNDQ6MzAwMi9hcGkvaDVzdA=="#line:102
+        OOOOO00OOO0O00000 = ["aHR0cDovLzEuMTQuMjA4LjE3ODozMDAyL2FwaS9oNXN0","aHR0cDovLzE0MS4xNDQuMjI1LjI1MDozMDAyL2FwaS9oNXN0","aHR0cDovLzEuOTQuOC4yNDQ6MzAwMi9hcGkvaDVzdA=="]  # line:102
+        OOOOO00OOO0O00000 =random .choice (OOOOO00OOO0O00000 )#line:102
         O0OO00OO0OO00O0OO =json .dumps (O00000OOOO0O0000O )#line:103
         O0OOOOO00OOOOO00O ={'Content-Type':'application/json'}#line:106
         O00O0OO00O000OO0O =requests .request ("POST",base64 .b64decode (OOOOO00OOO0O00000 .encode ('utf-8')).decode ('utf-8'),headers =O0OOOOO00OOOOO00O ,timeout =10 ,data =O0OO00OO0OO00O0OO ).json ()#line:107
