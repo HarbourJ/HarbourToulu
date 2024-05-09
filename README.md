@@ -7,6 +7,17 @@ ql repo https://github.com/HarbourJ/HarbourToulu.git "jd_" "activity|backUp|jd_s
 
 🛳不支持部分2.14.x版本青龙（内置python版本为3.11.x），不兼容，建议退回2.13.x及以下版本或更新到最新的2.15.x版本（内置python版本为3.9.x-3.10.x）
 
+``` bash
+# 青龙面板安装命令：
+docker run -dit \
+  -v $PWD/ql:/ql/data \
+  -p 5700:5700 \
+  --name ql-debian \
+  --hostname ql-debian \
+  --restart unless-stopped \
+  whyour/qinglong:debian-python3.10
+```
+
 本项目所有算法都编译在jd_sign.so文件内，所以**拉库后请先安装jd_sign.so依赖文件**
 - 方式一：运行一键安装脚本（jd_check_sign.py），实现一键式全自动安装sign本地依赖文件
 - 方式二：若自动安装报错，可去【 `https://github.com/HarbourJ/HarbourToulu/releases` 】下载架构与Py版本适配的文件解压放置 **/scripts/HarbourJ_HarbourToulu_main**文件夹内。
