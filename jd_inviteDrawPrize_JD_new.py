@@ -233,7 +233,7 @@ if __name__ =='__main__':#line:162
         i =0 #line:244
         while True :#line:245
             print (f"\n开始获取第{i + 1}页奖励列表\n")#line:246
-            body ={"pageNum":i ,"pageSize":400 ,"linkId":linkId ,"business":"fission","prizeTypeLists":[7]}#line:247
+            body ={"pageNum":i ,"pageSize":400 ,"linkId":linkId ,"associateLinkId":"","business":"fission","prizeTypeLists":[7]}#line:247
             info =superRedBagList (ua ,cookie ,"superRedBagList","f2b1d",body )#line:248
             if not info :#line:249
                 print ("等待10s重新获取")#line:250
