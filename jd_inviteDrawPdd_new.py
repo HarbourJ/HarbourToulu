@@ -146,7 +146,7 @@ def get_h5st_body (OO0OOO0OOOOO0O0O0 ,OOOOOOO0OO0OOO0OO ,O00O00OO00O0OO000 ,OO0O
         OO0OO0O00O0OO000O =re .compile (r'pin=(.*?);').findall (OOOOOOO0OO0OOO0OO )[0 ]#line:97
         OO0OO0O00O0OO000O =unquote_plus (OO0OO0O00O0OO000O )#line:98
     OO0000OO0O0OO0000 =OO0OOO0OOOOO0O0O0 .split (";")[2 ]#line:99
-    O0O0OOO0000OOOO00 ={"appId":OO0O0O00000OOO000 ,"appid":"activities_platform","ua":OO0OOO0OOOOO0O0O0 ,"pin":OO0OO0O00O0OO000O ,"functionId":O00O00OO00O0OO000 ,"body":O0O0OOO0000OOOO00 ,"clientVersion":OO0000OO0O0OO0000 ,"client":"ios","version":"4.4"}#line:110
+    O0O0OOO0000OOOO00 ={"appId":OO0O0O00000OOO000 ,"appid":"activities_platform","ua":OO0OOO0OOOOO0O0O0 ,"pin":OO0OO0O00O0OO000O ,"functionId":O00O00OO00O0OO000 ,"body":O0O0OOO0000OOOO00 ,"clientVersion":OO0000OO0O0OO0000 ,"client":"ios","version":"4.7"}#line:110
     try :#line:111
         O00OO0OO00O0O000O =json .dumps (O0O0OOO0000OOOO00 )#line:112
         O0OO0OOO0OOO00000 ={'Content-Type':'application/json'}#line:115
