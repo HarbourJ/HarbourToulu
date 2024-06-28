@@ -73,7 +73,7 @@ def get_h5st_body (O00O00O0O00O000OO ,O000OO0OOOO0O0O00 ,OOOOO0OO0O0OOOO00 ,O0OO
         OOOO00000OOO00000 =re .compile (r'pin=(.*?);').findall (O000OO0OOOO0O0O00 )[0 ]#line:65
         OOOO00000OOO00000 =unquote_plus (OOOO00000OOO00000 )#line:66
     O0OO0OO0000OOOOO0 =O00O00O0O00O000OO .split (";")[2 ]#line:67
-    OOO0O0O0OOOO00O0O ={"appId":O0OO00OO0000O00OO ,"appid":"activities_platform","ua":O00O00O0O00O000OO ,"pin":OOOO00000OOO00000 ,"functionId":OOOOO0OO0O0OOOO00 ,"body":OOO0O0O0OOOO00O0O ,"expand":{"url":"https://pro.m.jd.com/jdlite/active/23CeE8ZXA4uFS9M9mTjtta9T4S5x/index.html","og":"https://pro.m.jd.com"},"clientVersion":O0OO0OO0000OOOOO0 ,"version":"4.1"}#line:68
+    OOO0O0O0OOOO00O0O ={"appId":O0OO00OO0000O00OO ,"appid":"activities_platform","ua":O00O00O0O00O000OO ,"pin":OOOO00000OOO00000 ,"functionId":OOOOO0OO0O0OOOO00 ,"body":OOO0O0O0OOOO00O0O ,"expand":{"url":"https://pro.m.jd.com/jdlite/active/23CeE8ZXA4uFS9M9mTjtta9T4S5x/index.html","og":"https://pro.m.jd.com"},"clientVersion":O0OO0OO0000OOOOO0 ,"version":"4.7"}#line:68
     try :#line:69
         import base64 #line:70
         O0OO000OO0OO000O0 =["aHR0cDovLzEzMi4yMjYuMjM4LjE4NjozMDAzL2FwaS9oNXN0"]#line:71
