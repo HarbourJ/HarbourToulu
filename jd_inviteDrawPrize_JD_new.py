@@ -80,7 +80,7 @@ def get_h5st_body (OO0O0000OO000OO0O ,O0OO00O0O0O00OOO0 ,O0OO0O00O0O0OO0OO ,OO00
     OOOOOOOOOO000OO0O ={"appId":OO00O0O0OOO000OOO ,"appid":"activities_platform","ua":OO0O0000OO000OO0O ,"pin":O0000OOO0O00OOOO0 ,"functionId":O0OO0O00O0O0OO0OO ,"body":OOOOOOOOOO000OO0O ,"clientVersion":OOO0O00O00O000O0O ,"client":"ios","version":O000000OOO000O00O ,"t":True }#line:95
     try :#line:96
         import base64 #line:97
-        O0000OO000OO0O0O0 =["aHR0cDovLzEzMi4yMjYuMjM4LjE4NjozMDAzL2FwaS9oNXN0"]#line:98
+        O0000OO000OO0O0O0 =["aHR0cDovLzEuMTQuMjA4LjE3ODozMDAzL2FwaS9oNXN0"]#line:98
         OO00OO00000OOOOO0 =random .choice (O0000OO000OO0O0O0 )#line:99
         O0O00O0O0O0O00O0O =json .dumps (OOOOOOOOOO000OO0O )#line:100
         O000OO0O0OOOOOO00 ={'Content-Type':'application/json'}#line:103
@@ -246,24 +246,24 @@ if __name__ =='__main__':#line:294
                     else :#line:353
                         printf (cookie ,f"{info[0]} 💵获得{info[1]}现金")#line:354
                         cash .append (info [1 ])#line:355
-            time .sleep (0.5 )#line:356
-            info =inviteFissionReceive (ua ,cookie ,"inviteFissionReceive","b8469",{"linkId":linkId })#line:358
-            if "火爆"in str (info ):#line:359
-                printf (cookie ,f"{info['errMsg']}")#line:360
-                time .sleep (3 )#line:361
-                continue #line:362
-            amount_all =info ['amount']#line:363
-            totalAmount =info ['totalAmount']#line:364
-            leftAmount =info ['leftAmount']#line:365
-            if info ['receiveList']:#line:366
-                msg ='💰领现金'#line:367
-                amount =info ['receiveList'][0 ]['amount']#line:368
-                printf (cookie ,f"{msg}{amount}, 进度{amount_all}/{totalAmount}")#line:369
-                if str (leftAmount )=="0.00":#line:370
-                    break #line:371
-            else :#line:372
-                msg ='❌提现金失败'#line:373
-                printf (cookie ,f"{msg}")#line:374
+            # time .sleep (0.5 )#line:356
+            # info =inviteFissionReceive (ua ,cookie ,"inviteFissionReceive","b8469",{"linkId":linkId })#line:358
+            # if "火爆"in str (info ):#line:359
+            #     printf (cookie ,f"{info['errMsg']}")#line:360
+            #     time .sleep (3 )#line:361
+            #     continue #line:362
+            # amount_all =info ['amount']#line:363
+            # totalAmount =info ['totalAmount']#line:364
+            # leftAmount =info ['leftAmount']#line:365
+            # if info ['receiveList']:#line:366
+            #     msg ='💰领现金'#line:367
+            #     amount =info ['receiveList'][0 ]['amount']#line:368
+            #     printf (cookie ,f"{msg}{amount}, 进度{amount_all}/{totalAmount}")#line:369
+            #     if str (leftAmount )=="0.00":#line:370
+            #         break #line:371
+            # else :#line:372
+            #     msg ='❌提现金失败'#line:373
+            #     printf (cookie ,f"{msg}")#line:374
             time .sleep (3 )#line:376
     print (f"\n****************抽奖结束,共抽奖{total}次,💵获得:{'{:.2f}'.format(sum([float(OO0OO0O00O000OO0O) for OO0OO0O00O000OO0O in cash]))}元现金,🧧获得:{'{:.2f}'.format(sum([float(OOO000OO00O0OO0OO) for OOO000OO00O0OO0OO in redpacket]))}元红包,开始提现****************\n")#line:378
     print (f"****************最大提现页数apCashPageSize设置为{apCashPageSize},请根据实际情况设置apCashPageSize变量****************")#line:380
