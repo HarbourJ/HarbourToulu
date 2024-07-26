@@ -235,7 +235,7 @@ if __name__ =='__main__':#line:201
     else :#line:229
         printf (cookie ,f'❌助理作者失败 下次记得把助理留给我 呜呜呜！！！')#line:230
     response =H5API (ua ,cookie ,'inviteFissionHome',{"linkId":linkId,"inviter":""},'eb67b').json ()#line:231
-    printf (cookie ,f'【guagua】⏰剩余时间:{convert_ms_to_hours_minutes(response["data"]["countDownTime"])} 🎉已获取助力{response["data"]["prizeNum"]}次 💰领现金进度{response["data"]["cashVo"]["amount"]}/{response["data"]["cashVo"]["totalAmount"]} ✅【助力码】:{response["data"]["inviter"]}')#line:232
+    printf (cookie ,f'【guagua】⏰剩余时间:{convert_ms_to_hours_minutes(response["data"]["countDownTime"])} 🎉已获取助力{response["data"]["prizeNum"] + response["data"]["drawPrizeNum"]}次 💰领现金进度{response["data"]["cashVo"]["amount"]}/{response["data"]["cashVo"]["totalAmount"]} ✅【助力码】:{response["data"]["inviter"]}')#line:232
     prizeNum2 =response ["data"]["prizeNum"]+response ["data"]["drawPrizeNum"]#line:233
     inviter =response ["data"]["inviter"]#line:234
     time .sleep (1 )#line:236
