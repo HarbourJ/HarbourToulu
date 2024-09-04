@@ -40,6 +40,18 @@ def updateDependent():
     except ImportError as e:
         print(e)
         os.system("pip install urllib3==1.25.11")
+    os.system("pip install curl_cffi --upgrade --pre")
+    os.system("pip install threading")
+    os.system("pip install retrying")
+    os.system("pip install pymysql")
+    os.system("pip install fake_useragent")
+    os.system("apk add libc-dev")
+    os.system("apk add python3-dev")
+    os.system("apk add gcc")
+    try:
+        os.system("pip install pycryptodome")
+    except Exception as e:
+        print(f"pycryptodome install error: {e}")
     if system == "windows":
         fileName = f"jd_sign-win-amd64-py{PyVersion}.zip"
         print(f"✅识别本机设备为Windows amd64,Py版本为{PyVersion_}\n")
