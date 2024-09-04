@@ -48,6 +48,8 @@ def updateDependent():
     os.system("apk add libc-dev")
     os.system("apk add python3-dev")
     os.system("apk add gcc")
+    os.system("pip install beautifulsoup4")
+    os.system("pip install lxml")
     try:
         os.system("pip install pycryptodome")
     except Exception as e:
