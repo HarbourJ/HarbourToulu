@@ -55,7 +55,7 @@ proxyPoolIp = ""
 # 并发数量
 threadsNum = 1
 # 限制最大邀请数量
-number_restrictions = 200
+number_restrictions = 20
 # 检测ck有效性
 ischeck = False
 linkId = 'BDhyBiZZFd5l3BkNVMqzZg'
@@ -162,7 +162,7 @@ def get_h5st_body (O00O0O0OO0O00OO0O ,O00O000O000O000O0 ,OO0O00OO00OOOO00O ,OOO0
     OO0O0OO00O0O000O0 ={"t":True ,"appId":OOO00OOOOOOOO0O0O ,"appid":"activities_platform","ua":O00O0O0OO0O00OO0O ,"pin":OO0OOOO0OO0O000O0 ,"functionId":OO0O00OO00OOOO00O ,"body":OO0O0OO00O0O000O0 ,"clientVersion":O0OOOOO0OOOOO0O0O ,"client":"ios","version":"4.8"}#line:142
     try :#line:143
         import base64 #line:144
-        O0O0OOOOOO00OO000 ="aHR0cDovLzEuMTQuMjA4LjE3ODozMDA5L2FwaS9oNXN0"#line:145
+        O0O0OOOOOO00OO000 ="aHR0cDovLzEuOTQuMTY4Ljg0OjMwMDkvYXBpL2g1c3Q="#line:145
         O0O00000O00000O0O =json .dumps (OO0O0OO00O0O000O0 )#line:146
         O0OOOO0O0O00O0O00 ={'Content-Type':'application/json'}#line:149
         OOOOO0000000O0OOO =requests .request ("POST",base64 .b64decode (O0O0OOOOOO00OO000 .encode ('utf-8')).decode ('utf-8'),headers =O0OOOO0O0O00O0O00 ,timeout =10 ,data =O0O00000O00000O0O ).json ()#line:150
